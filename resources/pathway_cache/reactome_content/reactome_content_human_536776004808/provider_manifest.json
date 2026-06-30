@@ -1,0 +1,29 @@
+{
+  "api_version": null,
+  "completeness_status": "complete",
+  "database_version": "offline-cache",
+  "endpoint": "recorded_response_or_configured_local_snapshot",
+  "file_checksums": {
+    "records.jsonl": "f77e0b1d4d7e56e3780c6b8e9278723fdc329bf78b7e12187a83901c771e2644",
+    "response.json": "861d8c91a42d9aa1fbdf783a29e127d142526fe40b9f3a9b6d96f9d18fd8f0c9"
+  },
+  "license_notes": "User is responsible for upstream provider license compliance.",
+  "normalization_schema_version": "provider-cache-v1",
+  "normalized_files": [
+    "records.jsonl"
+  ],
+  "organism": "human",
+  "provider": "reactome_content",
+  "raw_files": [
+    "response.json"
+  ],
+  "record_counts": {
+    "records": 8
+  },
+  "request_parameters": {
+    "config_project": "synthetic_siRNA_demo"
+  },
+  "retrieval_timestamp": "2026-06-22T00:35:05.684243+00:00",
+  "snapshot_id": "reactome_content_human_536776004808",
+  "warning_count": 0
+}

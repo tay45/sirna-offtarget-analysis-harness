@@ -1,0 +1,4 @@
+source	target	sign	evidence
+FULL_TARGET	PARTIAL_MULTI	-1	synthetic_demo
+PARTIAL_MULTI	SEED_ONLY	1	synthetic_demo
+FULL_TARGET	NON_TARGETABLE	1	synthetic_demo

@@ -1,0 +1,7 @@
+{
+  "archive_checksum_model": "external-sidecar",
+  "archive_sidecar_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.sha256",
+  "scan_scope": "repository text files and release evidence",
+  "status": "PASSED",
+  "unresolved_checksum_placeholder_findings": []
+}

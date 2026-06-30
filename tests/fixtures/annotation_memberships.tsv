@@ -1,0 +1,5 @@
+term_id	term_name	member_entity_id	member_entity_type	canonical_gene_ids	membership_type	organism	hierarchy_parent_ids	completeness_status	annotation_source	provider_release
+R-HSA-1	Complete pathway	gene:A	gene	A	curated_annotation_membership	human		complete	REACTOME_PATHWAY	release-test
+R-HSA-1	Complete pathway	gene:B	gene	B	curated_annotation_membership	human		complete	REACTOME_PATHWAY	release-test
+R-HSA-1	Complete pathway	gene:C	gene	C	curated_annotation_membership	human		complete	REACTOME_PATHWAY	release-test
+R-HSA-2	Partial pathway	gene:A	gene	A	curated_annotation_membership	human		partial	REACTOME_PATHWAY	release-test

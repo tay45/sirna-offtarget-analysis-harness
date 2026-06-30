@@ -1,0 +1,14 @@
+>full_target_tx1 transcript_id=full_target_tx1 gene=FULL_TARGET region_4=CDS
+GGGGTTTTTTTTTTTTTTTTTTTTTCCCC
+>partial_multi_tx1 transcript_id=partial_multi_tx1 gene=PARTIAL_MULTI region_4=CDS
+GGGGTTTTTTTTTTTTTTTTTTTTTCCCC
+>partial_multi_tx2 transcript_id=partial_multi_tx2 gene=PARTIAL_MULTI
+GGGGACACACACACACACACACACACCCCC
+>partial_multi_tx3 transcript_id=partial_multi_tx3 gene=PARTIAL_MULTI region_4=3UTR
+GGGGTTTTTTTTACACACACACACACCCC
+>seed_only_tx1 transcript_id=seed_only_tx1 gene=SEED_ONLY region_4=3UTR
+GGGGTTTTTTTTACACACACACACACCCC
+>seed_only_tx2 transcript_id=seed_only_tx2 gene=SEED_ONLY region_4=3UTR
+GGGGTTTTTTTACACACACACACACCCCC
+>non_targetable_tx1 transcript_id=non_targetable_tx1 gene=NON_TARGETABLE
+GGGGACACACACACACACACACACACCCCC

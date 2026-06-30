@@ -1,0 +1,3 @@
+input_identifier	identifier_type	canonical_gene_id	canonical_symbol	aliases	previous_symbols	ambiguous	candidate_mappings
+P53	hgnc_alias	HGNC:11998	TP53	P53	BCC7	false	
+OLD1	hgnc_symbol				OLD1	true	GENEA;GENEB

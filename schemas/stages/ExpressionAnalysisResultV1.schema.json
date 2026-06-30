@@ -1,0 +1,332 @@
+{
+  "$defs": {
+    "ArtifactReference": {
+      "properties": {
+        "created_by_attempt": {
+          "title": "Created By Attempt",
+          "type": "integer"
+        },
+        "created_by_stage": {
+          "title": "Created By Stage",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "logical_name": {
+          "title": "Logical Name",
+          "type": "string"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "relative_path": {
+          "title": "Relative Path",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "row_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Row Count"
+        },
+        "schema_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Schema Name"
+        },
+        "schema_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Schema Version"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "logical_name",
+        "relative_path",
+        "media_type",
+        "sha256",
+        "size_bytes",
+        "created_by_stage",
+        "created_by_attempt"
+      ],
+      "title": "ArtifactReference",
+      "type": "object"
+    },
+    "ContractProvenance": {
+      "properties": {
+        "config_revision": {
+          "default": 1,
+          "title": "Config Revision",
+          "type": "integer"
+        },
+        "dependency_contract_hashes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Dependency Contract Hashes",
+          "type": "object"
+        },
+        "extra": {
+          "additionalProperties": true,
+          "title": "Extra",
+          "type": "object"
+        },
+        "fingerprint_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fingerprint Hash"
+        }
+      },
+      "title": "ContractProvenance",
+      "type": "object"
+    },
+    "ExpressionAnalysisPayload": {
+      "properties": {
+        "expression_results": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ExpressionRecordV1"
+          },
+          "title": "Expression Results",
+          "type": "object"
+        },
+        "sample_count": {
+          "title": "Sample Count",
+          "type": "integer"
+        },
+        "tested_genes": {
+          "title": "Tested Genes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "expression_results",
+        "tested_genes",
+        "sample_count"
+      ],
+      "title": "ExpressionAnalysisPayload",
+      "type": "object"
+    },
+    "ExpressionRecordV1": {
+      "properties": {
+        "adjusted_p_value": {
+          "title": "Adjusted P Value",
+          "type": "number"
+        },
+        "backend_name": {
+          "title": "Backend Name",
+          "type": "string"
+        },
+        "backend_version": {
+          "title": "Backend Version",
+          "type": "string"
+        },
+        "baseline_expression": {
+          "title": "Baseline Expression",
+          "type": "number"
+        },
+        "demonstration_only": {
+          "title": "Demonstration Only",
+          "type": "boolean"
+        },
+        "design_formula": {
+          "title": "Design Formula",
+          "type": "string"
+        },
+        "direction": {
+          "title": "Direction",
+          "type": "string"
+        },
+        "gene": {
+          "title": "Gene",
+          "type": "string"
+        },
+        "log2_fold_change": {
+          "title": "Log2 Fold Change",
+          "type": "number"
+        },
+        "low_count_flag": {
+          "title": "Low Count Flag",
+          "type": "boolean"
+        },
+        "normalized_control_expression": {
+          "title": "Normalized Control Expression",
+          "type": "number"
+        },
+        "normalized_treated_expression": {
+          "title": "Normalized Treated Expression",
+          "type": "number"
+        },
+        "p_value_status": {
+          "title": "P Value Status",
+          "type": "string"
+        },
+        "raw_p_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw P Value"
+        },
+        "replicate_consistency": {
+          "title": "Replicate Consistency",
+          "type": "number"
+        },
+        "shrinkage_status": {
+          "title": "Shrinkage Status",
+          "type": "string"
+        },
+        "shrunken_log2_fold_change": {
+          "title": "Shrunken Log2 Fold Change",
+          "type": "number"
+        },
+        "standard_error": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Standard Error"
+        }
+      },
+      "required": [
+        "gene",
+        "baseline_expression",
+        "normalized_control_expression",
+        "normalized_treated_expression",
+        "log2_fold_change",
+        "shrunken_log2_fold_change",
+        "adjusted_p_value",
+        "replicate_consistency",
+        "direction",
+        "low_count_flag",
+        "backend_name",
+        "backend_version",
+        "design_formula",
+        "shrinkage_status",
+        "p_value_status",
+        "demonstration_only"
+      ],
+      "title": "ExpressionRecordV1",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "artifacts": {
+      "items": {
+        "$ref": "#/$defs/ArtifactReference"
+      },
+      "title": "Artifacts",
+      "type": "array"
+    },
+    "attempt_number": {
+      "title": "Attempt Number",
+      "type": "integer"
+    },
+    "contract_name": {
+      "title": "Contract Name",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "payload": {
+      "$ref": "#/$defs/ExpressionAnalysisPayload"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ContractProvenance"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "software_version": {
+      "default": "0.1.0",
+      "title": "Software Version",
+      "type": "string"
+    },
+    "stage_name": {
+      "title": "Stage Name",
+      "type": "string"
+    },
+    "stage_version": {
+      "title": "Stage Version",
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "contract_name",
+    "stage_name",
+    "stage_version",
+    "run_id",
+    "attempt_number",
+    "payload"
+  ],
+  "title": "ExpressionAnalysisResultV1",
+  "type": "object"
+}

@@ -1,0 +1,1 @@
+DEFAULT_SEED_LENGTHS = (6, 7, 8)

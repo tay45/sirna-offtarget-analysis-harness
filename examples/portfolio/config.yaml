@@ -1,0 +1,90 @@
+project:
+  name: portfolio_ratio_demo
+  organism: human
+  genome_build: GRCh38
+  random_seed: 42
+sirna:
+  guide_sequence: AAAAAAAAAAAAAAAAAAAAA
+  passenger_sequence: CCCCCCCCCCCCCCCCCCCCC
+  intended_target_gene: FULL_TARGET
+  intended_target_transcript: null
+experiment:
+  cell_type: synthetic_portfolio_cell
+  delivery_method: lipid_transfection
+  concentration_nM: 10
+  sampling_time_hours: 12
+  early_window_hours: {min: 4, max: 12}
+  intermediate_window_hours: {min: 12, max: 24}
+  late_window_hours: {min: 24}
+expression:
+  backend: synthetic
+  demonstration_only: true
+  count_matrix: counts.tsv
+  sample_metadata: sample_metadata.tsv
+  min_baseline_count: 10
+  min_expressed_replicates: 2
+  padj_threshold: 0.05
+  lfc_shrinkage: true
+  identifier_cache_dir: identifier_cache
+  identifier_snapshot_id: portfolio-id-snapshot
+  require_verified_identifier_snapshot: true
+sequence:
+  transcript_fasta: transcripts.fasta
+  annotation_gtf: annotation.gtf
+  search_passenger_strand: false
+  seed_lengths: [6, 7, 8]
+  allow_gu_wobble: true
+isoform:
+  equal_transcript_prior: true
+  knockdown_efficiency_min: 0.50
+  knockdown_efficiency_max: 1.00
+  knockdown_efficiency_step: 0.05
+isoform_uncertainty:
+  enabled: true
+  annotation_cache_dir: annotation_cache
+  annotation_snapshot_id: portfolio-verified
+  identifier_snapshot_id: portfolio-id-snapshot
+  identifier_snapshot_checksum: portfolio-verified-id-checksum
+transcript_targetability:
+  enabled: true
+  transcript_sequence_cache_dir: sequence_cache
+  transcript_sequence_snapshot_id: portfolio-v1
+  search_passenger: false
+  intended_target_required: true
+  intended_target_gene_only_behavior: preserve_uncertainty
+  missing_transcript_sequence_mode: record_unavailable_and_continue
+transcript_targetability_ratio:
+  enabled: true
+  include_seed_only: false
+  include_ambiguous: false
+  require_complete_gene_evidence: true
+pathway:
+  mode: offline
+  cache_directory: ../../resources/pathway_cache
+  network_file: pathway_network.tsv
+  regulon_file: regulons.tsv
+  max_path_length: 4
+  require_direction_consistency: true
+providers:
+  reactome: {mode: local_snapshot, required: false}
+  panther: {mode: local_snapshot, required: false}
+  omnipath: {mode: local_snapshot, required: false}
+  signor: {mode: local_snapshot, required: false}
+  reactome_content: {mode: local_snapshot, required: false}
+  reactome_fi: {mode: local_snapshot, required: false}
+enrichment:
+  providers: [reactome, panther]
+  gene_sets: [upregulated, downregulated]
+  background: tested_expressed_genes
+mechanistic_network:
+  primary_provider: omnipath
+  validation_providers: [signor, reactome]
+  functional_provider: [reactome_fi]
+  require_signed_edges_for_directional_claims: true
+  allow_unsigned_support: true
+outputs:
+  directory: output
+  html_report: false
+  json_report: true
+  csv_tables: true
+  save_intermediate_results: true

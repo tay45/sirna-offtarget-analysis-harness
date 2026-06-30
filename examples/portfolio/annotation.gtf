@@ -1,0 +1,8 @@
+portfolio	synthetic	transcript	1	30	.	+	.	gene_id "FULL_TARGET"; transcript_id "full_target_tx1";
+portfolio	synthetic	transcript	1	30	.	+	.	gene_id "PARTIAL_MULTI"; transcript_id "partial_multi_tx1";
+portfolio	synthetic	transcript	1	30	.	+	.	gene_id "PARTIAL_MULTI"; transcript_id "partial_multi_tx2";
+portfolio	synthetic	transcript	1	30	.	+	.	gene_id "PARTIAL_MULTI"; transcript_id "partial_multi_tx3";
+portfolio	synthetic	transcript	1	30	.	+	.	gene_id "SEED_ONLY"; transcript_id "seed_only_tx1";
+portfolio	synthetic	transcript	1	30	.	+	.	gene_id "SEED_ONLY"; transcript_id "seed_only_tx2";
+portfolio	synthetic	transcript	1	30	.	+	.	gene_id "NON_TARGETABLE"; transcript_id "non_targetable_tx1";
+portfolio	synthetic	transcript	1	30	.	+	.	gene_id "SEQUENCE_MISSING"; transcript_id "sequence_missing_tx1";

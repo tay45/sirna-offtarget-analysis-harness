@@ -1,0 +1,58 @@
+[
+  {
+    "event_id": 1,
+    "pathway_id": "R-HSA-SYN",
+    "relation_type": "pathway_membership",
+    "source": "TARGET1",
+    "target": "SECONDARY_DOWN"
+  },
+  {
+    "event_id": 2,
+    "pathway_id": "R-HSA-SYN",
+    "relation_type": "pathway_membership",
+    "source": "TARGET1",
+    "target": "SECONDARY_UP"
+  },
+  {
+    "event_id": 3,
+    "pathway_id": "R-HSA-SYN",
+    "relation_type": "pathway_membership",
+    "source": "TARGET1",
+    "target": "MODULE_A"
+  },
+  {
+    "event_id": 4,
+    "pathway_id": "R-HSA-SYN",
+    "relation_type": "pathway_membership",
+    "source": "MODULE_A",
+    "target": "MODULE_B"
+  },
+  {
+    "event_id": 5,
+    "pathway_id": "R-HSA-SYN",
+    "relation_type": "pathway_membership",
+    "source": "TARGET1",
+    "target": "REGULON_RESP"
+  },
+  {
+    "event_id": 6,
+    "pathway_id": "R-HSA-SYN",
+    "relation_type": "pathway_membership",
+    "source": "TARGET1",
+    "target": "STRESS_IFN"
+  },
+  {
+    "event_id": 7,
+    "pathway_id": "R-HSA-SYN",
+    "relation_type": "pathway_membership",
+    "source": "TARGET1",
+    "target": "MIXED_GENE"
+  },
+  {
+    "event_id": 8,
+    "pathway_id": "R-HSA-SYN",
+    "relation_type": "pathway_membership",
+    "source": "TARGET1",
+    "target": "DIRECTION_BAD"
+  }
+]

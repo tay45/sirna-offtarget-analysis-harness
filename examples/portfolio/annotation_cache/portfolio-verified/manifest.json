@@ -1,0 +1,11 @@
+{
+  "assembly": "GRCh38",
+  "gene_identifier_namespace": "symbol",
+  "organism": "human",
+  "provider": "portfolio_synthetic",
+  "release": "portfolio-v1",
+  "snapshot_id": "portfolio-verified",
+  "source_file_checksum": "1960252817648c60da095cf0a8762cffd229e153052696009415270bce40b0a3",
+  "transcript_identifier_namespace": "portfolio_transcript",
+  "verification_status": "verified"
+}

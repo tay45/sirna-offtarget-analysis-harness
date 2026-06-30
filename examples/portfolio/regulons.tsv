@@ -1,0 +1,3 @@
+regulator	target	sign
+FULL_TARGET	PARTIAL_MULTI	-1
+FULL_TARGET	SEED_ONLY	1

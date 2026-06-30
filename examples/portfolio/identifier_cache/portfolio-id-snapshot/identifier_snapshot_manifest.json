@@ -1,0 +1,35 @@
+{
+  "ambiguity_count": 0,
+  "deprecated_record_count": 0,
+  "normalized_checksums": {
+    "identifier_aliases.tsv": "24526432f951ea86e61db71a2c7df058d690643d1792c6525c784823544d3c03",
+    "identifier_ambiguities.tsv": "24526432f951ea86e61db71a2c7df058d690643d1792c6525c784823544d3c03",
+    "identifier_cross_references.tsv": "93206ebcfb23e1d9b240c5f8fd3f4177775aac76fc7addac2788fbd0c5905d62",
+    "identifier_deprecated.tsv": "24526432f951ea86e61db71a2c7df058d690643d1792c6525c784823544d3c03",
+    "identifier_entities.tsv": "ccda2ef9e21825d878e863308ce923e31e38240a815c2f12292b1e93997cb6b6",
+    "records.jsonl": "f447cab03a8294eaf04f1101443aba2b7b8f87af56a1767a2d6495c0f9342078"
+  },
+  "organism": "human",
+  "parser_versions": {
+    "identifier_resource_tsv": "identifier-resource-parser-v1"
+  },
+  "raw_checksums": {
+    "examples/portfolio/identifier_resources.tsv": "2af2012625176904320c199b17b9a9cde336cf71caa8c0d388f8e881e6b8e466"
+  },
+  "record_count": 5,
+  "records_sha256": "f447cab03a8294eaf04f1101443aba2b7b8f87af56a1767a2d6495c0f9342078",
+  "retrieval_timestamps": "offline_user_supplied",
+  "schema_version": "identifier-snapshot-v1",
+  "snapshot_id": "portfolio-id-snapshot",
+  "source_resources": [
+    {
+      "path": "examples/portfolio/identifier_resources.tsv",
+      "sha256": "2af2012625176904320c199b17b9a9cde336cf71caa8c0d388f8e881e6b8e466"
+    }
+  ],
+  "source_versions": "user_supplied",
+  "version_confidence": "explicit",
+  "warnings": [
+    "user-supplied offline resources; biological authority depends on supplied files"
+  ]
+}

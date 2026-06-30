@@ -1,0 +1,5 @@
+regulon	target
+tf_synthetic	REGULON_RESP
+stress_signature	STRESS_IFN
+module_alpha	MODULE_A
+module_alpha	MODULE_B

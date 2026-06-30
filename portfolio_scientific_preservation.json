@@ -1,0 +1,11 @@
+{
+  "src/sirna_offtarget/expression/contracts_v2.py": "440dbe27b3347f22eaa3af63994f8a4e724ca49ee763a82df7b701f3244467bc",
+  "src/sirna_offtarget/expression/importer_v2.py": "26373091a9122e2be577447e1420dd1c771858d37b4c2107fb8e44716285e353",
+  "src/sirna_offtarget/isoform_uncertainty/artifacts.py": "c2616abeed3ea25970eb5ac435d973d6f5ee5759607a3999546dd952f9813aeb",
+  "src/sirna_offtarget/isoform_uncertainty/core.py": "0095b08c4198e6b033d507faadf3ab4e6ac7ca4f8f2bc8101de4491e67de46dc",
+  "src/sirna_offtarget/transcript_targetability/artifacts.py": "49a2983bca00e98e6661394e10dd1a9a2d4101ca7488afe04476eeee8068da86",
+  "src/sirna_offtarget/transcript_targetability/core.py": "b1376e32d446735cff4d6663dfd47c5c94f8436011bd8395fe03371ffbff22a9",
+  "src/sirna_offtarget/transcript_targetability_ratio/artifacts.py": "354029f10f5efbc60fc48bb86f6ae4f0a89183cec5fa6dacc2d086f5689a68ed",
+  "src/sirna_offtarget/transcript_targetability_ratio/contracts.py": "95ffc50bdbafbbd90f649338f394ffff1bdd077fb488a82f6503a4a55e506754",
+  "src/sirna_offtarget/transcript_targetability_ratio/core.py": "d2eddd30f084f43b26c3e9b07ecc601c60061ec6eeb3001d5261d9daaaca49c5"
+}

@@ -1,0 +1,20 @@
+{
+  "expected_intended_target": "TARGET1",
+  "expected_direct_candidates": ["DIRECT_NEAR", "SEED8_UTR", "SEED7", "PASSENGER_DIRECT"],
+  "expected_secondary_candidates": ["SECONDARY_DOWN", "SECONDARY_UP", "MODULE_A", "MODULE_B", "REGULON_RESP", "STRESS_IFN"],
+  "expected_mixed_candidate": "MIXED_GENE",
+  "expected_unresolved_candidates": ["UNCHANGED1", "NOISE_CHANGE"],
+  "expected_low_confidence_candidates": ["LOWCOUNT_FC"],
+  "expected_temporal_categories": {"config.yaml": "early", "config_late.yaml": "late"},
+  "expected_isoform_prior": {"TARGET1": 0.333333},
+  "expected_inferred_fraction_range": {"TARGET1": {"min": 0.39, "max": 0.82}},
+  "expected_pathway_directions": {
+    "SECONDARY_DOWN": true,
+    "SECONDARY_UP": true,
+    "DIRECTION_BAD": false
+  },
+  "numerical_tolerances": {"score": 0.000001, "fraction": 0.05},
+  "expected_warnings": [
+    "Evidence scores are transparent uncalibrated support values, not calibrated biological probabilities."
+  ]
+}

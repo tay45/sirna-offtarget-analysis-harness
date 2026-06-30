@@ -1,0 +1,295 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+
+  typing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install -e ".[dev]"
+      - run: mypy src
+
+  unit-tests:
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "${{ matrix.python-version }}"}
+      - run: python -m pip install -e ".[dev]"
+      - run: pytest tests/unit -q --junitxml=junit-unit.xml
+      - uses: actions/upload-artifact@v4
+        with: {name: unit-junit-${{ matrix.python-version }}, path: junit-unit.xml}
+
+  architecture-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install -e ".[dev]"
+      - run: lint-imports | tee architecture.log
+      - run: pytest tests/architecture -q --junitxml=junit-architecture.xml
+      - uses: actions/upload-artifact@v4
+        with:
+          name: architecture-logs
+          path: |
+            architecture.log
+            junit-architecture.xml
+
+  pathway-provider-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install -e ".[dev]"
+      - run: pytest tests/unit/test_backend_and_pathway_interfaces.py -q | tee provider-tests.log
+      - uses: actions/upload-artifact@v4
+        with: {name: provider-test-logs, path: provider-tests.log}
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install -e ".[dev]"
+      - run: pytest tests/integration -q --junitxml=junit-integration.xml
+      - uses: actions/upload-artifact@v4
+        with: {name: integration-junit, path: junit-integration.xml}
+
+  regression-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install -e ".[dev]"
+      - run: pytest tests/regression -q --junitxml=junit-regression.xml
+      - uses: actions/upload-artifact@v4
+        with: {name: regression-junit, path: junit-regression.xml}
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install -e ".[dev]"
+      - run: pytest --cov=src/sirna_offtarget --cov-branch --cov-report=term-missing --cov-report=xml --cov-fail-under=92
+      - run: python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85
+      - uses: actions/upload-artifact@v4
+        with: {name: coverage-xml, path: coverage.xml}
+
+  package-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install build twine
+      - run: python -m build
+      - run: twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with: {name: wheel-artifact, path: dist/*}
+
+  wheel-smoke-test:
+    runs-on: ubuntu-latest
+    needs: [package-build]
+    steps:
+      - uses: actions/download-artifact@v4
+        with: {name: wheel-artifact, path: dist}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install dist/*.whl
+      - run: sirna-offtarget --help
+      - run: sirna-offtarget show-version
+
+  synthetic-run:
+    runs-on: ubuntu-latest
+    needs: [package-build]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {name: wheel-artifact, path: dist}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install dist/*.whl
+      - run: sirna-offtarget validate-config --config examples/synthetic/config.yaml
+      - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir synthetic_run_1
+      - run: sirna-offtarget report --config examples/synthetic/config.yaml --output-dir synthetic_run_1
+      - run: sirna-offtarget validate-results --config examples/synthetic/config.yaml --output-dir synthetic_run_1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-outputs
+          path: |
+            synthetic_run_1
+            synthetic_run_1/report.html
+            synthetic_run_1/*.graphml
+            synthetic_run_1/*.svg
+
+  reproducibility:
+    runs-on: ubuntu-latest
+    needs: [package-build]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {name: wheel-artifact, path: dist}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install dist/*.whl
+      - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir synthetic_run_1
+      - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir synthetic_run_2
+      - run: python scripts/compare_reproducible_outputs.py synthetic_run_1 synthetic_run_2 | tee reproducibility.diff
+      - uses: actions/upload-artifact@v4
+        with: {name: reproducibility-diff, path: reproducibility.diff}
+
+  resumability:
+    runs-on: ubuntu-latest
+    needs: [package-build]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {name: wheel-artifact, path: dist}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install dist/*.whl
+      - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir resumable_run --until-stage sequence_analysis
+      - run: test -f resumable_run/stages/04_sequence_analysis/attempts/attempt_001/committed/outputs/stage_result.json
+      - run: test ! -d resumable_run/stages/04_sequence_analysis/attempts/attempt_001/working/outputs
+      - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir resumable_run --resume
+      - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir resumable_run --resume | tee resume.log
+      - run: test -f resumable_run/stages/04_sequence_analysis/reuse_events.jsonl
+      - run: python -c "import yaml; p='examples/synthetic/config.yaml'; d=yaml.safe_load(open(p)); d.setdefault('execution', {})['inject_failure_stage']='pathway_enrichment'; yaml.safe_dump(d, open('failure_config.yaml','w'), sort_keys=False)"
+      - run: "! sirna-offtarget run --config failure_config.yaml --output-dir failure_resume_run"
+      - run: test -f failure_resume_run/stages/07_pathway_enrichment/attempts/attempt_001/failure_report.json
+      - run: sirna-offtarget run --config failure_config.yaml --output-dir failure_resume_run --resume | tee failure_resume.log
+      - run: test -f failure_resume_run/stages/01_validate/reuse_events.jsonl
+      - run: sirna-offtarget verify --run-dir failure_resume_run
+      - run: cp resumable_run/stages/04_sequence_analysis/attempts/attempt_001/committed/outputs/stage_result.json corrupt_contract.json
+      - run: printf "\ncorrupt\n" >> resumable_run/stages/04_sequence_analysis/attempts/attempt_001/committed/outputs/stage_result.json
+      - run: "! sirna-offtarget verify --run-dir resumable_run"
+      - run: mv corrupt_contract.json resumable_run/stages/04_sequence_analysis/attempts/attempt_001/committed/outputs/stage_result.json
+      - run: "! sirna-offtarget run --config examples/synthetic/config.yaml --output-dir resumable_run --no-resume"
+      - run: sirna-offtarget verify --run-dir resumable_run
+      - run: sirna-offtarget attempts --run-dir resumable_run --stage sequence_analysis | tee attempts.log
+      - run: test -f resumable_run/stages/04_sequence_analysis/reuse_events.jsonl
+      - run: test -f resumable_run/run_dashboard.html
+      - run: test -f resumable_run/stages/04_sequence_analysis/current.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: resumability-artifacts
+          path: |
+            resumable_run
+            resume.log
+            attempts.log
+
+  operations-hardening:
+    runs-on: ubuntu-latest
+    needs: [package-build]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {name: wheel-artifact, path: dist}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install dist/*.whl
+      - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir ops_full
+      - run: before=$(find ops_full/stages -path '*/attempts/attempt_*/stage_manifest.json' | wc -l); sirna-offtarget run --config examples/synthetic/config.yaml --output-dir ops_full --resume; after=$(find ops_full/stages -path '*/attempts/attempt_*/stage_manifest.json' | wc -l); test "$before" = "$after"
+      - run: test "$(find ops_full/config_history -name 'revision_*.metadata.json' | wc -l)" = "1"
+      - run: sirna-offtarget verify --run-dir ops_full
+      - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir ops_partial --until-stage expression_analysis
+      - run: sirna-offtarget verify --run-dir ops_partial
+      - run: cp -R ops_full ops_orphan && mkdir -p ops_orphan/stages/04_sequence_analysis/attempts/attempt_999 && ! sirna-offtarget verify --run-dir ops_orphan
+      - run: test -f ops_full/verification_report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: operations-hardening-artifacts
+          path: |
+            ops_full/run_status.json
+            ops_full/verification_report.json
+            ops_full/config_history
+            ops_full/stages/*/reuse_events.jsonl
+            ops_full/stages/*/attempts/*/report.json
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t sirna-offtarget-harness .
+
+  docker-synthetic-run:
+    runs-on: ubuntu-latest
+    needs: [docker-build]
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t sirna-offtarget-harness .
+      - run: mkdir -p docker_outputs
+      - run: docker run --rm -v "$PWD/docker_outputs:/app/docker_outputs" sirna-offtarget-harness sirna-offtarget run --config examples/synthetic/config.yaml --output-dir docker_outputs
+      - run: test -f docker_outputs/complete_results.json
+      - run: test -f docker_outputs/network_summary.graphml
+      - uses: actions/upload-artifact@v4
+        with: {name: docker-validation-logs, path: docker_outputs}
+
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: test -f docs/scientific_rationale.md
+      - run: test -f docs/pathway_databases.md
+      - run: test -f docs/network_visualization.md
+
+  security-and-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install -e ".[dev]"
+      - run: pip-audit
+      - run: bandit -r src -c pyproject.toml
+
+  all-checks:
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - typing
+      - unit-tests
+      - architecture-tests
+      - pathway-provider-tests
+      - integration-tests
+      - regression-tests
+      - coverage
+      - package-build
+      - wheel-smoke-test
+      - synthetic-run
+      - reproducibility
+      - resumability
+      - operations-hardening
+      - docker-build
+      - docker-synthetic-run
+      - documentation
+      - security-and-quality
+    steps:
+      - run: echo "All required checks passed"

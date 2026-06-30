@@ -1,0 +1,9 @@
+source	target	sign
+TARGET1	SECONDARY_DOWN	activates
+TARGET1	SECONDARY_UP	inhibits
+TARGET1	MODULE_A	activates
+MODULE_A	MODULE_B	activates
+TARGET1	REGULON_RESP	activates
+TARGET1	STRESS_IFN	inhibits
+TARGET1	MIXED_GENE	activates
+TARGET1	DIRECTION_BAD	inhibits

@@ -1,0 +1,29 @@
+{
+  "api_version": null,
+  "completeness_status": "complete",
+  "database_version": "offline-cache",
+  "endpoint": "recorded_response_or_configured_local_snapshot",
+  "file_checksums": {
+    "records.jsonl": "8bdf0f388c31498cfd92ce01539cf93a964011ab65563632f5d0385472c87d6c",
+    "response.json": "72a924a15f93c92c03b60d166b4f8fbaa9a06b83378944f14e4b18f19c094b25"
+  },
+  "license_notes": "User is responsible for upstream provider license compliance.",
+  "normalization_schema_version": "provider-cache-v1",
+  "normalized_files": [
+    "records.jsonl"
+  ],
+  "organism": "human",
+  "provider": "signor",
+  "raw_files": [
+    "response.json"
+  ],
+  "record_counts": {
+    "records": 8
+  },
+  "request_parameters": {
+    "config_project": "synthetic_siRNA_demo"
+  },
+  "retrieval_timestamp": "2026-06-22T00:35:05.675529+00:00",
+  "snapshot_id": "signor_human_c1c100e6f25c",
+  "warning_count": 0
+}

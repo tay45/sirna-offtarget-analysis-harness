@@ -1,0 +1,56 @@
+{
+  "pathways": [
+    {
+      "entities": {
+        "fdr": 1.0,
+        "found": [
+          "REGULON_RESP"
+        ],
+        "pValue": 1.0
+      },
+      "expected_count": 0.5,
+      "foundEntities": 1,
+      "name": "tf_synthetic",
+      "stId": "SYN-1"
+    },
+    {
+      "entities": {
+        "fdr": 1.0,
+        "found": [
+          "STRESS_IFN"
+        ],
+        "pValue": 1.0
+      },
+      "expected_count": 0.5,
+      "foundEntities": 1,
+      "name": "stress_signature",
+      "stId": "SYN-2"
+    },
+    {
+      "entities": {
+        "fdr": 1.0,
+        "found": [
+          "MODULE_A"
+        ],
+        "pValue": 1.0
+      },
+      "expected_count": 0.5,
+      "foundEntities": 1,
+      "name": "module_alpha",
+      "stId": "SYN-3"
+    },
+    {
+      "entities": {
+        "fdr": 1.0,
+        "found": [
+          "MODULE_B"
+        ],
+        "pValue": 1.0
+      },
+      "expected_count": 0.5,
+      "foundEntities": 1,
+      "name": "module_alpha",
+      "stId": "SYN-4"
+    }
+  ]
+}

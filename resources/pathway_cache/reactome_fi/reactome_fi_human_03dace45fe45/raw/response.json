@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "source": "TARGET1",
+    "target": "SECONDARY_DOWN"
+  },
+  {
+    "id": 2,
+    "source": "TARGET1",
+    "target": "SECONDARY_UP"
+  },
+  {
+    "id": 3,
+    "source": "TARGET1",
+    "target": "MODULE_A"
+  },
+  {
+    "id": 4,
+    "source": "MODULE_A",
+    "target": "MODULE_B"
+  },
+  {
+    "id": 5,
+    "source": "TARGET1",
+    "target": "REGULON_RESP"
+  },
+  {
+    "id": 6,
+    "source": "TARGET1",
+    "target": "STRESS_IFN"
+  },
+  {
+    "id": 7,
+    "source": "TARGET1",
+    "target": "MIXED_GENE"
+  },
+  {
+    "id": 8,
+    "source": "TARGET1",
+    "target": "DIRECTION_BAD"
+  }
+]

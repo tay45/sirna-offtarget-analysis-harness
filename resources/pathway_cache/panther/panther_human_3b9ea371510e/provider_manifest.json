@@ -1,0 +1,29 @@
+{
+  "api_version": null,
+  "completeness_status": "complete",
+  "database_version": "offline-cache",
+  "endpoint": "recorded_response_or_configured_local_snapshot",
+  "file_checksums": {
+    "records.jsonl": "8a76b5af23d78aaeae92c68d36d841515e832e8993b4dbc394c8255b4d240e27",
+    "response.json": "56e730bd1e009682dfd46dc854ccf5e31a503bf45c32dbd6def0ba2c613e0844"
+  },
+  "license_notes": "User is responsible for upstream provider license compliance.",
+  "normalization_schema_version": "provider-cache-v1",
+  "normalized_files": [
+    "records.jsonl"
+  ],
+  "organism": "human",
+  "provider": "panther",
+  "raw_files": [
+    "response.json"
+  ],
+  "record_counts": {
+    "records": 4
+  },
+  "request_parameters": {
+    "config_project": "synthetic_siRNA_demo"
+  },
+  "retrieval_timestamp": "2026-06-22T00:35:05.668960+00:00",
+  "snapshot_id": "panther_human_3b9ea371510e",
+  "warning_count": 0
+}

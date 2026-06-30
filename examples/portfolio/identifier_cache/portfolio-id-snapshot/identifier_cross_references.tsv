@@ -1,0 +1,6 @@
+canonical_gene_id	canonical_symbol	identifier_type	input_identifier
+FULL_TARGET	FULL_TARGET	portfolio_symbol	FULL_TARGET
+PARTIAL_MULTI	PARTIAL_MULTI	portfolio_symbol	PARTIAL_MULTI
+SEED_ONLY	SEED_ONLY	portfolio_symbol	SEED_ONLY
+NON_TARGETABLE	NON_TARGETABLE	portfolio_symbol	NON_TARGETABLE
+SEQUENCE_MISSING	SEQUENCE_MISSING	portfolio_symbol	SEQUENCE_MISSING

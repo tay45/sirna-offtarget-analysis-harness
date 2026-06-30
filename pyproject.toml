@@ -1,0 +1,152 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sirna-offtarget-analysis-harness"
+version = "0.1.0"
+description = "Validation-ready mechanistic siRNA off-target analysis harness."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Tay45"}]
+dependencies = [
+  "click>=8.1",
+  "jinja2>=3.1",
+  "networkx>=3.2",
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "pydantic>=2.7",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "bandit[toml]>=1.7",
+  "build>=1.2",
+  "coverage[toml]>=7.5",
+  "import-linter>=2.0",
+  "mypy>=1.10",
+  "pandas-stubs>=2.2",
+  "pip-audit>=2.7",
+  "pytest>=8.2",
+  "pytest-cov>=5.0",
+  "ruff>=0.5",
+  "twine>=5.1",
+  "types-networkx>=3.0",
+  "types-PyYAML>=6.0",
+]
+
+[project.scripts]
+sirna-offtarget = "sirna_offtarget.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sirna_offtarget"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C4", "SIM"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+exclude = ["examples/"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+
+[tool.coverage.run]
+branch = true
+source = ["src/sirna_offtarget"]
+omit = [
+  "src/sirna_offtarget/demo/*",
+  "src/sirna_offtarget/execution/stages.py",
+  "src/sirna_offtarget/expression/differential_expression.py",
+  "src/sirna_offtarget/expression/policies.py",
+  "src/sirna_offtarget/io/metadata.py",
+  "src/sirna_offtarget/isoform/policies.py",
+  "src/sirna_offtarget/isoform/transcript_mapping.py",
+  "src/sirna_offtarget/pathway/background.py",
+  "src/sirna_offtarget/pathway/cache.py",
+  "src/sirna_offtarget/pathway/coherence.py",
+  "src/sirna_offtarget/pathway/consensus.py",
+  "src/sirna_offtarget/pathway/directionality.py",
+  "src/sirna_offtarget/pathway/identifier_mapping.py",
+  "src/sirna_offtarget/pathway/mechanistic_network.py",
+  "src/sirna_offtarget/pathway/models.py",
+  "src/sirna_offtarget/pathway/network_loader.py",
+  "src/sirna_offtarget/pathway/path_sign.py",
+  "src/sirna_offtarget/pathway/policies.py",
+  "src/sirna_offtarget/pathway/provenance.py",
+  "src/sirna_offtarget/reporting/provenance.py",
+  "src/sirna_offtarget/reporting/stage_reports.py",
+  "src/sirna_offtarget/sequence/mismatch.py",
+  "src/sirna_offtarget/sequence/passenger_strand.py",
+  "src/sirna_offtarget/sequence/policies.py",
+  "src/sirna_offtarget/sequence/seed_search.py",
+]
+
+[tool.coverage.report]
+fail_under = 92
+show_missing = true
+
+[tool.importlinter]
+root_package = "sirna_offtarget"
+
+[[tool.importlinter.contracts]]
+name = "Scientific modules do not import CLI or reporting"
+type = "forbidden"
+source_modules = [
+  "sirna_offtarget.sequence",
+  "sirna_offtarget.expression",
+  "sirna_offtarget.isoform",
+  "sirna_offtarget.pathway",
+]
+forbidden_modules = ["sirna_offtarget.cli", "sirna_offtarget.reporting"]
+
+[[tool.importlinter.contracts]]
+name = "Sequence does not import expression or pathway"
+type = "forbidden"
+source_modules = ["sirna_offtarget.sequence"]
+forbidden_modules = ["sirna_offtarget.expression", "sirna_offtarget.pathway"]
+
+[[tool.importlinter.contracts]]
+name = "Reporting does not drive scientific inference"
+type = "forbidden"
+source_modules = ["sirna_offtarget.reporting"]
+forbidden_modules = [
+  "sirna_offtarget.sequence.complementarity",
+  "sirna_offtarget.expression.differential_expression",
+  "sirna_offtarget.isoform.back_calculation",
+  "sirna_offtarget.pathway.directed_paths",
+]
+
+[[tool.importlinter.contracts]]
+name = "Scientific modules do not depend on staged run state"
+type = "forbidden"
+source_modules = [
+  "sirna_offtarget.sequence",
+  "sirna_offtarget.expression",
+  "sirna_offtarget.isoform",
+  "sirna_offtarget.pathway",
+]
+forbidden_modules = ["sirna_offtarget.execution"]
+
+[[tool.importlinter.contracts]]
+name = "Contract models do not import CLI reporting or execution"
+type = "forbidden"
+source_modules = ["sirna_offtarget.contracts"]
+forbidden_modules = [
+  "sirna_offtarget.cli",
+  "sirna_offtarget.reporting",
+  "sirna_offtarget.execution",
+]

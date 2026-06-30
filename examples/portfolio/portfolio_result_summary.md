@@ -1,0 +1,7 @@
+| Gene | Eligible transcripts N | Cleavage-compatible transcripts M | M/N | Exact-match transcripts | Seed-only transcripts | Unresolved transcripts | Sequence status | Ratio status | Evidence interpretation |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
+| FULL_TARGET | 1 | 1 | 1.0 | 1 | 1 | 0 | available | definitive | all eligible transcripts contain cleavage-compatible evidence |
+| NON_TARGETABLE | 1 | 0 | 0.0 | 0 | 0 | 0 | available | definitive | no cleavage-compatible evidence was identified |
+| PARTIAL_MULTI | 3 | 1 | 0.3333333333333333 | 1 | 2 | 0 | available | definitive | a subset of eligible transcripts contains cleavage-compatible evidence |
+| SEED_ONLY | 2 | 0 | 0.0 | 0 | 2 | 0 | available | definitive | seed-only evidence was preserved separately |
+| SEQUENCE_MISSING | 1 |  |  | 0 | 0 | 1 | unavailable | unavailable_incomplete_evidence | ratio unavailable because transcript sequence was unavailable |

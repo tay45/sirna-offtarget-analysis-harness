@@ -1,0 +1,53 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", pad="0.3", nodesep="0.45", ranksep="0.55"];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=12, margin="0.12,0.08"];
+  edge [fontname="Helvetica", fontsize=10, color="#475569", arrowsize=0.8];
+
+  subgraph cluster_current {
+    label="Current validated release";
+    color="#0f766e";
+    penwidth=2;
+    style="rounded";
+    fontname="Helvetica-Bold";
+    cfg [label="Input configuration", fillcolor="#d1fae5", color="#0f766e"];
+    expr [label="Normalized expression", fillcolor="#d1fae5", color="#0f766e"];
+    iso [label="Isoform uncertainty\nEqual-transcript prior", fillcolor="#d1fae5", color="#0f766e"];
+    seq [label="Transcript sequence\nvalidation", fillcolor="#d1fae5", color="#0f766e"];
+    targ [label="Guide-strand\ntranscript targetability", fillcolor="#d1fae5", color="#0f766e"];
+    ratio [label="N / M / M/N\nratio artifacts", fillcolor="#d1fae5", color="#0f766e"];
+    path [label="Pathway and\nmechanistic evidence\narchitecture", fillcolor="#d1fae5", color="#0f766e"];
+    store [label="Contracts, provenance,\nverification, artifact store", fillcolor="#ccfbf1", color="#0f766e"];
+  }
+
+  subgraph cluster_planned {
+    label="Planned integration";
+    color="#94a3b8";
+    penwidth=2;
+    style="rounded,dashed";
+    fontname="Helvetica-Bold";
+    cal [label="Intended-target\ncalibration", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    exp [label="Expected direct\neffect", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    comp [label="Observed-versus-\nexpected comparison", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    res [label="Residual", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    sec [label="Secondary-effect\nattribution", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    cls [label="Direct / secondary /\nmixed / unresolved\nclassification", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+  }
+
+  cfg -> expr;
+  cfg -> iso;
+  cfg -> seq;
+  expr -> store;
+  iso -> targ;
+  seq -> targ;
+  targ -> ratio;
+  ratio -> store;
+  path -> store;
+  expr -> comp [style=dashed, color="#94a3b8"];
+  ratio -> cal [style=dashed, color="#94a3b8"];
+  cal -> exp [style=dashed, color="#94a3b8"];
+  exp -> comp [style=dashed, color="#94a3b8"];
+  comp -> res [style=dashed, color="#94a3b8"];
+  path -> sec [style=dashed, color="#94a3b8"];
+  res -> sec [style=dashed, color="#94a3b8"];
+  sec -> cls [style=dashed, color="#94a3b8"];
+}

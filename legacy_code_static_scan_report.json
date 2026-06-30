@@ -1,0 +1,30 @@
+{
+  "generated_at_utc": "2026-06-29T03:04:12Z",
+  "matches": [],
+  "notes": "No prohibited legacy scoring/classification terms found in current source, tests, schemas, public examples, or release docs.",
+  "patterns": [
+    "candidate_scoring",
+    "direct_effect_score",
+    "direct_effect_tier",
+    "secondary_effect_score",
+    "secondary_effect_tier",
+    "mixed_mechanism",
+    "final_classification",
+    "mechanism_classification",
+    "risk_score",
+    "risk_tier",
+    "Supported intended target",
+    "likely secondary effect"
+  ],
+  "scanned_paths": [
+    "src",
+    "tests",
+    "examples/portfolio",
+    "examples/synthetic",
+    "schemas",
+    "pyproject.toml",
+    "README.md",
+    "LATEST.md"
+  ],
+  "status": "PASSED"
+}

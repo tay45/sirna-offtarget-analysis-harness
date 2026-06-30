@@ -1,0 +1,29 @@
+{
+  "api_version": null,
+  "completeness_status": "complete",
+  "database_version": "offline-cache",
+  "endpoint": "recorded_response_or_configured_local_snapshot",
+  "file_checksums": {
+    "records.jsonl": "d26c76400fdac97a9b8adf6946f05edefc2d111284818dacea3d06c4fcbf2fc9",
+    "response.json": "9b58b34dc28b108762902208e18f3dab24a7f90416d044340a0b64a592976359"
+  },
+  "license_notes": "User is responsible for upstream provider license compliance.",
+  "normalization_schema_version": "provider-cache-v1",
+  "normalized_files": [
+    "records.jsonl"
+  ],
+  "organism": "human",
+  "provider": "omnipath",
+  "raw_files": [
+    "response.json"
+  ],
+  "record_counts": {
+    "records": 8
+  },
+  "request_parameters": {
+    "config_project": "synthetic_siRNA_demo"
+  },
+  "retrieval_timestamp": "2026-06-22T00:35:05.672178+00:00",
+  "snapshot_id": "omnipath_human_9e5cb08b46b3",
+  "warning_count": 0
+}

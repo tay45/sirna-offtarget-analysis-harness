@@ -1,0 +1,50 @@
+[
+  {
+    "dataset": "PANTHER_PATHWAY",
+    "expected": 0.5,
+    "fdr": 1.0,
+    "fold_enrichment": 2.0,
+    "gene": "REGULON_RESP",
+    "matched_genes": "REGULON_RESP",
+    "number_in_list": 1,
+    "pValue": 1.0,
+    "pathway_id": "SYN-1",
+    "pathway_name": "tf_synthetic"
+  },
+  {
+    "dataset": "PANTHER_PATHWAY",
+    "expected": 0.5,
+    "fdr": 1.0,
+    "fold_enrichment": 2.0,
+    "gene": "STRESS_IFN",
+    "matched_genes": "STRESS_IFN",
+    "number_in_list": 1,
+    "pValue": 1.0,
+    "pathway_id": "SYN-2",
+    "pathway_name": "stress_signature"
+  },
+  {
+    "dataset": "PANTHER_PATHWAY",
+    "expected": 0.5,
+    "fdr": 1.0,
+    "fold_enrichment": 2.0,
+    "gene": "MODULE_A",
+    "matched_genes": "MODULE_A",
+    "number_in_list": 1,
+    "pValue": 1.0,
+    "pathway_id": "SYN-3",
+    "pathway_name": "module_alpha"
+  },
+  {
+    "dataset": "PANTHER_PATHWAY",
+    "expected": 0.5,
+    "fdr": 1.0,
+    "fold_enrichment": 2.0,
+    "gene": "MODULE_B",
+    "matched_genes": "MODULE_B",
+    "number_in_list": 1,
+    "pValue": 1.0,
+    "pathway_id": "SYN-4",
+    "pathway_name": "module_alpha"
+  }
+]

@@ -1,0 +1,386 @@
+{
+  "archive_checksum_authority": "adjacent .zip.sha256 file",
+  "archive_checksum_model": "external-sidecar",
+  "archive_checksum_placeholder_scan_artifact": "archive_checksum_placeholder_scan_report.json",
+  "archive_checksum_placeholder_scan_artifact_sha256": "8035d64d2fc69330e2af67dbcdb15cb99c58b37f7a9fdf17392a1253ed2cdac7",
+  "archive_sha256": null,
+  "archive_sha256_status": "EXTERNAL_SIDECAR",
+  "archive_sidecar_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.sha256",
+  "artifact_checksum_policy": {
+    "commit_resume_behavior_changed_in_this_pass": false,
+    "immutable_artifacts_checksummed_after_final_write": true,
+    "metadata_self_checksum_inside_same_file": false,
+    "metadata_self_checksum_status": "recorded_in_outer_manifest"
+  },
+  "baseline_acceptance": {
+    "baseline_source_tree_checksum_sha256": "3ba37d585368c32ad66689a64832b10728ad722547f2cda689cc7eefd155dd58",
+    "baseline_zip_filename": "sirna-offtarget-portfolio-final-verified-2026-06-27.zip",
+    "baseline_zip_path": "<local-baseline-archive>/sirna-offtarget-portfolio-final-verified-2026-06-27.zip",
+    "baseline_zip_sha256": "de10a786eeaebdf5ea5b6cb3b1c53790396aafba3bd757222c7b196e03242fa2",
+    "expression_status": "COMPLETE",
+    "filename_suffix_relied_on": false,
+    "formal_m_status": "COMPLETE",
+    "formal_n_status": "COMPLETE",
+    "isoform_uncertainty_status": "COMPLETE",
+    "m_over_n_status": "COMPLETE",
+    "official_terminal_stage": "transcript_targetability_ratio",
+    "pathway_status": "COMPLETE",
+    "release_status": "COMPLETE",
+    "source_tree_checksum_verified": true,
+    "transcript_targetability_status": "COMPLETE"
+  },
+  "baseline_archive_checksum": "de10a786eeaebdf5ea5b6cb3b1c53790396aafba3bd757222c7b196e03242fa2",
+  "baseline_archive_filename": "sirna-offtarget-portfolio-final-verified-2026-06-27.zip",
+  "baseline_source_checksum": "3ba37d585368c32ad66689a64832b10728ad722547f2cda689cc7eefd155dd58",
+  "build_result": "PASSED",
+  "candidate_scoring_status": "removed from official package, stage registry, stage contracts, schemas, examples, and CLI",
+  "clean_clone_example_result": "PASSED",
+  "clean_package_policy": {
+    "build_dist_included": false,
+    "cache_paths_included": false,
+    "coverage_xml_included": false,
+    "dot_coverage_included": false,
+    "import_linter_cache_included": false
+  },
+  "clean_wheel_install_result": "PASSED",
+  "completed_stages": [
+    "pathway",
+    "expression",
+    "isoform_uncertainty",
+    "isoform_uncertainty_artifact_finalization",
+    "transcript_targetability",
+    "transcript_targetability_correctness_completion",
+    "transcript_targetability_final_correctness_correction",
+    "transcript_targetability_workflow_stage",
+    "formal_n",
+    "formal_m",
+    "m_over_n_ratio",
+    "transcript_targetability_ratio_workflow_stage",
+    "release_source_checksum_verification",
+    "post_package_extraction_verification"
+  ],
+  "confidentiality_scan_result": "PASSED",
+  "coverage": {
+    "branch_rate": "0.8502",
+    "line_rate": "0.9482"
+  },
+  "coverage_evidence": {
+    "branch_rate": "0.8502",
+    "branches_covered": 1930,
+    "branches_missed": 340,
+    "branches_valid": 2270,
+    "coverage_command": ".venv/bin/python -m pytest --cov=src/sirna_offtarget --cov-branch --cov-report=xml --cov-fail-under=92",
+    "coverage_tool_version": "7.14.3",
+    "coverage_xml_path": "coverage.xml",
+    "coverage_xml_sha256": "b22374c184e8e0f143b9af8d32641b599a111957cb640d171a3e30ee62d16131",
+    "coverage_xml_timestamp": "1782710845399",
+    "line_rate": "0.9482",
+    "lines_covered": 8586,
+    "lines_missed": 469,
+    "lines_valid": 9055,
+    "min_branch_rate": "0.85",
+    "min_line_rate": "0.92",
+    "source_tree_checksum_sha256": "d9ba8b83cb7086f3df94cfe3eca45cbb06b48d884a4a5076494cb7a6ed519048",
+    "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
+    "threshold_result": "PASSED"
+  },
+  "coverage_evidence_artifact": "release_coverage_evidence.json",
+  "coverage_evidence_artifact_sha256": "831d9a8b4fe31735e3ce8c46dcd7a5d17893ca23c14349de09940cad7e648349",
+  "current_stage": "portfolio hardening",
+  "default_pipeline_endpoint": "transcript_targetability_ratio",
+  "deferred_stages": [
+    "abundance-derived transcript proportions",
+    "intended-target calibration",
+    "direct-effect scoring",
+    "residual calculation",
+    "secondary-effect scoring",
+    "source eligibility",
+    "final classification"
+  ],
+  "documentation_synchronization_result": "PASSED",
+  "final_archive_checksum_model_repair_status": "COMPLETE",
+  "final_legacy_code_removal_status": "COMPLETE",
+  "final_release_evidence_repair_status": "COMPLETE",
+  "final_zip_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
+  "focused_scientific_test_count": 305,
+  "formal_m_definition": {
+    "definition": "M is the count of unique eligible transcripts with verified cleavage-compatible targetability evidence.",
+    "multiple_site_counting_rule": "count_transcript_once",
+    "status": "COMPLETE"
+  },
+  "formal_m_over_n_definition": {
+    "definition": "M/N is a count ratio under the equal-transcript prior.",
+    "equal_prior_consistency_result": "PASSED",
+    "status": "COMPLETE"
+  },
+  "formal_n_definition": {
+    "definition": "N is the count of unique eligible transcripts from committed TranscriptPriorWeightRecordV1 records.",
+    "source": "committed IsoformUncertaintyResultV1 transcript prior weights",
+    "status": "COMPLETE"
+  },
+  "format_result": "PASSED",
+  "full_suite_test_count": 528,
+  "generated_at_utc": "2026-06-29T05:19:35Z",
+  "import_boundary_result": "PASSED",
+  "incomplete_stages": [],
+  "known_limitations": [
+    "Intended-target calibration, expected direct effect, residual attribution, secondary-effect integration, and final classification are not implemented.",
+    "Abundance-derived transcript proportions remain deferred.",
+    "Passenger-strand search remains explicitly unsupported and fails fast if requested."
+  ],
+  "latest_zip_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
+  "legacy_classification_artifact_status": "removed from public portfolio repository",
+  "lint_result": "PASSED",
+  "next_planned_scientific_stage": "intended-target knockdown calibration",
+  "next_recommended_pass": "Define intended-target knockdown calibration without redefining formal N, M, or M/N.",
+  "official_expression_contract": {
+    "contract_name": "ExpressionAnalysisResultV2",
+    "schema_version": "2"
+  },
+  "official_inclusion_policy": {
+    "contract": "TargetableTranscriptInclusionPolicyV1",
+    "default_m_policy": "VERIFIED CLEAVAGE-COMPATIBLE TRANSCRIPTS ONLY",
+    "failed_gene_ratio_policy": "NO_DEFINITIVE_M_OR_RATIO",
+    "missing_evidence_policy": "NOT_CONVERTED_TO_ZERO",
+    "policy_id": "targetable-transcript-inclusion-v1-cleavage-compatible",
+    "seed_only_contribution_to_default_m": "EXCLUDED",
+    "seed_only_evidence": "PRESERVED_SEPARATELY"
+  },
+  "official_isoform_uncertainty_contract": {
+    "contract_name": "IsoformUncertaintyResultV1",
+    "schema_version": "1",
+    "workflow_stage": "isoform_uncertainty"
+  },
+  "official_stage_registry": [
+    "validate",
+    "prepare_inputs",
+    "map_identifiers",
+    "sequence_analysis",
+    "expression_analysis",
+    "isoform_uncertainty",
+    "transcript_targetability",
+    "transcript_targetability_ratio"
+  ],
+  "official_terminal_stage": "transcript_targetability_ratio",
+  "official_transcript_targetability_contract": {
+    "contract_name": "TranscriptTargetabilityResultV1",
+    "schema_version": "1",
+    "workflow_stage": "transcript_targetability"
+  },
+  "official_transcript_targetability_ratio_contract": {
+    "contract_name": "TranscriptTargetabilityRatioResultV1",
+    "schema_version": "1",
+    "workflow_stage": "transcript_targetability_ratio"
+  },
+  "personal_path_scan_result": "PASSED",
+  "portfolio_hardening": {
+    "architecture_diagram_status": "COMPLETE",
+    "clean_clone_result": "PASSED",
+    "confidentiality_review_status": "PASSED",
+    "gitignore_status": "COMPLETE",
+    "legacy_output_cleanup_status": "COMPLETE",
+    "license_status": "COMPLETE",
+    "personal_path_scan_status": "PASSED",
+    "public_example_status": "COMPLETE",
+    "public_readme_status": "COMPLETE",
+    "quick_start_command": "sirna-offtarget run --config examples/portfolio/config.yaml --until-stage transcript_targetability_ratio",
+    "scientific_regression_result": "PASSED",
+    "status": "COMPLETE"
+  },
+  "portfolio_integrity_repair_status": "COMPLETE",
+  "portfolio_test_count": 35,
+  "post_package_verification": {
+    "archive_checksum_authority": "adjacent .zip.sha256 file",
+    "archive_checksum_model": "external-sidecar",
+    "archive_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
+    "archive_sha256": null,
+    "archive_sha256_status": "EXTERNAL_SIDECAR",
+    "archive_sidecar_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.sha256",
+    "evidence_filename": "post_package_verification.json",
+    "passed": true,
+    "release_tests_required_from_extracted_zip": true,
+    "source_checksum_match_required": true,
+    "source_inventory_count": 627,
+    "source_tree_sha256": "d9ba8b83cb7086f3df94cfe3eca45cbb06b48d884a4a5076494cb7a6ed519048",
+    "status": "PASSED",
+    "verification_type": "post-package-verification"
+  },
+  "prohibited_output_field_scan_result": "PASSED",
+  "public_example_execution_result": "PASSED",
+  "quality_gates": {
+    "architecture_result": "PASSED",
+    "archive_verifier_result": "PASSED",
+    "build_result": "PASSED",
+    "clean_install_result": "PASSED",
+    "coverage_threshold_result": "PASSED",
+    "import_boundary_result": "PASSED",
+    "pip_install_editable_dev": "PASSED",
+    "ruff_check": "PASSED",
+    "ruff_format_check": "PASSED",
+    "twine_result": "PASSED",
+    "typing_result": "PASSED"
+  },
+  "quick_start_result": "PASSED",
+  "readme_quality_metrics": {
+    "branch_coverage": "0.8502",
+    "focused_scientific_tests_passed": 305,
+    "full_suite_passed": 528,
+    "line_coverage": "0.9482",
+    "portfolio_tests_passed": 35
+  },
+  "release_date": "2026-06-28",
+  "release_status": "COMPLETE",
+  "release_type": "final-archive-checksum-model-repair",
+  "repaired_source_checksum": "45236389734b36b341305c9574de0f883fef78dc67253bcd66d0cb663eeda9c3",
+  "repository_name": "sirna-offtarget-analysis-harness",
+  "required_baseline_zip_for_next_pass": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
+  "result_table_validation_result": "PASSED",
+  "runtime_policy_support": {
+    "fail_gene_policy": "When configured missing-transcript behavior is fail_gene, any missing eligible transcript fails the full gene and retained sites from that gene are forbidden.",
+    "intended_target_policy": "intended_target_required, transcript_ids_required, accepted evidence classes, mismatch thresholds, failure_behavior, and gene_only_behavior are enforced at runtime.",
+    "original_transcript_verification_policy": "Verifier reloads original transcript sequence records, recomputes sequence checksums, transcript slices, guide-search orientation, mismatches, alignment rows, evidence aggregation, and site ids."
+  },
+  "scientific_regression_result": "PASSED",
+  "source_inventory_artifact": "release_source_tree_inventory.json",
+  "source_inventory_artifact_sha256": "130bce706ae2f611ecc3efedcd9ac586aa5755de35ab2b78407d6d9754b5b27f",
+  "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
+  "source_tree_checksum_sha256": "d9ba8b83cb7086f3df94cfe3eca45cbb06b48d884a4a5076494cb7a6ed519048",
+  "source_tree_included_file_count": 627,
+  "static_scan_result": {
+    "current_public_outputs": "no prohibited fields",
+    "legacy_matches": "no executable scoring/classification package, contracts, schemas, CLI, or official DAG entries remain",
+    "personal_path_matches": "none in release source scope",
+    "report_artifact": "legacy_code_static_scan_report.json",
+    "report_sha256": "d9b81806d22422d2cf99e85297dc9706300167833c7edf042ea5ccd3d3c3ec4a",
+    "status": "PASSED"
+  },
+  "test_counts": {
+    "focused_scientific": 305,
+    "full_suite": 528,
+    "integration": 33,
+    "portfolio": 35,
+    "unit_release": 29
+  },
+  "test_results": {
+    "architecture": {
+      "command": ".venv/bin/python -m pytest tests/architecture -q",
+      "status": "PASSED"
+    },
+    "focused_isoform_uncertainty": {
+      "command": ".venv/bin/python -m pytest tests/unit/isoform_uncertainty -q",
+      "status": "PASSED"
+    },
+    "full_suite": {
+      "collected": 514,
+      "command": ".venv/bin/python -m pytest -q",
+      "errors": 0,
+      "exit_code": 0,
+      "failed": 0,
+      "passed": 514,
+      "skipped": 0,
+      "status": "PASSED",
+      "xfailed": 0
+    },
+    "integration": {
+      "command": ".venv/bin/python -m pytest tests/integration -q",
+      "status": "PASSED"
+    },
+    "portfolio": {
+      "collected": 30,
+      "command": ".venv/bin/python -m pytest tests/portfolio -q",
+      "exit_code": 0,
+      "failed": 0,
+      "passed": 30,
+      "status": "PASSED"
+    },
+    "regression": {
+      "command": ".venv/bin/python -m pytest tests/regression -q",
+      "status": "PASSED"
+    },
+    "unit_expression": {
+      "command": ".venv/bin/python -m pytest tests/unit/expression -q",
+      "status": "PASSED"
+    },
+    "unit_release": {
+      "command": ".venv/bin/python -m pytest tests/unit/release -q",
+      "status": "PASSED"
+    },
+    "unit_transcript_targetability": {
+      "command": ".venv/bin/python -m pytest tests/unit/transcript_targetability -q",
+      "status": "PASSED"
+    },
+    "unit_transcript_targetability_ratio": {
+      "command": ".venv/bin/python -m pytest tests/unit/transcript_targetability_ratio -q",
+      "status": "PASSED"
+    },
+    "unit_verification": {
+      "command": ".venv/bin/python -m pytest tests/unit/verification -q",
+      "passed": 0,
+      "status": "NOT_PRESENT"
+    }
+  },
+  "transcript_targetability_canonical_artifacts": [
+    "transcript_targetability_result_v1.json",
+    "transcript_targetability_run_v1.json",
+    "transcript_targetability_policy_v1.json",
+    "sirna_sequence_validation_v1.json",
+    "transcript_sequence_snapshot_validation_v1.json",
+    "transcript_sequence_snapshot_v1.json",
+    "transcript_sequence_snapshot_records_v1.jsonl",
+    "transcript_targetability_evidence_v1.jsonl",
+    "transcript_targetability_sites_v1.jsonl",
+    "transcript_targetability_alignment_positions_v1.jsonl",
+    "transcript_targetability_mismatches_v1.jsonl",
+    "transcript_targetability_exclusions_v1.jsonl",
+    "transcript_targetability_gene_failures_v1.jsonl",
+    "intended_target_validation_v1.json",
+    "transcript_targetability_verification_v1.json"
+  ],
+  "transcript_targetability_correctness_completion": {
+    "alignment_position_artifact": "COMPLETE",
+    "fail_gene_semantics": "COMPLETE",
+    "formal_m_status": "COMPLETE",
+    "formal_n_status": "COMPLETE",
+    "guide_length_enforcement": "COMPLETE",
+    "independent_mismatch_recomputation": "COMPLETE",
+    "independent_site_recomputation": "COMPLETE",
+    "intended_target_actual_site_validation": "COMPLETE",
+    "intended_target_policy_runtime_support": "COMPLETE",
+    "m_n_status": "COMPLETE",
+    "mismatch_artifact_semantics": "mismatch_rows_only",
+    "missing_transcript_sequence_policy": "COMPLETE",
+    "original_transcript_sequence_verification": "COMPLETE",
+    "passenger_strand_search": "UNSUPPORTED",
+    "seed_policy_runtime_support": "COMPLETE",
+    "site_integrity_verification": "COMPLETE"
+  },
+  "transcript_targetability_ratio_canonical_artifacts": [
+    "transcript_targetability_ratio_result_v1.json",
+    "transcript_targetability_ratio_run_v1.json",
+    "targetable_transcript_inclusion_policy_v1.json",
+    "gene_transcript_targetability_ratios_v1.jsonl",
+    "transcript_m_contributions_v1.jsonl",
+    "transcript_targetability_ratio_unresolved_v1.jsonl",
+    "transcript_targetability_ratio_verification_v1.json",
+    "gene_transcript_targetability_ratios_v1.tsv",
+    "transcript_m_contributions_v1.tsv",
+    "transcript_targetability_ratio_unresolved_v1.tsv",
+    "transcript_targetability_ratio_summary_v1.json",
+    "transcript_targetability_ratio_warnings_v1.tsv"
+  ],
+  "twine_result": "PASSED",
+  "typing_result": "PASSED",
+  "until_stage_behavior_result": {
+    "status": "PASSED",
+    "transcript_targetability_ratio": [
+      "validate",
+      "prepare_inputs",
+      "map_identifiers",
+      "sequence_analysis",
+      "expression_analysis",
+      "isoform_uncertainty",
+      "transcript_targetability",
+      "transcript_targetability_ratio"
+    ]
+  }
+}

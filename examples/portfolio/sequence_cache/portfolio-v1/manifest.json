@@ -1,0 +1,14 @@
+{
+  "assembly": "GRCh38",
+  "generation_method": "portfolio_synthetic_fixture",
+  "organism": "human",
+  "provider": "portfolio_synthetic",
+  "release": "portfolio-v1",
+  "schema_version": "1",
+  "sequence_alphabet": "DNA",
+  "sequence_file_checksum": "0c0867d2c260fef54f0eb03886ff05891d361afb2b3b5346dd51879dc748ac6e",
+  "snapshot_id": "portfolio-v1",
+  "transcript_count": 7,
+  "transcript_identifier_namespace": "portfolio_transcript",
+  "verification_status": "verified"
+}

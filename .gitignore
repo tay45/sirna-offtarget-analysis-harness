@@ -1,0 +1,25 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.import_linter_cache/
+.coverage
+coverage.xml
+htmlcov/
+build/
+dist/
+*.egg-info/
+work/
+tmp/
+temp/
+*.zip
+.DS_Store
+
+# Generated workflow outputs are intentionally excluded unless curated for docs.
+examples/**/output/
+examples/**/runs/
+!examples/portfolio/portfolio_result_summary.tsv
+!examples/portfolio/portfolio_result_summary.md

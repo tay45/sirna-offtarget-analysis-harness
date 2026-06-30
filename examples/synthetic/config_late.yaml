@@ -1,0 +1,61 @@
+project:
+  name: synthetic_siRNA_demo_late
+  organism: human
+  genome_build: GRCh38
+  random_seed: 42
+sirna:
+  guide_sequence: AAAAAAAAAAAAAAAAAAAAA
+  passenger_sequence: CCCCCCCCCCCCCCCCCCCCC
+  intended_target_gene: TARGET1
+  intended_target_transcript: null
+experiment:
+  cell_type: synthetic_cell
+  delivery_method: lipid_transfection
+  concentration_nM: 10
+  sampling_time_hours: 48
+  early_window_hours: {min: 4, max: 12}
+  intermediate_window_hours: {min: 12, max: 24}
+  late_window_hours: {min: 24}
+expression:
+  backend: synthetic
+  demonstration_only: true
+  count_matrix: counts.tsv
+  sample_metadata: sample_metadata.tsv
+  min_baseline_count: 10
+  min_expressed_replicates: 2
+  padj_threshold: 0.05
+  lfc_shrinkage: true
+sequence:
+  transcript_fasta: transcripts.fasta
+  annotation_gtf: annotation.gtf
+  search_passenger_strand: true
+  seed_lengths: [6, 7, 8]
+  allow_gu_wobble: true
+isoform:
+  equal_transcript_prior: true
+  knockdown_efficiency_min: 0.50
+  knockdown_efficiency_max: 1.00
+  knockdown_efficiency_step: 0.05
+pathway:
+  mode: offline
+  cache_directory: ../../resources/pathway_cache
+  network_file: pathway_network.tsv
+  regulon_file: regulons.tsv
+  max_path_length: 4
+  require_direction_consistency: true
+enrichment:
+  providers: [reactome, panther]
+  gene_sets: [upregulated, downregulated]
+  background: tested_expressed_genes
+mechanistic_network:
+  primary_provider: omnipath
+  validation_providers: [signor, reactome]
+  functional_provider: [reactome_fi]
+  require_signed_edges_for_directional_claims: true
+  allow_unsigned_support: true
+outputs:
+  directory: output_late
+  html_report: true
+  json_report: true
+  csv_tables: true
+  save_intermediate_results: true

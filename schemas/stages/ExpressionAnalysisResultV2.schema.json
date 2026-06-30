@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExpressionAnalysisResultV2",
+  "type": "object",
+  "required": ["contract_name", "schema_version", "payload"],
+  "properties": {
+    "contract_name": {
+      "const": "ExpressionAnalysisResultV2"
+    },
+    "schema_version": {
+      "const": "2"
+    },
+    "payload": {
+      "type": "object",
+      "required": [
+        "canonical",
+        "normalization_run_artifact",
+        "contrasts_artifact",
+        "normalized_gene_effects_artifact",
+        "identifier_resolutions_artifact",
+        "input_validation_artifact",
+        "filtering_summary_artifact",
+        "warnings_artifact",
+        "execution_support_artifact",
+        "artifact_checksums",
+        "record_counts"
+      ],
+      "properties": {
+        "canonical": {
+          "const": true
+        },
+        "normalization_run_artifact": {
+          "type": "string"
+        },
+        "contrasts_artifact": {
+          "type": "string"
+        },
+        "normalized_gene_effects_artifact": {
+          "type": "string"
+        },
+        "identifier_resolutions_artifact": {
+          "type": "string"
+        },
+        "input_validation_artifact": {
+          "type": "string"
+        },
+        "filtering_summary_artifact": {
+          "type": "string"
+        },
+        "warnings_artifact": {
+          "type": "string"
+        },
+        "execution_support_artifact": {
+          "type": "string"
+        },
+        "artifact_checksums": {
+          "type": "object"
+        },
+        "record_counts": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

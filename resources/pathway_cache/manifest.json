@@ -1,0 +1,36 @@
+{
+  "mode": "explicit_fetch",
+  "providers": [
+    {
+      "provider": "reactome",
+      "snapshot_id": "reactome_human_f757d7881f96",
+      "record_count": 4
+    },
+    {
+      "provider": "panther",
+      "snapshot_id": "panther_human_3b9ea371510e",
+      "record_count": 4
+    },
+    {
+      "provider": "omnipath",
+      "snapshot_id": "omnipath_human_9e5cb08b46b3",
+      "record_count": 8
+    },
+    {
+      "provider": "signor",
+      "snapshot_id": "signor_human_c1c100e6f25c",
+      "record_count": 8
+    },
+    {
+      "provider": "reactome-fi",
+      "snapshot_id": "reactome_fi_human_03dace45fe45",
+      "record_count": 8
+    },
+    {
+      "provider": "reactome_content",
+      "snapshot_id": "reactome_content_human_536776004808",
+      "record_count": 8
+    }
+  ],
+  "normal_analysis_network_access": "disabled"
+}

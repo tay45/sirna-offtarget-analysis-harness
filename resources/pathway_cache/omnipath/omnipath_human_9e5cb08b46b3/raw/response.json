@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "is_directed": true,
+    "references": "PMID1",
+    "sign": "activates",
+    "source": "TARGET1",
+    "sources": "SIGNOR",
+    "target": "SECONDARY_DOWN"
+  },
+  {
+    "id": 2,
+    "is_directed": true,
+    "references": "PMID2",
+    "sign": "inhibits",
+    "source": "TARGET1",
+    "sources": "OmniPath",
+    "target": "SECONDARY_UP"
+  },
+  {
+    "id": 3,
+    "is_directed": true,
+    "references": "PMID3",
+    "sign": "activates",
+    "source": "TARGET1",
+    "sources": "OmniPath",
+    "target": "MODULE_A"
+  },
+  {
+    "id": 4,
+    "is_directed": true,
+    "references": "PMID4",
+    "sign": "activates",
+    "source": "MODULE_A",
+    "sources": "OmniPath",
+    "target": "MODULE_B"
+  },
+  {
+    "id": 5,
+    "is_directed": true,
+    "references": "PMID5",
+    "sign": "activates",
+    "source": "TARGET1",
+    "sources": "OmniPath",
+    "target": "REGULON_RESP"
+  },
+  {
+    "id": 6,
+    "is_directed": true,
+    "references": "PMID6",
+    "sign": "inhibits",
+    "source": "TARGET1",
+    "sources": "OmniPath",
+    "target": "STRESS_IFN"
+  },
+  {
+    "id": 7,
+    "is_directed": true,
+    "references": "PMID7",
+    "sign": "activates",
+    "source": "TARGET1",
+    "sources": "OmniPath",
+    "target": "MIXED_GENE"
+  },
+  {
+    "id": 8,
+    "is_directed": true,
+    "references": "PMID8",
+    "sign": "inhibits",
+    "source": "TARGET1",
+    "sources": "OmniPath",
+    "target": "DIRECTION_BAD"
+  }
+]

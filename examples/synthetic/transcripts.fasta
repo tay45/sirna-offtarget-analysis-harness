@@ -1,0 +1,42 @@
+>target1_tx1 transcript_id=target1_tx1 gene=TARGET1 region_4=CDS
+GGGGTTTTTTTTTTTTTTTTTTTTTCCCC
+>target1_tx2 transcript_id=target1_tx2 gene=TARGET1
+GGGGACACACACACACACACACACACCCCC
+>target1_tx3 transcript_id=target1_tx3 gene=TARGET1
+GGGGCGCGCGCGCGCGCGCGCGCGCCCCC
+>direct_near_tx1 transcript_id=direct_near_tx1 gene=DIRECT_NEAR region_4=CDS
+GGGGTTTTTTTTTTTTTTTTTTTATCCCC
+>seed8_tx1 transcript_id=seed8_tx1 gene=SEED8_UTR region_4=3UTR
+GGGGTTTTTTTTACACACACACACACCCC
+>seed7_tx1 transcript_id=seed7_tx1 gene=SEED7 region_4=3UTR
+GGGGTTTTTTTACACACACACACACCCCC
+>weak_tx1 transcript_id=weak_tx1 gene=WEAK_PARTIAL region_4=CDS
+GGGGTTTTTATTTATTTATTTTACCCCC
+>passenger_tx1 transcript_id=passenger_tx1 gene=PASSENGER_DIRECT region_4=CDS
+GGGGGGGGGGGGGGGGGGGGGGGGGCCCC
+>similar_tx1 transcript_id=similar_tx1 gene=SIMILAR_NO_EXPR region_4=CDS
+GGGGTTTTTTTTTTTTTTTTTTTATCCCC
+>secondary_down_tx1 transcript_id=secondary_down_tx1 gene=SECONDARY_DOWN
+GGGGACACACACACACACACACCCCC
+>secondary_up_tx1 transcript_id=secondary_up_tx1 gene=SECONDARY_UP
+GGGGACACACACACACACACACCCCC
+>module_a_tx1 transcript_id=module_a_tx1 gene=MODULE_A
+GGGGACACACACACACACACACCCCC
+>module_b_tx1 transcript_id=module_b_tx1 gene=MODULE_B
+GGGGACACACACACACACACACCCCC
+>regulon_tx1 transcript_id=regulon_tx1 gene=REGULON_RESP
+GGGGACACACACACACACACACCCCC
+>stress_tx1 transcript_id=stress_tx1 gene=STRESS_IFN
+GGGGACACACACACACACACACCCCC
+>mixed_tx1 transcript_id=mixed_tx1 gene=MIXED_GENE region_4=3UTR
+GGGGTTTTTTTTACACACACACACACCCC
+>unchanged_tx1 transcript_id=unchanged_tx1 gene=UNCHANGED1
+GGGGACACACACACACACACACCCCC
+>lowcount_tx1 transcript_id=lowcount_tx1 gene=LOWCOUNT_FC region_4=CDS
+GGGGTTTTTTTTTTTTTTTTTTTATCCCC
+>noise_tx1 transcript_id=noise_tx1 gene=NOISE_CHANGE
+GGGGACACACACACACACACACCCCC
+>bad_tx1 transcript_id=bad_tx1 gene=DIRECTION_BAD
+GGGGACACACACACACACACACCCCC
+>inaccessible_tx1 transcript_id=inaccessible_tx1 gene=INACCESSIBLE_MATCH region_4=CDS
+GGGGTTTTTTTTACACACACACACACCCC

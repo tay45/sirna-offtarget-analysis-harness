@@ -1,0 +1,58 @@
+[
+  {
+    "PMID": "PMID1",
+    "SIGNOR_ID": 1,
+    "effect": "activates",
+    "source": "TARGET1",
+    "target": "SECONDARY_DOWN"
+  },
+  {
+    "PMID": "PMID2",
+    "SIGNOR_ID": 2,
+    "effect": "inhibits",
+    "source": "TARGET1",
+    "target": "SECONDARY_UP"
+  },
+  {
+    "PMID": "PMID3",
+    "SIGNOR_ID": 3,
+    "effect": "activates",
+    "source": "TARGET1",
+    "target": "MODULE_A"
+  },
+  {
+    "PMID": "PMID4",
+    "SIGNOR_ID": 4,
+    "effect": "activates",
+    "source": "MODULE_A",
+    "target": "MODULE_B"
+  },
+  {
+    "PMID": "PMID5",
+    "SIGNOR_ID": 5,
+    "effect": "activates",
+    "source": "TARGET1",
+    "target": "REGULON_RESP"
+  },
+  {
+    "PMID": "PMID6",
+    "SIGNOR_ID": 6,
+    "effect": "inhibits",
+    "source": "TARGET1",
+    "target": "STRESS_IFN"
+  },
+  {
+    "PMID": "PMID7",
+    "SIGNOR_ID": 7,
+    "effect": "activates",
+    "source": "TARGET1",
+    "target": "MIXED_GENE"
+  },
+  {
+    "PMID": "PMID8",
+    "SIGNOR_ID": 8,
+    "effect": "inhibits",
+    "source": "TARGET1",
+    "target": "DIRECTION_BAD"
+  }
+]
