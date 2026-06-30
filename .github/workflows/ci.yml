@@ -37,12 +37,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: 
-          {python-version: ${{ matrix.python-version }}
+          python-version: "${{ matrix.python-version }}"
       - run: python -m pip install -e ".[dev]"
       - run: pytest tests/unit -q --junitxml=junit-unit.xml
       - uses: actions/upload-artifact@v4
         with: 
-          name: unit-junit-${{ matrix.python-version }} 
+          name: "unit-junit-${{ matrix.python-version }}" 
           path: junit-unit.xml
 
   architecture-tests:
