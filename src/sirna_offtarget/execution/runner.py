@@ -206,7 +206,8 @@ def execute_stage(
     (sdir / "attempts").mkdir(exist_ok=True)
     if decision.action == "reuse":
         manifest_path = current_manifest_path(sdir)
-        assert manifest_path is not None
+        if manifest_path is None:
+            raise RuntimeError(f"cannot reuse stage {stage.name}: current manifest is missing")
         manifest = load_json(manifest_path)
         event = {
             "timestamp": utc_now(),

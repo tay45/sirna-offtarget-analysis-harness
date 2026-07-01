@@ -61,31 +61,31 @@
   ],
   "confidentiality_scan_result": "PASSED",
   "coverage": {
-    "branch_rate": "0.8502",
+    "branch_rate": "0.8501",
     "line_rate": "0.9482"
   },
   "coverage_evidence": {
-    "branch_rate": "0.8502",
-    "branches_covered": 1930,
-    "branches_missed": 340,
-    "branches_valid": 2270,
-    "coverage_command": ".venv/bin/python -m pytest --cov=src/sirna_offtarget --cov-branch --cov-report=xml --cov-fail-under=92",
+    "branch_rate": "0.8501",
+    "branches_covered": 1945,
+    "branches_missed": 343,
+    "branches_valid": 2288,
+    "coverage_command": ".venv/bin/python -m pytest --cov=src/sirna_offtarget --cov-branch --cov-report=term-missing --cov-report=xml --cov-fail-under=92",
     "coverage_tool_version": "7.14.3",
     "coverage_xml_path": "coverage.xml",
-    "coverage_xml_sha256": "b22374c184e8e0f143b9af8d32641b599a111957cb640d171a3e30ee62d16131",
-    "coverage_xml_timestamp": "1782710845399",
+    "coverage_xml_sha256": "8211581ec7412bfbb0186b01b64eefc4fa2f2f7082f2303fd35d5be5f14594d1",
+    "coverage_xml_timestamp": "1782867354279",
     "line_rate": "0.9482",
-    "lines_covered": 8586,
-    "lines_missed": 469,
-    "lines_valid": 9055,
+    "lines_covered": 8606,
+    "lines_missed": 470,
+    "lines_valid": 9076,
     "min_branch_rate": "0.85",
     "min_line_rate": "0.92",
-    "source_tree_checksum_sha256": "d9ba8b83cb7086f3df94cfe3eca45cbb06b48d884a4a5076494cb7a6ed519048",
+    "source_tree_checksum_sha256": "914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8",
     "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
     "threshold_result": "PASSED"
   },
   "coverage_evidence_artifact": "release_coverage_evidence.json",
-  "coverage_evidence_artifact_sha256": "831d9a8b4fe31735e3ce8c46dcd7a5d17893ca23c14349de09940cad7e648349",
+  "coverage_evidence_artifact_sha256": "875f2bf41f196a1fd0fe6a3b01a27de1d662974246f0b5da51bbe0fec9d4b3ae",
   "current_stage": "portfolio hardening",
   "default_pipeline_endpoint": "transcript_targetability_ratio",
   "deferred_stages": [
@@ -119,8 +119,8 @@
     "status": "COMPLETE"
   },
   "format_result": "PASSED",
-  "full_suite_test_count": 528,
-  "generated_at_utc": "2026-06-29T05:19:35Z",
+  "full_suite_test_count": 537,
+  "generated_at_utc": "2026-07-01T00:59:40Z",
   "import_boundary_result": "PASSED",
   "incomplete_stages": [],
   "known_limitations": [
@@ -201,7 +201,7 @@
     "release_tests_required_from_extracted_zip": true,
     "source_checksum_match_required": true,
     "source_inventory_count": 627,
-    "source_tree_sha256": "d9ba8b83cb7086f3df94cfe3eca45cbb06b48d884a4a5076494cb7a6ed519048",
+    "source_tree_sha256": "914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8",
     "status": "PASSED",
     "verification_type": "post-package-verification"
   },
@@ -222,9 +222,9 @@
   },
   "quick_start_result": "PASSED",
   "readme_quality_metrics": {
-    "branch_coverage": "0.8502",
+    "branch_coverage": "0.8501",
     "focused_scientific_tests_passed": 305,
-    "full_suite_passed": 528,
+    "full_suite_passed": 537,
     "line_coverage": "0.9482",
     "portfolio_tests_passed": 35
   },
@@ -242,9 +242,9 @@
   },
   "scientific_regression_result": "PASSED",
   "source_inventory_artifact": "release_source_tree_inventory.json",
-  "source_inventory_artifact_sha256": "130bce706ae2f611ecc3efedcd9ac586aa5755de35ab2b78407d6d9754b5b27f",
+  "source_inventory_artifact_sha256": "d898c412dad53c2450d2e26d8c9b25db0933eb97a7531da4f89ede5686775627",
   "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
-  "source_tree_checksum_sha256": "d9ba8b83cb7086f3df94cfe3eca45cbb06b48d884a4a5076494cb7a6ed519048",
+  "source_tree_checksum_sha256": "914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8",
   "source_tree_included_file_count": 627,
   "static_scan_result": {
     "current_public_outputs": "no prohibited fields",
@@ -256,7 +256,7 @@
   },
   "test_counts": {
     "focused_scientific": 305,
-    "full_suite": 528,
+    "full_suite": 537,
     "integration": 33,
     "portfolio": 35,
     "unit_release": 29
@@ -271,12 +271,12 @@
       "status": "PASSED"
     },
     "full_suite": {
-      "collected": 514,
+      "collected": 537,
       "command": ".venv/bin/python -m pytest -q",
       "errors": 0,
       "exit_code": 0,
       "failed": 0,
-      "passed": 514,
+      "passed": 537,
       "skipped": 0,
       "status": "PASSED",
       "xfailed": 0

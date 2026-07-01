@@ -4,6 +4,9 @@ import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
+from pathlib import Path
+from urllib.parse import urlparse
+from urllib.request import url2pathname
 
 from sirna_offtarget.pathway.providers.exceptions import PathwayProviderError
 
@@ -27,11 +30,27 @@ def fetch_bytes(
 ) -> FetchResponse:
     if not url:
         raise PathwayProviderError("provider endpoint is required for public_fetch mode")
+    parsed_url = urlparse(url)
+    if parsed_url.scheme == "file":
+        path = Path(url2pathname(parsed_url.path))
+        try:
+            body = path.read_bytes()
+        except OSError as exc:
+            raise PathwayProviderError(f"provider fetch failed for {url}: {exc}") from exc
+        if not body:
+            raise PathwayProviderError(f"empty provider response from {url}")
+        if expected_content_type:
+            raise PathwayProviderError(
+                f"unexpected content type {''!r}; expected {expected_content_type!r}"
+            )
+        return FetchResponse(url, 200, {}, body, "")
+    if parsed_url.scheme not in {"http", "https"}:
+        raise PathwayProviderError(f"unsupported provider URL scheme {parsed_url.scheme!r}")
     last_error: Exception | None = None
     for attempt in range(retry_count + 1):
         try:
             request = urllib.request.Request(url, headers={"User-Agent": user_agent})
-            with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+            with urllib.request.urlopen(request, timeout=timeout_seconds) as response:  # nosec B310
                 status = int(getattr(response, "status", 200) or 200)
                 headers = {str(k): str(v) for k, v in response.headers.items()}
                 content_type = headers.get("Content-Type", "")

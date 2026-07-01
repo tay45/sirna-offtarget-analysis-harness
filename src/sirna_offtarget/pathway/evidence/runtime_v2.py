@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import asdict, replace
-from hashlib import sha1
+from hashlib import sha256
 from typing import Any, cast
 
 import networkx as nx
@@ -1291,11 +1291,11 @@ def _search_result_id(
     policy_id: str,
 ) -> str:
     raw = "|".join((graph_layer, source_entity_id, candidate_entity_id or "broad", policy_id))
-    return "search:" + sha1(raw.encode("utf-8")).hexdigest()[:16]
+    return "search:" + _safe_id(raw)
 
 
 def _safe_id(value: str) -> str:
-    return sha1(value.encode("utf-8")).hexdigest()[:16]
+    return sha256(value.encode("utf-8")).hexdigest()[:16]
 
 
 def _requested_identifier(source_symbols: list[str] | None) -> str | None:

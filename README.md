@@ -146,11 +146,11 @@ and test-driven development.
 
 Post-cleanup release evidence reports:
 
-- full suite: 528 passed
+- full suite: 537 passed
 - portfolio tests: 35 portfolio tests passed
 - focused scientific tests: 305 passed
 - line coverage: 0.9482
-- branch coverage: 0.8502
+- branch coverage: 0.8501
 - lint result: passed
 - formatting result: passed
 - typing result: passed

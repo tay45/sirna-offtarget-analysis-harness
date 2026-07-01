@@ -5,7 +5,7 @@ import hashlib
 import json
 from collections.abc import Iterable
 from dataclasses import asdict, dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 POLICY_VERSION = "release-source-tree-checksum-v2"
@@ -125,7 +125,10 @@ def build_source_tree_inventory(root_path: str | Path) -> dict[str, object]:
         "included_relative_paths": list(result.included_paths),
         "excluded_pattern_summary": excluded_pattern_summary(),
         "source_tree_checksum": result.checksum,
-        "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "generated_at": datetime.now(timezone.utc)  # noqa: UP017 - script remains importable on 3.8.
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z"),
     }
 
 

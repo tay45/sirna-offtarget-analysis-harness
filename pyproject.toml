@@ -64,6 +64,10 @@ exclude = ["examples/"]
 testpaths = ["tests"]
 addopts = "-q --strict-markers"
 
+[tool.bandit]
+# B105 flags domain status strings such as "not_filtered" as possible passwords.
+skips = ["B105"]
+
 [tool.coverage.run]
 branch = true
 source = ["src/sirna_offtarget"]

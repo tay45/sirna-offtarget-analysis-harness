@@ -41,7 +41,8 @@ class PrecomputedDifferentialExpressionBackend:
 
     @classmethod
     def from_config(cls, config: ExpressionConfig) -> PrecomputedDifferentialExpressionBackend:
-        assert config.precomputed_table is not None
+        if config.precomputed_table is None:
+            raise ValueError("precomputed_table is required for the precomputed backend")
         backend = cls(config.precomputed_table, config.design_formula)
         backend._columns = {
             "gene": config.gene_column,

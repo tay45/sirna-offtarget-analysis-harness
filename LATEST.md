@@ -54,18 +54,18 @@ FINAL CLASSIFICATION STATUS: NOT STARTED
 
 ## Evidence
 
-- Full test suite: passed, 528 tests.
+- Full test suite: passed, 537 tests.
 - Full-suite exit code: 0.
 - Portfolio tests: passed, 35 tests.
 - Focused scientific tests: passed, 305 tests.
 - Line coverage: 0.9482.
-- Branch coverage: 0.8502.
-- Source checksum: d9ba8b83cb7086f3df94cfe3eca45cbb06b48d884a4a5076494cb7a6ed519048.
+- Branch coverage: 0.8501.
+- Source checksum: 914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8.
 - Source inventory count: 627.
 - Final archive filename: sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.
 - FINAL ARCHIVE CHECKSUM MODEL: EXTERNAL SIDECAR
 - FINAL ARCHIVE SIDECAR: sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.sha256
-- INTERNAL SOURCE CHECKSUM: d9ba8b83cb7086f3df94cfe3eca45cbb06b48d884a4a5076494cb7a6ed519048
+- INTERNAL SOURCE CHECKSUM: 914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8
 - ARCHIVE CHECKSUM: See adjacent SHA-256 sidecar file
 - Post-package verification passed: true.
 - Post-package verification status: PASSED.

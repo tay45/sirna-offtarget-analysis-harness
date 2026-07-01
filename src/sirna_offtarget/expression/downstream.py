@@ -156,8 +156,6 @@ def normalized_gene_effect_v2_to_downstream_view(
                 )
             )
             continue
-        assert record.canonical_gene_id is not None
-        assert record.canonical_log2_fold_change is not None
         included.append(_base_input(record))
     return DownstreamExpressionViewV1(
         view_name="DownstreamGeneEffectViewV1",
@@ -197,8 +195,7 @@ def normalized_gene_effect_v2_to_isoform_input(
                 )
             )
             continue
-        assert record.canonical_gene_id is not None
-        assert record.canonical_log2_fold_change is not None
+        canonical_gene_id, canonical_log2_fold_change = _required_canonical_effect(record)
         warnings = list(record.warnings)
         if record.adjusted_p_value is None:
             warnings.append("adjusted p-value unavailable; preserved as null")
@@ -209,11 +206,11 @@ def normalized_gene_effect_v2_to_isoform_input(
                 schema_version="1",
                 input_record_id=f"isoform-input:{record.record_id}",
                 source_expression_v2_record_id=record.record_id,
-                canonical_gene_id=record.canonical_gene_id,
+                canonical_gene_id=canonical_gene_id,
                 approved_symbol=record.approved_symbol,
                 original_gene_id=record.original_gene_id,
                 contrast_id=record.contrast_id,
-                canonical_log2_fold_change=record.canonical_log2_fold_change,
+                canonical_log2_fold_change=canonical_log2_fold_change,
                 canonical_effect_source=record.canonical_effect_source,
                 shrunken_log2_fold_change=_shrunken_value_for_isoform(record),
                 numerical_direction=record.numerical_direction,
@@ -262,17 +259,16 @@ def _base_exclusion(record: NormalizedGeneEffectRecordV2) -> tuple[str | None, t
 
 
 def _base_input(record: NormalizedGeneEffectRecordV2) -> DownstreamGeneEffectBaseV1:
-    assert record.canonical_gene_id is not None
-    assert record.canonical_log2_fold_change is not None
+    canonical_gene_id, canonical_log2_fold_change = _required_canonical_effect(record)
     return DownstreamGeneEffectBaseV1(
         schema_version="1",
         input_record_id=f"downstream-input:{record.record_id}",
         source_expression_v2_record_id=record.record_id,
         original_gene_id=record.original_gene_id,
-        canonical_gene_id=record.canonical_gene_id,
+        canonical_gene_id=canonical_gene_id,
         approved_symbol=record.approved_symbol,
         contrast_id=record.contrast_id,
-        canonical_log2_fold_change=record.canonical_log2_fold_change,
+        canonical_log2_fold_change=canonical_log2_fold_change,
         canonical_effect_source=record.canonical_effect_source,
         numerical_direction=record.numerical_direction,
         tested_status=record.tested_status,
@@ -285,6 +281,14 @@ def _base_input(record: NormalizedGeneEffectRecordV2) -> DownstreamGeneEffectBas
         identifier_resolution_id=record.identifier_resolution_id,
         warnings=record.warnings,
     )
+
+
+def _required_canonical_effect(record: NormalizedGeneEffectRecordV2) -> tuple[str, float]:
+    if record.canonical_gene_id is None or record.canonical_log2_fold_change is None:
+        raise ValueError(
+            "downstream expression views require canonical_gene_id and canonical_log2_fold_change"
+        )
+    return record.canonical_gene_id, record.canonical_log2_fold_change
 
 
 def _consumer_view(

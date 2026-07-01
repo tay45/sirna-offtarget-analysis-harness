@@ -106,10 +106,12 @@ def _normalize(provider: object, payload: object, organism: str) -> list[object]
     if isinstance(
         provider, (OmniPathProvider, SignorProvider, ReactomeFIProvider, ReactomeContentProvider)
     ):
-        assert isinstance(payload, list)
+        if not isinstance(payload, list):
+            raise ValueError("provider payload must be a list for network providers")
         return list(cast(list[object], provider.normalize(payload, snapshot, organism)))
     if isinstance(provider, (PantherProvider, ReactomeAnalysisProvider)):
-        assert isinstance(payload, (list, dict))
+        if not isinstance(payload, (list, dict)):
+            raise ValueError("provider payload must be a list or object for enrichment providers")
         return list(cast(list[object], provider.normalize(payload, snapshot, organism)))
     return []
 
