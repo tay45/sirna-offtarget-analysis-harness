@@ -34,7 +34,7 @@
       ".pyo"
     ]
   },
-  "generated_at": "2026-07-01T00:59:44Z",
+  "generated_at": "2026-07-01T04:28:18Z",
   "included_file_count": 627,
   "included_relative_paths": [
     ".github/workflows/ci.yml",
@@ -670,5 +670,5 @@
     "src",
     "tests"
   ],
-  "source_tree_checksum": "914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8"
+  "source_tree_checksum": "0dd59125c7fbb773cf238f4c5a4f88c187d59fe6934f7261cc73e40d8ca7c891"
 }

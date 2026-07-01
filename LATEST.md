@@ -60,12 +60,12 @@ FINAL CLASSIFICATION STATUS: NOT STARTED
 - Focused scientific tests: passed, 305 tests.
 - Line coverage: 0.9482.
 - Branch coverage: 0.8501.
-- Source checksum: 914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8.
+- Source checksum: 0dd59125c7fbb773cf238f4c5a4f88c187d59fe6934f7261cc73e40d8ca7c891.
 - Source inventory count: 627.
 - Final archive filename: sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.
 - FINAL ARCHIVE CHECKSUM MODEL: EXTERNAL SIDECAR
 - FINAL ARCHIVE SIDECAR: sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.sha256
-- INTERNAL SOURCE CHECKSUM: 914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8
+- INTERNAL SOURCE CHECKSUM: 0dd59125c7fbb773cf238f4c5a4f88c187d59fe6934f7261cc73e40d8ca7c891
 - ARCHIVE CHECKSUM: See adjacent SHA-256 sidecar file
 - Post-package verification passed: true.
 - Post-package verification status: PASSED.

@@ -6,15 +6,15 @@
   "coverage_command": ".venv/bin/python -m pytest --cov=src/sirna_offtarget --cov-branch --cov-report=term-missing --cov-report=xml --cov-fail-under=92",
   "coverage_tool_version": "7.14.3",
   "coverage_xml_path": "coverage.xml",
-  "coverage_xml_sha256": "8211581ec7412bfbb0186b01b64eefc4fa2f2f7082f2303fd35d5be5f14594d1",
-  "coverage_xml_timestamp": "1782867354279",
+  "coverage_xml_sha256": "b1a87b55e7051b074bacde02dda75554d05c66b2335bbda0849f753548ed55f0",
+  "coverage_xml_timestamp": "1782879282189",
   "line_rate": "0.9482",
   "lines_covered": 8606,
   "lines_missed": 470,
   "lines_valid": 9076,
   "min_branch_rate": "0.85",
   "min_line_rate": "0.92",
-  "source_tree_checksum_sha256": "914a66b69d55461175e09a71092b7290fcd026618377bf071ad3a97baf6238c8",
+  "source_tree_checksum_sha256": "0dd59125c7fbb773cf238f4c5a4f88c187d59fe6934f7261cc73e40d8ca7c891",
   "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
   "threshold_result": "PASSED"
 }
