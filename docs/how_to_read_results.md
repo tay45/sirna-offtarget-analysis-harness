@@ -1,6 +1,21 @@
 # How to Read Results
 
-Start with the ratio table:
+Start with the expected direct-effect table:
+
+`gene_expected_direct_effects_v1.tsv`
+
+Important columns:
+
+- `observed_normalized_log2fc`: committed normalized gene-expression change.
+- `n_total_eligible_transcripts`: formal N from upstream ratio evidence.
+- `m_targetable_transcripts`: formal M when definitive.
+- `targetable_fraction_m_over_n`: equal-prior targetable transcript fraction.
+- `intended_target_calibration_value`: accepted targetable-transcript knockdown calibration.
+- `expected_direct_effect_log2fc`: expected direct component on the log2 scale.
+- `observed_vs_expected_log2_difference`: observed log2 change minus expected direct component.
+- `unresolved_residual_log2fc`: stored residual for the next stage, not interpreted here.
+
+For N, M, and M/N details, inspect the ratio table:
 
 `gene_transcript_targetability_ratios_v1.tsv`
 

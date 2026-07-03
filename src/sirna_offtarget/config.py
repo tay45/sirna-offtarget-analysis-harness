@@ -194,6 +194,18 @@ class TranscriptTargetabilityRatioConfig(ConfigModel):
     require_verified_site: bool = True
 
 
+class ExpectedDirectEffectConfig(ConfigModel):
+    enabled: bool = True
+    policy_id: str = "expected-direct-effect-v1-equal-transcript-prior"
+    numerical_tolerance: float = 1e-9
+
+    @model_validator(mode="after")
+    def validate_expected_direct_effect(self) -> ExpectedDirectEffectConfig:
+        if self.numerical_tolerance <= 0:
+            raise ValueError("expected_direct_effect.numerical_tolerance must be positive")
+        return self
+
+
 class PathwayConfig(ConfigModel):
     network_file: Path
     regulon_file: Path
@@ -268,6 +280,9 @@ class HarnessConfig(ConfigModel):
     transcript_targetability_ratio: TranscriptTargetabilityRatioConfig = Field(
         default_factory=TranscriptTargetabilityRatioConfig
     )
+    expected_direct_effect: ExpectedDirectEffectConfig = Field(
+        default_factory=ExpectedDirectEffectConfig
+    )
     pathway: PathwayConfig
     providers: dict[str, ProviderSelectionConfig] = Field(default_factory=dict)
     reporting: ReportingConfig = Field(default_factory=ReportingConfig)
@@ -284,6 +299,7 @@ class HarnessConfig(ConfigModel):
             "isoform_uncertainty",
             "transcript_targetability",
             "transcript_targetability_ratio",
+            "expected_direct_effect",
         ):
             section = getattr(data, section_name)
             for key, value in section:

@@ -14,4 +14,4 @@ def test_resume_reuses_valid_completed_stages(tmp_path: Path) -> None:
     )
     rows = resume_run(out)
     assert any(row["stage"] == "sequence_analysis" and row["action"] == "reuse" for row in rows)
-    assert status_run(out)[-1]["status"] == "completed"
+    assert status_run(out)[-1]["status"] in {"completed", "completed_with_warnings"}

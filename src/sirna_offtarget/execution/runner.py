@@ -46,6 +46,9 @@ from sirna_offtarget.execution.stages import (
     write_stage_report,
 )
 from sirna_offtarget.execution.state import ReuseDecision, RunContext
+from sirna_offtarget.expected_direct_effect.artifacts import (
+    verify_expected_direct_effect_outputs,
+)
 from sirna_offtarget.isoform_uncertainty.artifacts import (
     verify_committed_isoform_uncertainty_result,
     verify_isoform_uncertainty_final_outputs,
@@ -112,6 +115,14 @@ def _completed_manifest_valid(manifest_path: Path) -> tuple[bool, str]:
         if not verification.passed:
             return False, "isoform uncertainty committed verification failed: " + ", ".join(
                 verification.errors
+            )
+    if manifest.get("stage_name") == "expected_direct_effect":
+        direct_effect_verification = verify_expected_direct_effect_outputs(
+            manifest_path.parent / "committed" / "outputs"
+        )
+        if not direct_effect_verification["passed"]:
+            return False, "expected direct-effect committed verification failed: " + ", ".join(
+                direct_effect_verification["errors"]
             )
     return True, "completed attempt and output checksums are valid"
 
@@ -425,6 +436,15 @@ def execute_stage(
                 raise RuntimeError(
                     "transcript targetability ratio post-commit verification failed: "
                     + ", ".join(ratio_verification["errors"])
+                )
+        if stage.name == "expected_direct_effect":
+            direct_effect_verification = verify_expected_direct_effect_outputs(
+                attempt_dir / "committed" / "outputs"
+            )
+            if not direct_effect_verification["passed"]:
+                raise RuntimeError(
+                    "expected direct-effect post-commit verification failed: "
+                    + ", ".join(direct_effect_verification["errors"])
                 )
         dump_json(
             attempt_dir / "status.json", {"status": manifest["status"], "completed_at": completed}

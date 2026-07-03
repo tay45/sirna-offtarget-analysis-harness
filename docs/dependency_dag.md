@@ -4,7 +4,7 @@ The current executable DAG is explicit and cycle-checked:
 
 `validate -> prepare_inputs -> map_identifiers`, with sequence and expression
 branches feeding isoform uncertainty, transcript targetability, and the terminal
-transcript targetability ratio stage.
+expected direct-effect evidence stage.
 
 The official stage order is:
 
@@ -16,6 +16,7 @@ The official stage order is:
 6. `isoform_uncertainty`
 7. `transcript_targetability`
 8. `transcript_targetability_ratio`
+9. `expected_direct_effect`
 
 The runner topologically sorts this graph, rejects circular dependencies, and
 blocks a stage when required upstream manifests are missing or invalid.

@@ -8,6 +8,9 @@ from typing import Any, ClassVar, Union, get_args, get_origin, get_type_hints
 from pydantic import BaseModel, Field
 
 from sirna_offtarget.contracts.base import StageContract
+from sirna_offtarget.expected_direct_effect.contracts import (
+    ExpectedDirectEffectResultV1 as ExpectedDirectEffectPayloadV1,
+)
 from sirna_offtarget.isoform_uncertainty.contracts import IsoformUncertaintyPayloadV1
 from sirna_offtarget.models import (
     Direction,
@@ -398,6 +401,11 @@ class TranscriptTargetabilityResultV1(StageContract):
 class TranscriptTargetabilityRatioResultV1(StageContract):
     expected_contract_name: ClassVar[str] = "TranscriptTargetabilityRatioResultV1"
     payload: TranscriptTargetabilityRatioPayloadV1
+
+
+class ExpectedDirectEffectResultV1(StageContract):
+    expected_contract_name: ClassVar[str] = "ExpectedDirectEffectResultV1"
+    payload: ExpectedDirectEffectPayloadV1
 
 
 class PathwayEnrichmentResultV1(StageContract):

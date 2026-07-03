@@ -18,16 +18,16 @@ def test_complete_synthetic_workflow(tmp_path: Path) -> None:
     ):
         result = runner.invoke(main, args)
         assert result.exit_code == 0, result.output
-    ratio = (
+    expected = (
         out
         / "stages"
-        / "08_transcript_targetability_ratio"
+        / "09_expected_direct_effect"
         / "attempts"
         / "attempt_001"
         / "committed"
         / "outputs"
-        / "gene_transcript_targetability_ratios_v1.tsv"
+        / "gene_expected_direct_effects_v1.tsv"
     )
-    assert ratio.exists()
+    assert expected.exists()
     assert not (out / "complete_results.json").exists()
-    assert "_".join(("final", "classification")) not in ratio.read_text()
+    assert "_".join(("final", "classification")) not in expected.read_text()

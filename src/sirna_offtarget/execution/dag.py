@@ -28,6 +28,7 @@ STAGE_ORDER: tuple[str, ...] = (
     "isoform_uncertainty",
     "transcript_targetability",
     "transcript_targetability_ratio",
+    "expected_direct_effect",
 )
 
 
@@ -54,6 +55,11 @@ STAGE_NODES: dict[str, StageNode] = {
         "transcript_targetability_ratio",
         "1.0",
         ("isoform_uncertainty", "transcript_targetability"),
+    ),
+    "expected_direct_effect": StageNode(
+        "expected_direct_effect",
+        "1.0",
+        ("expression_analysis", "transcript_targetability_ratio"),
     ),
 }
 

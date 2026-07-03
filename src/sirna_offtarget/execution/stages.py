@@ -10,6 +10,7 @@ from sirna_offtarget.contracts.stage_results import (
     ExpressionAnalysisResultV2,
     IsoformUncertaintyResultV1,
     SequenceAnalysisResultV1,
+    TranscriptTargetabilityRatioResultV1,
     TranscriptTargetabilityResultV1,
     sequence_results_from_contract,
 )
@@ -17,6 +18,18 @@ from sirna_offtarget.execution.contracts import committed_contract_path, load_de
 from sirna_offtarget.execution.dag import STAGE_NODES
 from sirna_offtarget.execution.hashing import artifact_record, dump_json, hash_data, sha256_file
 from sirna_offtarget.execution.state import RunContext, StageExecutionResult
+from sirna_offtarget.expected_direct_effect.artifacts import (
+    sha256_file as expected_direct_sha256_file,
+)
+from sirna_offtarget.expected_direct_effect.artifacts import (
+    verify_expected_direct_effect_outputs,
+    write_expected_direct_effect_artifacts,
+)
+from sirna_offtarget.expected_direct_effect.contracts import (
+    ExpectedDirectEffectPolicyV1,
+    ExpectedDirectEffectRunRecordV1,
+)
+from sirna_offtarget.expected_direct_effect.core import compute_expected_direct_effects
 from sirna_offtarget.expression import analyze_expression_with_config
 from sirna_offtarget.expression.committed import (
     load_committed_normalized_gene_effects_v2,
@@ -130,6 +143,7 @@ from sirna_offtarget.transcript_targetability_ratio.artifacts import (
     write_transcript_targetability_ratio_artifacts,
 )
 from sirna_offtarget.transcript_targetability_ratio.contracts import (
+    GeneTranscriptTargetabilityRatioRecordV1,
     TargetableTranscriptInclusionPolicyV1,
     TranscriptTargetabilityRatioRunRecordV1,
 )
@@ -1907,6 +1921,116 @@ class FunctionStage:
             payload=result_payload,
         )
 
+    def _execute_expected_direct_effect(
+        self, context: RunContext, attempt_directory: Path
+    ) -> StageExecutionResult:
+        started_at = _utc_now()
+        output_dir = attempt_directory / "outputs"
+        expression_contract = load_dependency_contract(
+            context,
+            dependency_stage="expression_analysis",
+            expected_contract=ExpressionAnalysisResultV2,
+        )
+        ratio_contract = load_dependency_contract(
+            context,
+            dependency_stage="transcript_targetability_ratio",
+            expected_contract=TranscriptTargetabilityRatioResultV1,
+        )
+        self._record_consumed(
+            context,
+            dependency_stage="expression_analysis",
+            contract=expression_contract,
+            artifacts=["normalized_gene_effects_v2.jsonl"],
+            payload_fields=["normalized_gene_effects_artifact"],
+        )
+        self._record_consumed(
+            context,
+            dependency_stage="transcript_targetability_ratio",
+            contract=ratio_contract,
+            artifacts=["gene_transcript_targetability_ratios_v1.jsonl"],
+            payload_fields=["run_record", "counts"],
+        )
+        config = context.config.expected_direct_effect
+        if not config.enabled:
+            raise RuntimeError("expected direct-effect stage cannot be disabled")
+        expression_outputs = committed_contract_path(context.run_dir, "expression_analysis").parent
+        ratio_outputs = committed_contract_path(
+            context.run_dir, "transcript_targetability_ratio"
+        ).parent
+        ratio_verification = verify_transcript_targetability_ratio_outputs(ratio_outputs)
+        if not ratio_verification["passed"]:
+            raise RuntimeError(
+                "expected direct-effect stage requires verified ratio outputs: "
+                + ", ".join(ratio_verification["errors"])
+            )
+        expression_records = load_committed_normalized_gene_effects_v2(context.run_dir)
+        ratio_path = ratio_outputs / ratio_contract.payload.gene_ratio_records_artifact
+        ratio_records = [
+            GeneTranscriptTargetabilityRatioRecordV1.model_validate(json.loads(line))
+            for line in ratio_path.read_text().splitlines()
+            if line.strip()
+        ]
+        policy = ExpectedDirectEffectPolicyV1(
+            policy_id=config.policy_id,
+            numerical_tolerance=config.numerical_tolerance,
+        )
+        expression_artifact = expression_outputs / "normalized_gene_effects_v2.jsonl"
+        computed = compute_expected_direct_effects(
+            intended_target_gene_id=context.config.sirna.intended_target_gene,
+            expression_records=expression_records,
+            ratio_records=ratio_records,
+            policy=policy,
+            source_expression_checksum=expected_direct_sha256_file(expression_artifact),
+            source_ratio_checksum=expected_direct_sha256_file(ratio_path),
+        )
+        write_expected_direct_effect_artifacts(
+            output_dir=output_dir,
+            run_record=ExpectedDirectEffectRunRecordV1(
+                run_id=context.run_id,
+                expression_result_id=expression_contract.run_id,
+                expression_checksum=expected_direct_sha256_file(
+                    expression_outputs / "stage_result.json"
+                ),
+                transcript_targetability_ratio_result_id=ratio_contract.run_id,
+                transcript_targetability_ratio_checksum=expected_direct_sha256_file(
+                    ratio_outputs / "stage_result.json"
+                ),
+                policy_id=policy.policy_id,
+                policy_checksum=policy.fingerprint,
+                calibration_record_id=computed.calibration.calibration_record_id,
+                started_at=started_at,
+                completed_at=_utc_now(),
+                status="completed",
+                source_counts={
+                    "normalized_gene_effect_records": len(expression_records),
+                    "gene_transcript_targetability_ratio_records": len(ratio_records),
+                },
+                verification_status="verified",
+                warnings=tuple(computed.warnings),
+            ),
+            policy=policy,
+            calibration=computed.calibration,
+            gene_effects=computed.gene_effects,
+            unresolved=computed.unresolved,
+            summary=computed.summary,
+            warnings=computed.warnings,
+        )
+        verification = verify_expected_direct_effect_outputs(output_dir)
+        if not verification["passed"]:
+            raise RuntimeError(
+                "expected direct-effect verification failed: " + ", ".join(verification["errors"])
+            )
+        result_payload = json.loads(
+            (output_dir / "expected_direct_effect_result_v1.json").read_text()
+        )
+        return StageExecutionResult(
+            sorted(output_dir.iterdir()),
+            computed.summary,
+            computed.warnings,
+            "ExpectedDirectEffectResultV1",
+            payload=result_payload,
+        )
+
     def _execute_isoform_analysis(  # pragma: no cover
         self, context: RunContext, attempt_directory: Path
     ) -> StageExecutionResult:
@@ -2533,5 +2657,18 @@ def build_stages() -> dict[str, FunctionStage]:
             ),
             (),
             "Count formal N, M, and M/N from committed transcript targetability evidence.",
+        ),
+        "expected_direct_effect": FunctionStage(
+            "expected_direct_effect",
+            "1.0",
+            (
+                "expected_direct_effect",
+                "sirna",
+                "expression",
+                "transcript_targetability_ratio",
+                *common_execution,
+            ),
+            (),
+            "Estimate expected direct expression effects without residual attribution.",
         ),
     }

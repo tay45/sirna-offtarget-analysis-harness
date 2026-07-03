@@ -34,8 +34,8 @@
       ".pyo"
     ]
   },
-  "generated_at": "2026-07-01T04:28:18Z",
-  "included_file_count": 627,
+  "generated_at": "2026-07-03T20:29:00Z",
+  "included_file_count": 636,
   "included_relative_paths": [
     ".github/workflows/ci.yml",
     ".gitignore",
@@ -77,6 +77,7 @@
     "docs/equal_transcript_prior.md",
     "docs/evidence_quality.md",
     "docs/evidence_quality_components_v2.md",
+    "docs/expected_direct_effect_contracts.md",
     "docs/expression_artifact_canonicality.md",
     "docs/expression_backends.md",
     "docs/expression_branch_coverage_gap_inventory.md",
@@ -348,6 +349,10 @@
     "src/sirna_offtarget/execution/runner.py",
     "src/sirna_offtarget/execution/stages.py",
     "src/sirna_offtarget/execution/state.py",
+    "src/sirna_offtarget/expected_direct_effect/__init__.py",
+    "src/sirna_offtarget/expected_direct_effect/artifacts.py",
+    "src/sirna_offtarget/expected_direct_effect/contracts.py",
+    "src/sirna_offtarget/expected_direct_effect/core.py",
     "src/sirna_offtarget/expression/__init__.py",
     "src/sirna_offtarget/expression/api.py",
     "src/sirna_offtarget/expression/backends/__init__.py",
@@ -511,6 +516,7 @@
     "src/sirna_offtarget/validation/schema.py",
     "tests/architecture/test_clean_imports.py",
     "tests/architecture/test_dependency_rules.py",
+    "tests/architecture/test_expected_direct_effect_boundaries.py",
     "tests/architecture/test_expression_normalization_boundary.py",
     "tests/architecture/test_isoform_artifact_finalization_boundaries.py",
     "tests/architecture/test_isoform_uncertainty_boundaries.py",
@@ -528,6 +534,7 @@
     "tests/fixtures/annotation_memberships.tsv",
     "tests/fixtures/identifier_resource.tsv",
     "tests/integration/test_corrected_transcript_targetability_pipeline.py",
+    "tests/integration/test_expected_direct_effect_pipeline.py",
     "tests/integration/test_isoform_and_targetability_to_ratio_pipeline.py",
     "tests/integration/test_isoform_uncertainty_artifact_finalization_pipeline.py",
     "tests/integration/test_isoform_uncertainty_workflow_stage.py",
@@ -592,6 +599,8 @@
     "tests/unit/execution/test_resume_flags.py",
     "tests/unit/execution/test_reuse_events.py",
     "tests/unit/execution/test_stage_fingerprint.py",
+    "tests/unit/expected_direct_effect/test_expected_direct_effect_artifacts.py",
+    "tests/unit/expected_direct_effect/test_expected_direct_effect_core.py",
     "tests/unit/expression/artifacts/test_committed_loader_safety.py",
     "tests/unit/expression/canonical/test_expression_stage_returns_v2_contract.py",
     "tests/unit/expression/contracts/test_expression_v2_status_helpers.py",
@@ -670,5 +679,5 @@
     "src",
     "tests"
   ],
-  "source_tree_checksum": "0dd59125c7fbb773cf238f4c5a4f88c187d59fe6934f7261cc73e40d8ca7c891"
+  "source_tree_checksum": "aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f"
 }

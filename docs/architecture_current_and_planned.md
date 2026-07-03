@@ -17,10 +17,10 @@ flowchart LR
   path["Pathway and mechanistic evidence architecture"]:::done
   store["Contracts, provenance, verification, artifact store"]:::done
 
-  cal["Intended-target calibration"]:::planned
-  exp["Expected direct effect"]:::planned
-  comp["Observed-versus-expected comparison"]:::planned
-  res["Residual"]:::planned
+  cal["Intended-target calibration"]:::done
+  exp["Expected direct effect"]:::done
+  comp["Observed-versus-expected comparison"]:::done
+  res["Unresolved residual value"]:::done
   sec["Secondary-effect attribution"]:::planned
   cls["Direct / secondary / mixed / unresolved classification"]:::planned
 
@@ -33,11 +33,11 @@ flowchart LR
   targ --> ratio
   ratio --> store
   path --> store
-  expr -. planned .-> comp
-  ratio -. planned .-> cal
-  cal -. planned .-> exp
-  exp -. planned .-> comp
-  comp -. planned .-> res
+  expr --> comp
+  ratio --> cal
+  cal --> exp
+  exp --> comp
+  comp --> res
   path -. planned .-> sec
   res -. planned .-> sec
   sec -. planned .-> cls

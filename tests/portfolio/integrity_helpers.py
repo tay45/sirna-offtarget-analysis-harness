@@ -22,6 +22,10 @@ EXPECTED_RATIO_STAGES = [
     "transcript_targetability",
     "transcript_targetability_ratio",
 ]
+EXPECTED_CURRENT_STAGES = [
+    *EXPECTED_RATIO_STAGES,
+    "expected_direct_effect",
+]
 
 
 def _snake(*parts: str) -> str:
@@ -61,9 +65,7 @@ PROHIBITED_TEXT = {
 }
 
 
-def run_portfolio(
-    out: Path, until_stage: str | None = "transcript_targetability_ratio"
-) -> list[str]:
+def run_portfolio(out: Path, until_stage: str | None = "expected_direct_effect") -> list[str]:
     rows = run_staged_analysis(
         config_path=CONFIG,
         output_dir=out,

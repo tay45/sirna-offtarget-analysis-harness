@@ -219,7 +219,7 @@ jobs:
       - run: python -m pip install dist/*.whl
       - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir ops_full
       - run: before=$(find ops_full/stages -path '*/attempts/attempt_*/stage_manifest.json' | wc -l); sirna-offtarget run --config examples/synthetic/config.yaml --output-dir ops_full --resume; after=$(find ops_full/stages -path '*/attempts/attempt_*/stage_manifest.json' | wc -l); test "$before" = "$after"
-      - run: test "$(find ops_full/config_history -name 'revision_*.metadata.json' | wc -l)" = "1"
+      - run: test "$(find ops_full/config_history -name 'revision_*.metadata.json' | wc -l | tr -d ' ')" = "1"
       - run: sirna-offtarget verify --run-dir ops_full
       - run: sirna-offtarget run --config examples/synthetic/config.yaml --output-dir ops_partial --until-stage expression_analysis
       - run: sirna-offtarget verify --run-dir ops_partial

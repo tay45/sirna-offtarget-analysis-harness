@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from sirna_offtarget.contracts.base import StageContract
 from sirna_offtarget.contracts.stage_results import (
+    ExpectedDirectEffectResultV1,
     ExpressionAnalysisResultV1,
     ExpressionAnalysisResultV2,
     IdentifierMappingResultV1,
@@ -27,6 +28,7 @@ CONTRACT_REGISTRY: dict[str, type[StageContract]] = {
         SequenceAnalysisResultV1,
         ExpressionAnalysisResultV1,
         ExpressionAnalysisResultV2,
+        ExpectedDirectEffectResultV1,
         IsoformAnalysisResultV1,
         IsoformUncertaintyResultV1,
         TranscriptTargetabilityResultV1,
@@ -47,4 +49,5 @@ STAGE_CONTRACTS: dict[str, type[StageContract]] = {
     "isoform_uncertainty": IsoformUncertaintyResultV1,
     "transcript_targetability": TranscriptTargetabilityResultV1,
     "transcript_targetability_ratio": TranscriptTargetabilityRatioResultV1,
+    "expected_direct_effect": ExpectedDirectEffectResultV1,
 }

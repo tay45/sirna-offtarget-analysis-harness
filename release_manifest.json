@@ -56,48 +56,59 @@
     "formal_m",
     "m_over_n_ratio",
     "transcript_targetability_ratio_workflow_stage",
+    "expected_direct_effect_workflow_stage",
     "release_source_checksum_verification",
     "post_package_extraction_verification"
   ],
   "confidentiality_scan_result": "PASSED",
   "coverage": {
-    "branch_rate": "0.8501",
-    "line_rate": "0.9482"
+    "branch_rate": "0.8512",
+    "line_rate": "0.9479"
   },
   "coverage_evidence": {
-    "branch_rate": "0.8501",
-    "branches_covered": 1945,
-    "branches_missed": 343,
-    "branches_valid": 2288,
+    "branch_rate": "0.8512",
+    "branches_covered": 2060,
+    "branches_missed": 360,
+    "branches_valid": 2420,
     "coverage_command": ".venv/bin/python -m pytest --cov=src/sirna_offtarget --cov-branch --cov-report=term-missing --cov-report=xml --cov-fail-under=92",
-    "coverage_tool_version": "7.14.3",
+    "coverage_tool_version": "7.15.0",
     "coverage_xml_path": "coverage.xml",
-    "coverage_xml_sha256": "b1a87b55e7051b074bacde02dda75554d05c66b2335bbda0849f753548ed55f0",
-    "coverage_xml_timestamp": "1782879282189",
-    "line_rate": "0.9482",
-    "lines_covered": 8606,
-    "lines_missed": 470,
-    "lines_valid": 9076,
+    "coverage_xml_sha256": "b36e0807ccb92229626409c9987d845fd9dfd6edbbd463b04f70fda22a20afb8",
+    "coverage_xml_timestamp": "1783109632094",
+    "line_rate": "0.9479",
+    "lines_covered": 9034,
+    "lines_missed": 497,
+    "lines_valid": 9531,
     "min_branch_rate": "0.85",
     "min_line_rate": "0.92",
-    "source_tree_checksum_sha256": "0dd59125c7fbb773cf238f4c5a4f88c187d59fe6934f7261cc73e40d8ca7c891",
+    "source_tree_checksum_sha256": "aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f",
     "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
     "threshold_result": "PASSED"
   },
   "coverage_evidence_artifact": "release_coverage_evidence.json",
-  "coverage_evidence_artifact_sha256": "5b3319ebcdbbf1b95351d6127a14144e795bc1fc1495bbb5cbc805c5f3f9aad2",
-  "current_stage": "portfolio hardening",
-  "default_pipeline_endpoint": "transcript_targetability_ratio",
+  "coverage_evidence_artifact_sha256": "e3af9bc472fdd615bdbae4279a94f7d5d5f7117bd3de362a3b6cdf421b2e11fd",
+  "current_stage": "expected direct effect",
+  "default_pipeline_endpoint": "expected_direct_effect",
   "deferred_stages": [
     "abundance-derived transcript proportions",
-    "intended-target calibration",
-    "direct-effect scoring",
-    "residual calculation",
     "secondary-effect scoring",
     "source eligibility",
     "final classification"
   ],
   "documentation_synchronization_result": "PASSED",
+  "expected_direct_effect_canonical_artifacts": [
+    "expected_direct_effect_result_v1.json",
+    "expected_direct_effect_run_v1.json",
+    "expected_direct_effect_policy_v1.json",
+    "intended_target_knockdown_calibration_v1.json",
+    "gene_expected_direct_effects_v1.jsonl",
+    "gene_expected_direct_effects_v1.tsv",
+    "expected_direct_effect_unresolved_v1.jsonl",
+    "expected_direct_effect_unresolved_v1.tsv",
+    "expected_direct_effect_verification_v1.json",
+    "expected_direct_effect_summary_v1.json",
+    "expected_direct_effect_warnings_v1.tsv"
+  ],
   "final_archive_checksum_model_repair_status": "COMPLETE",
   "final_legacy_code_removal_status": "COMPLETE",
   "final_release_evidence_repair_status": "COMPLETE",
@@ -119,20 +130,25 @@
     "status": "COMPLETE"
   },
   "format_result": "PASSED",
-  "full_suite_test_count": 537,
-  "generated_at_utc": "2026-07-01T04:28:16Z",
+  "full_suite_test_count": 572,
+  "generated_at_utc": "2026-07-03T20:28:57Z",
   "import_boundary_result": "PASSED",
   "incomplete_stages": [],
   "known_limitations": [
-    "Intended-target calibration, expected direct effect, residual attribution, secondary-effect integration, and final classification are not implemented.",
+    "Residual attribution, secondary-effect integration, and final classification are not implemented.",
     "Abundance-derived transcript proportions remain deferred.",
     "Passenger-strand search remains explicitly unsupported and fails fast if requested."
   ],
   "latest_zip_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
   "legacy_classification_artifact_status": "removed from public portfolio repository",
   "lint_result": "PASSED",
-  "next_planned_scientific_stage": "intended-target knockdown calibration",
-  "next_recommended_pass": "Define intended-target knockdown calibration without redefining formal N, M, or M/N.",
+  "next_planned_scientific_stage": "secondary-effect attribution",
+  "next_recommended_pass": "Interpret unresolved residuals without redefining normalized expression, N, M, M/N, or expected direct-effect evidence.",
+  "official_expected_direct_effect_contract": {
+    "contract_name": "ExpectedDirectEffectResultV1",
+    "schema_version": "1",
+    "workflow_stage": "expected_direct_effect"
+  },
   "official_expression_contract": {
     "contract_name": "ExpressionAnalysisResultV2",
     "schema_version": "2"
@@ -159,9 +175,10 @@
     "expression_analysis",
     "isoform_uncertainty",
     "transcript_targetability",
-    "transcript_targetability_ratio"
+    "transcript_targetability_ratio",
+    "expected_direct_effect"
   ],
-  "official_terminal_stage": "transcript_targetability_ratio",
+  "official_terminal_stage": "expected_direct_effect",
   "official_transcript_targetability_contract": {
     "contract_name": "TranscriptTargetabilityResultV1",
     "schema_version": "1",
@@ -183,7 +200,7 @@
     "personal_path_scan_status": "PASSED",
     "public_example_status": "COMPLETE",
     "public_readme_status": "COMPLETE",
-    "quick_start_command": "sirna-offtarget run --config examples/portfolio/config.yaml --until-stage transcript_targetability_ratio",
+    "quick_start_command": "sirna-offtarget run --config examples/portfolio/config.yaml",
     "scientific_regression_result": "PASSED",
     "status": "COMPLETE"
   },
@@ -200,8 +217,8 @@
     "passed": true,
     "release_tests_required_from_extracted_zip": true,
     "source_checksum_match_required": true,
-    "source_inventory_count": 627,
-    "source_tree_sha256": "0dd59125c7fbb773cf238f4c5a4f88c187d59fe6934f7261cc73e40d8ca7c891",
+    "source_inventory_count": 636,
+    "source_tree_sha256": "aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f",
     "status": "PASSED",
     "verification_type": "post-package-verification"
   },
@@ -222,10 +239,10 @@
   },
   "quick_start_result": "PASSED",
   "readme_quality_metrics": {
-    "branch_coverage": "0.8501",
+    "branch_coverage": "0.8512",
     "focused_scientific_tests_passed": 305,
-    "full_suite_passed": 537,
-    "line_coverage": "0.9482",
+    "full_suite_passed": 572,
+    "line_coverage": "0.9479",
     "portfolio_tests_passed": 35
   },
   "release_date": "2026-06-28",
@@ -242,10 +259,10 @@
   },
   "scientific_regression_result": "PASSED",
   "source_inventory_artifact": "release_source_tree_inventory.json",
-  "source_inventory_artifact_sha256": "595e71aef141cb7f3327e2971c5a496db18fc71796593709e3fe1521063544e5",
+  "source_inventory_artifact_sha256": "61a9c8724b73deafdc5ca491be1a93c6e18831b71d08434ddcf5719f0e8ee06e",
   "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
-  "source_tree_checksum_sha256": "0dd59125c7fbb773cf238f4c5a4f88c187d59fe6934f7261cc73e40d8ca7c891",
-  "source_tree_included_file_count": 627,
+  "source_tree_checksum_sha256": "aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f",
+  "source_tree_included_file_count": 636,
   "static_scan_result": {
     "current_public_outputs": "no prohibited fields",
     "legacy_matches": "no executable scoring/classification package, contracts, schemas, CLI, or official DAG entries remain",
@@ -256,7 +273,7 @@
   },
   "test_counts": {
     "focused_scientific": 305,
-    "full_suite": 537,
+    "full_suite": 572,
     "integration": 33,
     "portfolio": 35,
     "unit_release": 29
@@ -271,12 +288,12 @@
       "status": "PASSED"
     },
     "full_suite": {
-      "collected": 537,
+      "collected": 572,
       "command": ".venv/bin/python -m pytest -q",
       "errors": 0,
       "exit_code": 0,
       "failed": 0,
-      "passed": 537,
+      "passed": 572,
       "skipped": 0,
       "status": "PASSED",
       "xfailed": 0
@@ -371,6 +388,17 @@
   "twine_result": "PASSED",
   "typing_result": "PASSED",
   "until_stage_behavior_result": {
+    "expected_direct_effect": [
+      "validate",
+      "prepare_inputs",
+      "map_identifiers",
+      "sequence_analysis",
+      "expression_analysis",
+      "isoform_uncertainty",
+      "transcript_targetability",
+      "transcript_targetability_ratio",
+      "expected_direct_effect"
+    ],
     "status": "PASSED",
     "transcript_targetability_ratio": [
       "validate",

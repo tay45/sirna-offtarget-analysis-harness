@@ -15,9 +15,9 @@ targeting. Expression changes can also occur indirectly through pathway,
 regulatory, or stress-response effects. Transcript isoform structure complicates
 direct-target interpretation because a guide may target one transcript but not
 another. This harness separates and preserves these evidence types instead of
-collapsing them into one score. The current validated release establishes normalized expression processing, isoform-aware transcript eligibility, sequence-based transcript targetability, formal N/M/M/N estimation, pathway evidence architecture, provenance, and independent verification.
-Intended-target calibration, expected direct effect, residual attribution,
-secondary-effect integration, and final classification remain planned.
+collapsing them into one score. The current validated release establishes normalized expression processing, isoform-aware transcript eligibility, sequence-based transcript targetability, formal N/M/M/N estimation, intended-target calibration, expected direct-effect estimation, pathway evidence architecture, provenance, and independent verification.
+Residual attribution, secondary-effect integration, and final classification
+remain planned.
 
 ![Current and planned architecture](docs/architecture_current_and_planned.png)
 
@@ -35,6 +35,9 @@ secondary-effect integration, and final classification remain planned.
 - formal N
 - formal M
 - formal M/N
+- intended-target calibration
+- expected direct-effect estimate
+- unresolved residual value
 - typed contracts
 - provenance
 - checksums
@@ -44,9 +47,6 @@ secondary-effect integration, and final classification remain planned.
 
 ## Planned, Not Yet Implemented
 
-- intended-target calibration
-- expected direct effect
-- residual calculation
 - secondary-effect attribution
 - multi-source evidence integration
 - final direct / secondary / mixed classification
@@ -60,9 +60,10 @@ secondary-effect integration, and final classification remain planned.
 | Transcript targetability | Implemented | Identify sequence-compatible direct targets |
 | N/M/M/N | Implemented | Estimate targetable transcript fraction |
 | Pathway evidence architecture | Implemented | Preserve mechanistic relationships |
-| Intended-target calibration | Planned | Estimate effective knockdown |
-| Expected direct effect | Planned | Predict direct expression decrease |
-| Residual attribution | Planned | Identify unexplained expression change |
+| Intended-target calibration | Implemented | Estimate targetable-transcript knockdown from intended target expression and M/N |
+| Expected direct effect | Implemented | Predict direct expression decrease from calibration and candidate M/N |
+| Unresolved residual value | Implemented | Store observed minus expected log2 change without attribution |
+| Residual attribution | Planned | Interpret unexplained expression change |
 | Final classification | Planned | Direct, secondary, mixed, or unresolved |
 
 ## How the Current Analysis Works
@@ -75,7 +76,10 @@ secondary-effect integration, and final classification remain planned.
 6. M/N is the equal-prior fraction of targetable transcripts.
 7. Seed-only evidence is preserved separately.
 8. Missing sequence is not converted to non-targetable.
-9. Pathway evidence is preserved for later secondary-effect interpretation.
+9. The intended target's normalized expression change and M/N calibrate targetable-transcript knockdown.
+10. Candidate expected direct effects are computed from calibration and candidate M/N.
+11. Observed normalized change, expected direct effect, and unresolved residual are stored separately.
+12. Pathway evidence is preserved for later secondary-effect interpretation.
 
 Small example: a gene has 4 eligible transcripts. One transcript has verified
 cleavage-compatible evidence, 2 transcripts have seed-only evidence, and 1
@@ -97,28 +101,29 @@ source .venv/bin/activate
 python -m pip install -e ".[dev]"
 
 sirna-offtarget run \
-  --config examples/portfolio/config.yaml \
-  --until-stage transcript_targetability_ratio
+  --config examples/portfolio/config.yaml
 ```
 
 This executes exactly these official current stages:
 
 `validate`, `prepare_inputs`, `map_identifiers`, `sequence_analysis`,
 `expression_analysis`, `isoform_uncertainty`, `transcript_targetability`,
-`transcript_targetability_ratio`.
+`transcript_targetability_ratio`, `expected_direct_effect`.
 
-Running without `--until-stage` stops at the same current terminal stage:
-`transcript_targetability_ratio`.
+Running with `--until-stage transcript_targetability_ratio` stops at the prior
+ratio boundary when only N, M, and M/N artifacts are needed.
 
-Outputs are written to `examples/portfolio/output/`. Open this ratio table first:
+Outputs are written to `examples/portfolio/output/`. Open this expected-effect
+table first:
 
-`examples/portfolio/output/stages/08_transcript_targetability_ratio/attempts/attempt_001/committed/outputs/gene_transcript_targetability_ratios_v1.tsv`
+`examples/portfolio/output/stages/09_expected_direct_effect/attempts/attempt_001/committed/outputs/gene_expected_direct_effects_v1.tsv`
 
-Inspect N, M, and M/N in `n_total_eligible_transcripts`,
-`m_targetable_transcripts`, and `ratio_m_over_n`. Seed-only evidence is in
-`seed_only_transcript_ids` and `seed_only_transcript_count`. Unresolved
-transcripts are listed in
-`transcript_targetability_ratio_unresolved_v1.tsv`.
+Inspect observed normalized expression in `observed_normalized_log2fc`,
+sequence-derived N, M, and M/N in `n_total_eligible_transcripts`,
+`m_targetable_transcripts`, and `targetable_fraction_m_over_n`, the calibrated
+expected direct component in `expected_direct_effect_log2fc`, and the stored
+unresolved residual in `unresolved_residual_log2fc`. This residual is not a
+secondary-effect call.
 
 The curated portfolio summary table is:
 
@@ -146,11 +151,11 @@ and test-driven development.
 
 Post-cleanup release evidence reports:
 
-- full suite: 537 passed
+- full suite: 572 passed
 - portfolio tests: 35 portfolio tests passed
 - focused scientific tests: 305 passed
-- line coverage: 0.9482
-- branch coverage: 0.8501
+- line coverage: 0.9479
+- branch coverage: 0.8512
 - lint result: passed
 - formatting result: passed
 - typing result: passed
@@ -169,8 +174,7 @@ archive to insert that checksum would change the checksum itself.
 
 ## Current Limitations
 
-- current release does not yet calculate expected direct effect
-- current release does not yet attribute residual expression change
+- current release stores unresolved residual values but does not attribute them
 - current release does not yet classify direct, secondary, or mixed effects
 - no production-scale biological benchmark has yet been completed
 - equal-transcript prior is a deliberate default under short-read isoform uncertainty
@@ -198,6 +202,7 @@ release_manifest.json        Machine-readable release evidence
 - [Biological problem](docs/biological_problem.md)
 - [Current vs planned](docs/current_vs_planned.md)
 - [How to read results](docs/how_to_read_results.md)
+- [Expected direct effect contracts](docs/expected_direct_effect_contracts.md)
 - [Portfolio example walkthrough](docs/portfolio_example_walkthrough.md)
 - [Architecture: current and planned](docs/architecture_current_and_planned.md)
 - [Public release limitations](docs/public_release_limitations.md)
