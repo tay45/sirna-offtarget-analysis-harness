@@ -19,6 +19,9 @@ from sirna_offtarget.models import (
     IsoformResult,
     PathwayResult,
 )
+from sirna_offtarget.residual_attribution.contracts import (
+    ResidualAttributionResultV1 as ResidualAttributionPayloadV1,
+)
 from sirna_offtarget.transcript_targetability.contracts import (
     TranscriptTargetabilityResultV1 as TranscriptTargetabilityPayloadV1,
 )
@@ -406,6 +409,11 @@ class TranscriptTargetabilityRatioResultV1(StageContract):
 class ExpectedDirectEffectResultV1(StageContract):
     expected_contract_name: ClassVar[str] = "ExpectedDirectEffectResultV1"
     payload: ExpectedDirectEffectPayloadV1
+
+
+class ResidualAttributionResultV1(StageContract):
+    expected_contract_name: ClassVar[str] = "ResidualAttributionResultV1"
+    payload: ResidualAttributionPayloadV1
 
 
 class PathwayEnrichmentResultV1(StageContract):

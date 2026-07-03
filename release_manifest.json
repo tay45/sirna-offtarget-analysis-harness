@@ -57,38 +57,39 @@
     "m_over_n_ratio",
     "transcript_targetability_ratio_workflow_stage",
     "expected_direct_effect_workflow_stage",
+    "residual_support_characterization_workflow_stage",
     "release_source_checksum_verification",
     "post_package_extraction_verification"
   ],
   "confidentiality_scan_result": "PASSED",
   "coverage": {
-    "branch_rate": "0.8512",
-    "line_rate": "0.9479"
+    "branch_rate": "0.8502",
+    "line_rate": "0.9477"
   },
   "coverage_evidence": {
-    "branch_rate": "0.8512",
-    "branches_covered": 2060,
-    "branches_missed": 360,
-    "branches_valid": 2420,
+    "branch_rate": "0.8502",
+    "branches_covered": 2156,
+    "branches_missed": 380,
+    "branches_valid": 2536,
     "coverage_command": ".venv/bin/python -m pytest --cov=src/sirna_offtarget --cov-branch --cov-report=term-missing --cov-report=xml --cov-fail-under=92",
     "coverage_tool_version": "7.15.0",
     "coverage_xml_path": "coverage.xml",
-    "coverage_xml_sha256": "b36e0807ccb92229626409c9987d845fd9dfd6edbbd463b04f70fda22a20afb8",
-    "coverage_xml_timestamp": "1783109632094",
-    "line_rate": "0.9479",
-    "lines_covered": 9034,
-    "lines_missed": 497,
-    "lines_valid": 9531,
+    "coverage_xml_sha256": "bb0af866bd495bd29e3080b74455826a9f3c0810a83319d40c54b6bf87787fc3",
+    "coverage_xml_timestamp": "1783116803365",
+    "line_rate": "0.9477",
+    "lines_covered": 9377,
+    "lines_missed": 517,
+    "lines_valid": 9894,
     "min_branch_rate": "0.85",
     "min_line_rate": "0.92",
-    "source_tree_checksum_sha256": "aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f",
+    "source_tree_checksum_sha256": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d",
     "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
     "threshold_result": "PASSED"
   },
   "coverage_evidence_artifact": "release_coverage_evidence.json",
-  "coverage_evidence_artifact_sha256": "e3af9bc472fdd615bdbae4279a94f7d5d5f7117bd3de362a3b6cdf421b2e11fd",
-  "current_stage": "expected direct effect",
-  "default_pipeline_endpoint": "expected_direct_effect",
+  "coverage_evidence_artifact_sha256": "85bc2c6108f9d76bad54098d6b89c830d8ed1da7a3954c808d88e823205e121b",
+  "current_stage": "residual support characterization",
+  "default_pipeline_endpoint": "residual_attribution",
   "deferred_stages": [
     "abundance-derived transcript proportions",
     "secondary-effect scoring",
@@ -130,20 +131,20 @@
     "status": "COMPLETE"
   },
   "format_result": "PASSED",
-  "full_suite_test_count": 572,
-  "generated_at_utc": "2026-07-03T20:28:57Z",
+  "full_suite_test_count": 597,
+  "generated_at_utc": "2026-07-03T22:22:44Z",
   "import_boundary_result": "PASSED",
   "incomplete_stages": [],
   "known_limitations": [
-    "Residual attribution, secondary-effect integration, and final classification are not implemented.",
+    "Final residual attribution, secondary-effect integration, and final classification are not implemented.",
     "Abundance-derived transcript proportions remain deferred.",
     "Passenger-strand search remains explicitly unsupported and fails fast if requested."
   ],
   "latest_zip_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
   "legacy_classification_artifact_status": "removed from public portfolio repository",
   "lint_result": "PASSED",
-  "next_planned_scientific_stage": "secondary-effect attribution",
-  "next_recommended_pass": "Interpret unresolved residuals without redefining normalized expression, N, M, M/N, or expected direct-effect evidence.",
+  "next_planned_scientific_stage": "secondary-effect integration",
+  "next_recommended_pass": "Define secondary-effect integration without redefining normalized expression, N, M, M/N, expected direct-effect evidence, or residual support characterization.",
   "official_expected_direct_effect_contract": {
     "contract_name": "ExpectedDirectEffectResultV1",
     "schema_version": "1",
@@ -167,6 +168,11 @@
     "schema_version": "1",
     "workflow_stage": "isoform_uncertainty"
   },
+  "official_residual_attribution_contract": {
+    "contract_name": "ResidualAttributionResultV1",
+    "schema_version": "1",
+    "workflow_stage": "residual_attribution"
+  },
   "official_stage_registry": [
     "validate",
     "prepare_inputs",
@@ -176,9 +182,10 @@
     "isoform_uncertainty",
     "transcript_targetability",
     "transcript_targetability_ratio",
-    "expected_direct_effect"
+    "expected_direct_effect",
+    "residual_attribution"
   ],
-  "official_terminal_stage": "expected_direct_effect",
+  "official_terminal_stage": "residual_attribution",
   "official_transcript_targetability_contract": {
     "contract_name": "TranscriptTargetabilityResultV1",
     "schema_version": "1",
@@ -217,8 +224,8 @@
     "passed": true,
     "release_tests_required_from_extracted_zip": true,
     "source_checksum_match_required": true,
-    "source_inventory_count": 636,
-    "source_tree_sha256": "aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f",
+    "source_inventory_count": 644,
+    "source_tree_sha256": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d",
     "status": "PASSED",
     "verification_type": "post-package-verification"
   },
@@ -239,10 +246,10 @@
   },
   "quick_start_result": "PASSED",
   "readme_quality_metrics": {
-    "branch_coverage": "0.8512",
+    "branch_coverage": "0.8502",
     "focused_scientific_tests_passed": 305,
-    "full_suite_passed": 572,
-    "line_coverage": "0.9479",
+    "full_suite_passed": 597,
+    "line_coverage": "0.9477",
     "portfolio_tests_passed": 35
   },
   "release_date": "2026-06-28",
@@ -251,6 +258,18 @@
   "repaired_source_checksum": "45236389734b36b341305c9574de0f883fef78dc67253bcd66d0cb663eeda9c3",
   "repository_name": "sirna-offtarget-analysis-harness",
   "required_baseline_zip_for_next_pass": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
+  "residual_attribution_canonical_artifacts": [
+    "residual_attribution_result_v1.json",
+    "residual_attribution_run_v1.json",
+    "residual_attribution_policy_v1.json",
+    "gene_residual_attribution_evidence_v1.jsonl",
+    "gene_residual_attribution_evidence_v1.tsv",
+    "residual_attribution_unresolved_v1.jsonl",
+    "residual_attribution_unresolved_v1.tsv",
+    "residual_attribution_summary_v1.json",
+    "residual_attribution_verification_v1.json",
+    "residual_attribution_warnings_v1.tsv"
+  ],
   "result_table_validation_result": "PASSED",
   "runtime_policy_support": {
     "fail_gene_policy": "When configured missing-transcript behavior is fail_gene, any missing eligible transcript fails the full gene and retained sites from that gene are forbidden.",
@@ -259,10 +278,10 @@
   },
   "scientific_regression_result": "PASSED",
   "source_inventory_artifact": "release_source_tree_inventory.json",
-  "source_inventory_artifact_sha256": "61a9c8724b73deafdc5ca491be1a93c6e18831b71d08434ddcf5719f0e8ee06e",
+  "source_inventory_artifact_sha256": "e4c12a4645847975b9f2e34d2cf7dc4a4750680af5f1c7e4c45ed329820a13ee",
   "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
-  "source_tree_checksum_sha256": "aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f",
-  "source_tree_included_file_count": 636,
+  "source_tree_checksum_sha256": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d",
+  "source_tree_included_file_count": 644,
   "static_scan_result": {
     "current_public_outputs": "no prohibited fields",
     "legacy_matches": "no executable scoring/classification package, contracts, schemas, CLI, or official DAG entries remain",
@@ -273,7 +292,7 @@
   },
   "test_counts": {
     "focused_scientific": 305,
-    "full_suite": 572,
+    "full_suite": 597,
     "integration": 33,
     "portfolio": 35,
     "unit_release": 29
@@ -288,12 +307,12 @@
       "status": "PASSED"
     },
     "full_suite": {
-      "collected": 572,
+      "collected": 597,
       "command": ".venv/bin/python -m pytest -q",
       "errors": 0,
       "exit_code": 0,
       "failed": 0,
-      "passed": 572,
+      "passed": 597,
       "skipped": 0,
       "status": "PASSED",
       "xfailed": 0
@@ -398,6 +417,18 @@
       "transcript_targetability",
       "transcript_targetability_ratio",
       "expected_direct_effect"
+    ],
+    "residual_attribution": [
+      "validate",
+      "prepare_inputs",
+      "map_identifiers",
+      "sequence_analysis",
+      "expression_analysis",
+      "isoform_uncertainty",
+      "transcript_targetability",
+      "transcript_targetability_ratio",
+      "expected_direct_effect",
+      "residual_attribution"
     ],
     "status": "PASSED",
     "transcript_targetability_ratio": [

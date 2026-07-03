@@ -10,5 +10,6 @@
 | Intended-target calibration | Implemented | Estimate targetable-transcript knockdown from intended target expression and M/N |
 | Expected direct effect | Implemented | Predict direct expression decrease from calibration and candidate M/N |
 | Unresolved residual value | Implemented | Store observed minus expected log2 change without attribution |
+| Residual support characterization | Implemented | Summarize residual direction, magnitude, and optional pathway support without final attribution |
 | Residual attribution | Planned | Interpret unexplained expression change |
 | Final classification | Planned | Direct, secondary, mixed, or unresolved |

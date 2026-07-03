@@ -12,5 +12,5 @@ def test_future_stage_request_fails_clearly(tmp_path: Path) -> None:
         run_staged_analysis(
             config_path=CONFIG,
             output_dir=tmp_path / "run",
-            until_stage="residual_attribution",
+            until_stage="final_classification",
         )

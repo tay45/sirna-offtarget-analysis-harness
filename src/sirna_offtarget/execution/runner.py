@@ -53,6 +53,9 @@ from sirna_offtarget.isoform_uncertainty.artifacts import (
     verify_committed_isoform_uncertainty_result,
     verify_isoform_uncertainty_final_outputs,
 )
+from sirna_offtarget.residual_attribution.artifacts import (
+    verify_residual_attribution_outputs,
+)
 from sirna_offtarget.transcript_targetability.artifacts import (
     verify_transcript_targetability_outputs,
 )
@@ -123,6 +126,14 @@ def _completed_manifest_valid(manifest_path: Path) -> tuple[bool, str]:
         if not direct_effect_verification["passed"]:
             return False, "expected direct-effect committed verification failed: " + ", ".join(
                 direct_effect_verification["errors"]
+            )
+    if manifest.get("stage_name") == "residual_attribution":
+        residual_verification = verify_residual_attribution_outputs(
+            manifest_path.parent / "committed" / "outputs"
+        )
+        if not residual_verification["passed"]:
+            return False, "residual attribution committed verification failed: " + ", ".join(
+                residual_verification["errors"]
             )
     return True, "completed attempt and output checksums are valid"
 
@@ -445,6 +456,15 @@ def execute_stage(
                 raise RuntimeError(
                     "expected direct-effect post-commit verification failed: "
                     + ", ".join(direct_effect_verification["errors"])
+                )
+        if stage.name == "residual_attribution":
+            residual_verification = verify_residual_attribution_outputs(
+                attempt_dir / "committed" / "outputs"
+            )
+            if not residual_verification["passed"]:
+                raise RuntimeError(
+                    "residual attribution post-commit verification failed: "
+                    + ", ".join(residual_verification["errors"])
                 )
         dump_json(
             attempt_dir / "status.json", {"status": manifest["status"], "completed_at": completed}

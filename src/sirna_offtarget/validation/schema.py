@@ -14,4 +14,8 @@ def required_output_files() -> set[str]:
         "expected_direct_effect_verification_v1.json",
         "gene_expected_direct_effects_v1.tsv",
         "intended_target_knockdown_calibration_v1.json",
+        "residual_attribution_result_v1.json",
+        "residual_attribution_summary_v1.json",
+        "residual_attribution_verification_v1.json",
+        "gene_residual_attribution_evidence_v1.tsv",
     }

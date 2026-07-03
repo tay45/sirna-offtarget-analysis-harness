@@ -16,7 +16,7 @@ def test_stage_dag_is_topologically_sorted() -> None:
     ordered = topological_sort()
     positions = {stage: index for index, stage in enumerate(ordered)}
     assert ordered[0] == "validate"
-    assert ordered[-1] == "expected_direct_effect"
+    assert ordered[-1] == "residual_attribution"
     for name, node in STAGE_NODES.items():
         for dependency in node.dependencies:
             assert positions[dependency] < positions[name]
@@ -36,6 +36,7 @@ def test_downstream_selection_is_transitive() -> None:
     assert "isoform_uncertainty" in affected
     assert "transcript_targetability_ratio" in affected
     assert "expected_direct_effect" in affected
+    assert "residual_attribution" in affected
     assert "sequence_analysis" not in affected
 
 
@@ -63,4 +64,19 @@ def test_until_expected_direct_effect_execution_plan_uses_transitive_prerequisit
         "transcript_targetability",
         "transcript_targetability_ratio",
         "expected_direct_effect",
+    ]
+
+
+def test_until_residual_attribution_execution_plan_uses_transitive_prerequisites_only() -> None:
+    assert execution_plan(until_stage="residual_attribution") == [
+        "validate",
+        "prepare_inputs",
+        "map_identifiers",
+        "sequence_analysis",
+        "expression_analysis",
+        "isoform_uncertainty",
+        "transcript_targetability",
+        "transcript_targetability_ratio",
+        "expected_direct_effect",
+        "residual_attribution",
     ]

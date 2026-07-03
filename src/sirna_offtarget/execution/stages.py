@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Protocol, cast
 
 from sirna_offtarget.contracts.stage_results import (
+    ExpectedDirectEffectResultV1,
     ExpressionAnalysisResultV2,
     IsoformUncertaintyResultV1,
     SequenceAnalysisResultV1,
@@ -28,6 +29,7 @@ from sirna_offtarget.expected_direct_effect.artifacts import (
 from sirna_offtarget.expected_direct_effect.contracts import (
     ExpectedDirectEffectPolicyV1,
     ExpectedDirectEffectRunRecordV1,
+    GeneExpectedDirectEffectRecordV1,
 )
 from sirna_offtarget.expected_direct_effect.core import compute_expected_direct_effects
 from sirna_offtarget.expression import analyze_expression_with_config
@@ -112,6 +114,18 @@ from sirna_offtarget.pathway.providers.loaders import (
     resolve_provider_snapshots,
     summarize_provider_snapshots,
 )
+from sirna_offtarget.residual_attribution.artifacts import (
+    sha256_file as residual_attribution_sha256_file,
+)
+from sirna_offtarget.residual_attribution.artifacts import (
+    verify_residual_attribution_outputs,
+    write_residual_attribution_artifacts,
+)
+from sirna_offtarget.residual_attribution.contracts import (
+    ResidualAttributionPolicyV1,
+    ResidualAttributionRunRecordV1,
+)
+from sirna_offtarget.residual_attribution.core import compute_residual_attribution
 from sirna_offtarget.sequence import map_sequence_hits
 from sirna_offtarget.transcript_targetability.artifacts import (
     verify_transcript_targetability_outputs,
@@ -2031,6 +2045,103 @@ class FunctionStage:
             payload=result_payload,
         )
 
+    def _execute_residual_attribution(
+        self, context: RunContext, attempt_directory: Path
+    ) -> StageExecutionResult:
+        started_at = _utc_now()
+        output_dir = attempt_directory / "outputs"
+        expected_direct_contract = load_dependency_contract(
+            context,
+            dependency_stage="expected_direct_effect",
+            expected_contract=ExpectedDirectEffectResultV1,
+        )
+        self._record_consumed(
+            context,
+            dependency_stage="expected_direct_effect",
+            contract=expected_direct_contract,
+            artifacts=[
+                "gene_expected_direct_effects_v1.jsonl",
+                "expected_direct_effect_result_v1.json",
+                "expected_direct_effect_summary_v1.json",
+                "expected_direct_effect_unresolved_v1.jsonl",
+            ],
+            payload_fields=["run_record", "counts"],
+        )
+        config = context.config.residual_attribution
+        if not config.enabled:
+            raise RuntimeError("residual attribution stage cannot be disabled")
+        expected_outputs = committed_contract_path(context.run_dir, "expected_direct_effect").parent
+        expected_verification = verify_expected_direct_effect_outputs(expected_outputs)
+        if not expected_verification["passed"]:
+            raise RuntimeError(
+                "residual attribution requires verified expected direct-effect outputs: "
+                + ", ".join(expected_verification["errors"])
+            )
+        expected_records_path = expected_outputs / "gene_expected_direct_effects_v1.jsonl"
+        expected_records = [
+            GeneExpectedDirectEffectRecordV1.model_validate(json.loads(line))
+            for line in expected_records_path.read_text().splitlines()
+            if line.strip()
+        ]
+        policy = ResidualAttributionPolicyV1(
+            policy_id=config.policy_id,
+            numerical_tolerance=config.numerical_tolerance,
+            negligible_residual_abs_log2_threshold=(config.negligible_residual_abs_log2_threshold),
+            moderate_residual_abs_log2_threshold=config.moderate_residual_abs_log2_threshold,
+            strong_residual_abs_log2_threshold=config.strong_residual_abs_log2_threshold,
+        )
+        computed = compute_residual_attribution(
+            expected_direct_effect_records=expected_records,
+            pathway_support_by_gene=None,
+            pathway_evidence_available=False,
+            policy=policy,
+            source_expected_direct_effect_checksum=residual_attribution_sha256_file(
+                expected_records_path
+            ),
+            source_pathway_evidence_checksum=None,
+        )
+        write_residual_attribution_artifacts(
+            output_dir=output_dir,
+            run_record=ResidualAttributionRunRecordV1(
+                run_id=context.run_id,
+                expected_direct_effect_result_id=expected_direct_contract.run_id,
+                expected_direct_effect_checksum=residual_attribution_sha256_file(
+                    expected_outputs / "stage_result.json"
+                ),
+                policy_id=policy.policy_id,
+                policy_checksum=policy.fingerprint,
+                started_at=started_at,
+                completed_at=_utc_now(),
+                status="completed",
+                source_counts={
+                    "gene_expected_direct_effect_records": len(expected_records),
+                    "pathway_support_records": 0,
+                },
+                verification_status="verified",
+                warnings=tuple(computed.warnings),
+            ),
+            policy=policy,
+            gene_evidence=computed.gene_evidence,
+            unresolved=computed.unresolved,
+            summary=computed.summary,
+            warnings=computed.warnings,
+        )
+        verification = verify_residual_attribution_outputs(output_dir)
+        if not verification["passed"]:
+            raise RuntimeError(
+                "residual attribution verification failed: " + ", ".join(verification["errors"])
+            )
+        result_payload = json.loads(
+            (output_dir / "residual_attribution_result_v1.json").read_text()
+        )
+        return StageExecutionResult(
+            sorted(output_dir.iterdir()),
+            computed.summary,
+            computed.warnings,
+            "ResidualAttributionResultV1",
+            payload=result_payload,
+        )
+
     def _execute_isoform_analysis(  # pragma: no cover
         self, context: RunContext, attempt_directory: Path
     ) -> StageExecutionResult:
@@ -2670,5 +2781,17 @@ def build_stages() -> dict[str, FunctionStage]:
             ),
             (),
             "Estimate expected direct expression effects without residual attribution.",
+        ),
+        "residual_attribution": FunctionStage(
+            "residual_attribution",
+            "1.0",
+            (
+                "residual_attribution",
+                "expected_direct_effect",
+                "pathway",
+                *common_execution,
+            ),
+            (),
+            "Characterize unresolved residual support without final classification.",
         ),
     }

@@ -34,8 +34,8 @@
       ".pyo"
     ]
   },
-  "generated_at": "2026-07-03T20:29:00Z",
-  "included_file_count": 636,
+  "generated_at": "2026-07-03T22:22:50Z",
+  "included_file_count": 644,
   "included_relative_paths": [
     ".github/workflows/ci.yml",
     ".gitignore",
@@ -493,6 +493,10 @@
     "src/sirna_offtarget/reporting/provenance.py",
     "src/sirna_offtarget/reporting/report_links.py",
     "src/sirna_offtarget/reporting/stage_reports.py",
+    "src/sirna_offtarget/residual_attribution/__init__.py",
+    "src/sirna_offtarget/residual_attribution/artifacts.py",
+    "src/sirna_offtarget/residual_attribution/contracts.py",
+    "src/sirna_offtarget/residual_attribution/core.py",
     "src/sirna_offtarget/sequence/__init__.py",
     "src/sirna_offtarget/sequence/accessibility.py",
     "src/sirna_offtarget/sequence/api.py",
@@ -526,6 +530,7 @@
     "tests/architecture/test_no_reserved_branding.py",
     "tests/architecture/test_path_search_contracts.py",
     "tests/architecture/test_plugin_isolation.py",
+    "tests/architecture/test_residual_attribution_boundaries.py",
     "tests/architecture/test_scientific_logic_boundaries.py",
     "tests/architecture/test_synthetic_provider_is_test_only.py",
     "tests/architecture/test_transcript_targetability_boundaries.py",
@@ -540,6 +545,7 @@
     "tests/integration/test_isoform_uncertainty_workflow_stage.py",
     "tests/integration/test_partial_run_verification.py",
     "tests/integration/test_release_evidence_pipeline.py",
+    "tests/integration/test_residual_attribution_pipeline.py",
     "tests/integration/test_resume_after_pathway_failure.py",
     "tests/integration/test_sidecar_checksum_matches_archive.py",
     "tests/integration/test_synthetic_workflow.py",
@@ -653,6 +659,8 @@
     "tests/unit/pathway/test_semantics_v2.py",
     "tests/unit/release/test_post_package_verification_schema.py",
     "tests/unit/release/test_release_evidence.py",
+    "tests/unit/residual_attribution/test_residual_attribution_artifacts.py",
+    "tests/unit/residual_attribution/test_residual_attribution_core.py",
     "tests/unit/test_cli_branch_routes.py",
     "tests/unit/test_coverage_expansion.py",
     "tests/unit/test_expression_isoform.py",
@@ -679,5 +687,5 @@
     "src",
     "tests"
   ],
-  "source_tree_checksum": "aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f"
+  "source_tree_checksum": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d"
 }

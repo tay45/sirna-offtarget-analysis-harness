@@ -29,6 +29,7 @@ STAGE_ORDER: tuple[str, ...] = (
     "transcript_targetability",
     "transcript_targetability_ratio",
     "expected_direct_effect",
+    "residual_attribution",
 )
 
 
@@ -60,6 +61,11 @@ STAGE_NODES: dict[str, StageNode] = {
         "expected_direct_effect",
         "1.0",
         ("expression_analysis", "transcript_targetability_ratio"),
+    ),
+    "residual_attribution": StageNode(
+        "residual_attribution",
+        "1.0",
+        ("expected_direct_effect",),
     ),
 }
 

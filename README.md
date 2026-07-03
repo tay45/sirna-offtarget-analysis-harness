@@ -15,8 +15,8 @@ targeting. Expression changes can also occur indirectly through pathway,
 regulatory, or stress-response effects. Transcript isoform structure complicates
 direct-target interpretation because a guide may target one transcript but not
 another. This harness separates and preserves these evidence types instead of
-collapsing them into one score. The current validated release establishes normalized expression processing, isoform-aware transcript eligibility, sequence-based transcript targetability, formal N/M/M/N estimation, intended-target calibration, expected direct-effect estimation, pathway evidence architecture, provenance, and independent verification.
-Residual attribution, secondary-effect integration, and final classification
+collapsing them into one score. The current validated release establishes normalized expression processing, isoform-aware transcript eligibility, sequence-based transcript targetability, formal N/M/M/N estimation, intended-target calibration, expected direct-effect estimation, residual support characterization, pathway evidence architecture, provenance, and independent verification.
+Secondary-effect integration and final direct / secondary / mixed classification
 remain planned.
 
 ![Current and planned architecture](docs/architecture_current_and_planned.png)
@@ -38,6 +38,7 @@ remain planned.
 - intended-target calibration
 - expected direct-effect estimate
 - unresolved residual value
+- residual support characterization
 - typed contracts
 - provenance
 - checksums
@@ -63,6 +64,7 @@ remain planned.
 | Intended-target calibration | Implemented | Estimate targetable-transcript knockdown from intended target expression and M/N |
 | Expected direct effect | Implemented | Predict direct expression decrease from calibration and candidate M/N |
 | Unresolved residual value | Implemented | Store observed minus expected log2 change without attribution |
+| Residual support characterization | Implemented | Summarize residual direction, magnitude, and optional pathway support without final attribution |
 | Residual attribution | Planned | Interpret unexplained expression change |
 | Final classification | Planned | Direct, secondary, mixed, or unresolved |
 
@@ -79,7 +81,8 @@ remain planned.
 9. The intended target's normalized expression change and M/N calibrate targetable-transcript knockdown.
 10. Candidate expected direct effects are computed from calibration and candidate M/N.
 11. Observed normalized change, expected direct effect, and unresolved residual are stored separately.
-12. Pathway evidence is preserved for later secondary-effect interpretation.
+12. Residual direction, magnitude, and optional pathway support are characterized without final classification.
+13. Pathway evidence remains supporting context for later secondary-effect interpretation.
 
 Small example: a gene has 4 eligible transcripts. One transcript has verified
 cleavage-compatible evidence, 2 transcripts have seed-only evidence, and 1
@@ -108,22 +111,27 @@ This executes exactly these official current stages:
 
 `validate`, `prepare_inputs`, `map_identifiers`, `sequence_analysis`,
 `expression_analysis`, `isoform_uncertainty`, `transcript_targetability`,
-`transcript_targetability_ratio`, `expected_direct_effect`.
+`transcript_targetability_ratio`, `expected_direct_effect`,
+`residual_attribution`.
 
 Running with `--until-stage transcript_targetability_ratio` stops at the prior
 ratio boundary when only N, M, and M/N artifacts are needed.
+Running with `--until-stage expected_direct_effect` stops at the expected
+direct-effect boundary before residual support characterization.
 
-Outputs are written to `examples/portfolio/output/`. Open this expected-effect
+Outputs are written to `examples/portfolio/output/`. Open this residual-support
 table first:
 
-`examples/portfolio/output/stages/09_expected_direct_effect/attempts/attempt_001/committed/outputs/gene_expected_direct_effects_v1.tsv`
+`examples/portfolio/output/stages/10_residual_attribution/attempts/attempt_001/committed/outputs/gene_residual_attribution_evidence_v1.tsv`
 
 Inspect observed normalized expression in `observed_normalized_log2fc`,
 sequence-derived N, M, and M/N in `n_total_eligible_transcripts`,
 `m_targetable_transcripts`, and `targetable_fraction_m_over_n`, the calibrated
 expected direct component in `expected_direct_effect_log2fc`, and the stored
-unresolved residual in `unresolved_residual_log2fc`. This residual is not a
-secondary-effect call.
+unresolved residual in `unresolved_residual_log2fc`. The residual support fields
+describe direction, magnitude, and optional pathway support only. They are not
+secondary-effect calls and are not final direct / secondary / mixed
+classifications.
 
 The curated portfolio summary table is:
 
@@ -151,11 +159,11 @@ and test-driven development.
 
 Post-cleanup release evidence reports:
 
-- full suite: 572 passed
+- full suite: 597 passed
 - portfolio tests: 35 portfolio tests passed
 - focused scientific tests: 305 passed
-- line coverage: 0.9479
-- branch coverage: 0.8512
+- line coverage: 0.9477
+- branch coverage: 0.8502
 - lint result: passed
 - formatting result: passed
 - typing result: passed

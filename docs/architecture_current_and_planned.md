@@ -21,6 +21,7 @@ flowchart LR
   exp["Expected direct effect"]:::done
   comp["Observed-versus-expected comparison"]:::done
   res["Unresolved residual value"]:::done
+  support["Residual support characterization"]:::done
   sec["Secondary-effect attribution"]:::planned
   cls["Direct / secondary / mixed / unresolved classification"]:::planned
 
@@ -38,7 +39,9 @@ flowchart LR
   cal --> exp
   exp --> comp
   comp --> res
+  res --> support
+  path -. optional context .-> support
   path -. planned .-> sec
-  res -. planned .-> sec
+  support -. planned .-> sec
   sec -. planned .-> cls
 ```

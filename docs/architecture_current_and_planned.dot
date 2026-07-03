@@ -19,6 +19,7 @@ digraph G {
     exp [label="Expected direct\neffect", fillcolor="#d1fae5", color="#0f766e"];
     comp [label="Observed-versus-\nexpected comparison", fillcolor="#d1fae5", color="#0f766e"];
     res [label="Unresolved\nresidual value", fillcolor="#d1fae5", color="#0f766e"];
+    support [label="Residual support\ncharacterization", fillcolor="#d1fae5", color="#0f766e"];
     path [label="Pathway and\nmechanistic evidence\narchitecture", fillcolor="#d1fae5", color="#0f766e"];
     store [label="Contracts, provenance,\nverification, artifact store", fillcolor="#ccfbf1", color="#0f766e"];
   }
@@ -47,7 +48,9 @@ digraph G {
   cal -> exp;
   exp -> comp;
   comp -> res;
+  res -> support;
+  path -> support [style=dashed, color="#0f766e"];
   path -> sec [style=dashed, color="#94a3b8"];
-  res -> sec [style=dashed, color="#94a3b8"];
+  support -> sec [style=dashed, color="#94a3b8"];
   sec -> cls [style=dashed, color="#94a3b8"];
 }

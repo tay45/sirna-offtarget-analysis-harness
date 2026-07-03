@@ -1,6 +1,20 @@
 # How to Read Results
 
-Start with the expected direct-effect table:
+Start with the residual support characterization table:
+
+`gene_residual_attribution_evidence_v1.tsv`
+
+Important columns:
+
+- `observed_normalized_log2fc`: committed normalized gene-expression change.
+- `expected_direct_effect_log2fc`: expected direct component on the log2 scale.
+- `observed_vs_expected_log2_difference`: observed log2 change minus expected direct component.
+- `unresolved_residual_log2fc`: preserved upstream residual.
+- `residual_direction`: whether the observed change is more decreased, less decreased/increased, or matching expectation.
+- `residual_magnitude_status`: negligible, weak, moderate, or strong residual magnitude.
+- `residual_support_status`: support characterization only, not a final secondary-effect attribution.
+
+For upstream expected direct-effect details, inspect:
 
 `gene_expected_direct_effects_v1.tsv`
 

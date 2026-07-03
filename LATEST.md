@@ -33,6 +33,8 @@ EXPECTED DIRECT EFFECT STATUS: COMPLETE
 
 UNRESOLVED RESIDUAL VALUE STATUS: COMPLETE
 
+RESIDUAL SUPPORT CHARACTERIZATION STATUS: COMPLETE
+
 RESIDUAL ATTRIBUTION STATUS: NOT STARTED
 
 SECONDARY-EFFECT STATUS: NOT STARTED
@@ -41,13 +43,16 @@ FINAL CLASSIFICATION STATUS: NOT STARTED
 
 ## Current Executable Pipeline
 
-- Official terminal executable stage: expected_direct_effect.
-- Default pipeline endpoint: expected_direct_effect.
+- Official terminal executable stage: residual_attribution.
+- Default pipeline endpoint: residual_attribution.
 - `--until-stage transcript_targetability_ratio`: verified to execute only
   validate, prepare_inputs, map_identifiers, sequence_analysis,
   expression_analysis, isoform_uncertainty, transcript_targetability, and
   transcript_targetability_ratio.
-- Full default execution additionally runs expected_direct_effect.
+- `--until-stage expected_direct_effect`: verified to stop before residual
+  support characterization.
+- Full default execution additionally runs expected_direct_effect and
+  residual_attribution.
 - Candidate-scoring status: removed from the official package, stage registry,
   stage contracts, schemas, examples, and CLI.
 - Prohibited-field scan: PASSED for current public portfolio outputs.
@@ -57,18 +62,18 @@ FINAL CLASSIFICATION STATUS: NOT STARTED
 
 ## Evidence
 
-- Full test suite: passed, 572 tests.
+- Full test suite: passed, 597 tests.
 - Full-suite exit code: 0.
 - Portfolio tests: passed, 35 tests.
 - Focused scientific tests: passed, 305 tests.
-- Line coverage: 0.9479
-- Branch coverage: 0.8512
-- Source checksum: aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f.
-- Source inventory count: 636.
+- Line coverage: 0.9477
+- Branch coverage: 0.8502
+- Source checksum: 62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d.
+- Source inventory count: 644.
 - Final archive filename: sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.
 - FINAL ARCHIVE CHECKSUM MODEL: EXTERNAL SIDECAR
 - FINAL ARCHIVE SIDECAR: sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.sha256
-- INTERNAL SOURCE CHECKSUM: aac43a3d8a09a73e2ad7b9830eb972eb8926c9a5a171b14f43c001fa03208f5f
+- INTERNAL SOURCE CHECKSUM: 62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d
 - ARCHIVE CHECKSUM: See adjacent SHA-256 sidecar file
 - Post-package verification passed: true.
 - Post-package verification status: PASSED.
@@ -83,15 +88,16 @@ FINAL CLASSIFICATION STATUS: NOT STARTED
 
 This release uses internal source integrity evidence and an adjacent external
 sidecar for final archive integrity. The current validated release ends at
-expected direct-effect estimation. It stores observed normalized expression
-change, N, M, M/N, intended-target calibration, expected direct effect, and an
-unresolved residual value separately. It does not attribute that residual to
-secondary effects, produce mixed-mechanism scores, risk tiers, or final direct /
+residual support characterization. It stores observed normalized expression
+change, N, M, M/N, intended-target calibration, expected direct effect,
+unresolved residual value, residual direction, residual magnitude, and optional
+pathway support separately. It does not attribute that residual to secondary
+effects, produce mixed-mechanism scores, risk tiers, or final direct /
 secondary / mixed classifications.
 
 ## Known Limitations
 
-- Residual attribution is not implemented.
+- Final residual attribution is not implemented.
 - Secondary-effect integration is not implemented.
 - Final classification remains planned.
 - Abundance-derived transcript proportions remain deferred.
@@ -99,5 +105,5 @@ secondary / mixed classifications.
 
 ## Next Planned Scientific Stage
 
-Interpret unresolved residuals without redefining normalized expression, N, M,
-M/N, or expected direct-effect evidence.
+Define secondary-effect integration without redefining normalized expression,
+N, M, M/N, expected direct-effect evidence, or residual support characterization.

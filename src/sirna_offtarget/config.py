@@ -206,6 +206,35 @@ class ExpectedDirectEffectConfig(ConfigModel):
         return self
 
 
+class ResidualAttributionConfig(ConfigModel):
+    enabled: bool = True
+    policy_id: str = "residual-attribution-v1-support-characterization"
+    numerical_tolerance: float = 1e-9
+    negligible_residual_abs_log2_threshold: float = 0.10
+    moderate_residual_abs_log2_threshold: float = 0.50
+    strong_residual_abs_log2_threshold: float = 1.00
+
+    @model_validator(mode="after")
+    def validate_residual_attribution(self) -> ResidualAttributionConfig:
+        if self.numerical_tolerance <= 0:
+            raise ValueError("residual_attribution.numerical_tolerance must be positive")
+        if self.negligible_residual_abs_log2_threshold < 0:
+            raise ValueError(
+                "residual_attribution.negligible_residual_abs_log2_threshold must be non-negative"
+            )
+        if self.moderate_residual_abs_log2_threshold <= self.negligible_residual_abs_log2_threshold:
+            raise ValueError(
+                "residual_attribution.moderate_residual_abs_log2_threshold must "
+                "exceed negligible threshold"
+            )
+        if self.strong_residual_abs_log2_threshold <= self.moderate_residual_abs_log2_threshold:
+            raise ValueError(
+                "residual_attribution.strong_residual_abs_log2_threshold must "
+                "exceed moderate threshold"
+            )
+        return self
+
+
 class PathwayConfig(ConfigModel):
     network_file: Path
     regulon_file: Path
@@ -283,6 +312,9 @@ class HarnessConfig(ConfigModel):
     expected_direct_effect: ExpectedDirectEffectConfig = Field(
         default_factory=ExpectedDirectEffectConfig
     )
+    residual_attribution: ResidualAttributionConfig = Field(
+        default_factory=ResidualAttributionConfig
+    )
     pathway: PathwayConfig
     providers: dict[str, ProviderSelectionConfig] = Field(default_factory=dict)
     reporting: ReportingConfig = Field(default_factory=ReportingConfig)
@@ -300,6 +332,7 @@ class HarnessConfig(ConfigModel):
             "transcript_targetability",
             "transcript_targetability_ratio",
             "expected_direct_effect",
+            "residual_attribution",
         ):
             section = getattr(data, section_name)
             for key, value in section:
