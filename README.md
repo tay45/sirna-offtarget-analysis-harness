@@ -58,6 +58,10 @@ assessment, or regulatory conclusions.
 
 - external biological benchmark validation
 - calibration against real perturbation datasets
+- optional ML-assisted evidence weighting after sufficient benchmark data are available
+- confidence calibration using external perturbation datasets
+- benchmark-driven comparison between the current rule-based evidence classification
+  and future statistical/ML models
 - optional model tuning after benchmark evidence
 - possible future biological or regulatory validation, clearly labeled as future work
 
@@ -78,6 +82,9 @@ assessment, or regulatory conclusions.
 | Final evidence classification | Implemented | Conservative evidence labels, not definitive biological truth claims |
 | External biological benchmark validation | Planned | Evaluate evidence interpretations against real perturbation benchmarks |
 | Calibration against real perturbation datasets | Planned | Recalibrate evidence policies only after benchmark evidence exists |
+| Optional ML-assisted evidence weighting | Planned | Future benchmark-dependent work after sufficient external perturbation data are available |
+| Confidence calibration using external perturbation datasets | Planned | Future calibration of evidence confidence, not current biological validation |
+| Rule-based versus statistical/ML model comparison | Planned | Benchmark-driven comparison against the current deterministic rule-based classifier |
 | Optional model tuning after benchmark evidence | Planned | Tune conservative thresholds only after external validation |
 | Possible future biological or regulatory validation | Planned | Future work only; not part of the current release claims |
 
@@ -207,6 +214,8 @@ archive to insert that checksum would change the checksum itself.
 ## Current Limitations
 
 - current release emits conservative evidence labels, not definitive truth claims
+- current release uses deterministic, rule-based, evidence-preserving classification;
+  ML-assisted weighting is future benchmark-dependent work only
 - no production-scale biological benchmark has yet been completed
 - equal-transcript prior is a deliberate default under short-read isoform uncertainty
 - seed-only evidence is preserved but excluded from default cleavage-compatible M

@@ -97,16 +97,22 @@ residual value, residual direction, residual magnitude, optional pathway
 support, evidence readiness, and conservative evidence classification labels.
 The labels are evidence-based interpretations, not definitive biological,
 clinical, toxicological, or regulatory conclusions.
+The current release uses deterministic, rule-based, evidence-preserving
+classification. ML-assisted evidence weighting is future benchmark-dependent
+work only.
 
 ## Known Limitations
 
 - Final evidence classification is implemented as conservative evidence labels.
 - External benchmark validation remains planned.
 - Calibration against real perturbation datasets remains planned.
+- Confidence calibration, optional ML-assisted evidence weighting, and
+  statistical/ML model comparison remain future benchmark-dependent work.
 - Abundance-derived transcript proportions remain deferred.
 - Passenger-strand search remains unsupported.
 
 ## Next Planned Scientific Stage
 
 Validate final evidence classification against external benchmark perturbation
-datasets before any optional model tuning.
+datasets before any confidence calibration, optional ML-assisted evidence
+weighting, statistical/ML model comparison, or optional model tuning.

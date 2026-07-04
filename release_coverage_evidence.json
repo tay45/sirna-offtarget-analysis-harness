@@ -14,7 +14,7 @@
   "lines_valid": 10629,
   "min_branch_rate": "0.85",
   "min_line_rate": "0.92",
-  "source_tree_checksum_sha256": "032e517d9cd47d709f2860d57d7474998d2c58412618a9d34dea84224eebb9be",
+  "source_tree_checksum_sha256": "fa205e37c38bfe5a57bf29e5f6e728ad86271c5228de6bd8aa8b6637aa7ef387",
   "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
   "threshold_result": "PASSED"
 }
