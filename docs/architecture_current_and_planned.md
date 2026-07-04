@@ -22,6 +22,7 @@ flowchart LR
   comp["Observed-versus-expected comparison"]:::done
   res["Unresolved residual value"]:::done
   support["Residual support characterization"]:::done
+  secint["Secondary evidence integration<br/>Classification-ready evidence"]:::done
   sec["Secondary-effect attribution"]:::planned
   cls["Direct / secondary / mixed / unresolved classification"]:::planned
 
@@ -41,7 +42,9 @@ flowchart LR
   comp --> res
   res --> support
   path -. optional context .-> support
+  support --> secint
+  path -. optional context .-> secint
   path -. planned .-> sec
-  support -. planned .-> sec
+  secint -. planned .-> sec
   sec -. planned .-> cls
 ```

@@ -63,11 +63,11 @@
   ],
   "confidentiality_scan_result": "PASSED",
   "coverage": {
-    "branch_rate": "0.8502",
-    "line_rate": "0.9477"
+    "branch_rate": "0.8513",
+    "line_rate": "0.9480"
   },
   "coverage_evidence": {
-    "branch_rate": "0.8502",
+    "branch_rate": "0.8513",
     "branches_covered": 2156,
     "branches_missed": 380,
     "branches_valid": 2536,
@@ -76,20 +76,20 @@
     "coverage_xml_path": "coverage.xml",
     "coverage_xml_sha256": "bb0af866bd495bd29e3080b74455826a9f3c0810a83319d40c54b6bf87787fc3",
     "coverage_xml_timestamp": "1783116803365",
-    "line_rate": "0.9477",
+    "line_rate": "0.9480",
     "lines_covered": 9377,
     "lines_missed": 517,
     "lines_valid": 9894,
     "min_branch_rate": "0.85",
     "min_line_rate": "0.92",
-    "source_tree_checksum_sha256": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d",
+    "source_tree_checksum_sha256": "9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122",
     "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
     "threshold_result": "PASSED"
   },
   "coverage_evidence_artifact": "release_coverage_evidence.json",
-  "coverage_evidence_artifact_sha256": "85bc2c6108f9d76bad54098d6b89c830d8ed1da7a3954c808d88e823205e121b",
-  "current_stage": "residual support characterization",
-  "default_pipeline_endpoint": "residual_attribution",
+  "coverage_evidence_artifact_sha256": "0f8c3417e4a0cc7e635cae5b9193fdb7c455a49f9afc272f34c0fe138c70e050",
+  "current_stage": "secondary evidence integration",
+  "default_pipeline_endpoint": "secondary_evidence_integration",
   "deferred_stages": [
     "abundance-derived transcript proportions",
     "secondary-effect scoring",
@@ -131,20 +131,20 @@
     "status": "COMPLETE"
   },
   "format_result": "PASSED",
-  "full_suite_test_count": 597,
-  "generated_at_utc": "2026-07-03T22:22:44Z",
+  "full_suite_test_count": 634,
+  "generated_at_utc": "2026-07-03T23:46:26Z",
   "import_boundary_result": "PASSED",
   "incomplete_stages": [],
   "known_limitations": [
-    "Final residual attribution, secondary-effect integration, and final classification are not implemented.",
+    "Final direct / secondary / mixed / off-target classification is not implemented.",
     "Abundance-derived transcript proportions remain deferred.",
     "Passenger-strand search remains explicitly unsupported and fails fast if requested."
   ],
   "latest_zip_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
   "legacy_classification_artifact_status": "removed from public portfolio repository",
   "lint_result": "PASSED",
-  "next_planned_scientific_stage": "secondary-effect integration",
-  "next_recommended_pass": "Define secondary-effect integration without redefining normalized expression, N, M, M/N, expected direct-effect evidence, or residual support characterization.",
+  "next_planned_scientific_stage": "final classification",
+  "next_recommended_pass": "Define final classification without redefining normalized expression, N, M, M/N, expected direct-effect evidence, residual support characterization, or secondary evidence integration.",
   "official_expected_direct_effect_contract": {
     "contract_name": "ExpectedDirectEffectResultV1",
     "schema_version": "1",
@@ -173,6 +173,11 @@
     "schema_version": "1",
     "workflow_stage": "residual_attribution"
   },
+  "official_secondary_evidence_integration_contract": {
+    "contract_name": "SecondaryEvidenceIntegrationResultV1",
+    "schema_version": "1",
+    "workflow_stage": "secondary_evidence_integration"
+  },
   "official_stage_registry": [
     "validate",
     "prepare_inputs",
@@ -183,9 +188,10 @@
     "transcript_targetability",
     "transcript_targetability_ratio",
     "expected_direct_effect",
-    "residual_attribution"
+    "residual_attribution",
+    "secondary_evidence_integration"
   ],
-  "official_terminal_stage": "residual_attribution",
+  "official_terminal_stage": "secondary_evidence_integration",
   "official_transcript_targetability_contract": {
     "contract_name": "TranscriptTargetabilityResultV1",
     "schema_version": "1",
@@ -201,9 +207,11 @@
     "architecture_diagram_status": "COMPLETE",
     "clean_clone_result": "PASSED",
     "confidentiality_review_status": "PASSED",
+    "full_suite_passed": 634,
     "gitignore_status": "COMPLETE",
     "legacy_output_cleanup_status": "COMPLETE",
     "license_status": "COMPLETE",
+    "line_coverage": "0.9480",
     "personal_path_scan_status": "PASSED",
     "public_example_status": "COMPLETE",
     "public_readme_status": "COMPLETE",
@@ -224,8 +232,8 @@
     "passed": true,
     "release_tests_required_from_extracted_zip": true,
     "source_checksum_match_required": true,
-    "source_inventory_count": 644,
-    "source_tree_sha256": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d",
+    "source_inventory_count": 652,
+    "source_tree_sha256": "9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122",
     "status": "PASSED",
     "verification_type": "post-package-verification"
   },
@@ -246,10 +254,10 @@
   },
   "quick_start_result": "PASSED",
   "readme_quality_metrics": {
-    "branch_coverage": "0.8502",
+    "branch_coverage": "0.8513",
     "focused_scientific_tests_passed": 305,
-    "full_suite_passed": 597,
-    "line_coverage": "0.9477",
+    "full_suite_passed": 634,
+    "line_coverage": "0.9480",
     "portfolio_tests_passed": 35
   },
   "release_date": "2026-06-28",
@@ -277,11 +285,23 @@
     "original_transcript_verification_policy": "Verifier reloads original transcript sequence records, recomputes sequence checksums, transcript slices, guide-search orientation, mismatches, alignment rows, evidence aggregation, and site ids."
   },
   "scientific_regression_result": "PASSED",
+  "secondary_evidence_integration_canonical_artifacts": [
+    "secondary_evidence_integration_result_v1.json",
+    "secondary_evidence_integration_run_v1.json",
+    "secondary_evidence_integration_policy_v1.json",
+    "gene_secondary_evidence_integration_v1.jsonl",
+    "gene_secondary_evidence_integration_v1.tsv",
+    "secondary_evidence_integration_unresolved_v1.jsonl",
+    "secondary_evidence_integration_unresolved_v1.tsv",
+    "secondary_evidence_integration_summary_v1.json",
+    "secondary_evidence_integration_verification_v1.json",
+    "secondary_evidence_integration_warnings_v1.tsv"
+  ],
   "source_inventory_artifact": "release_source_tree_inventory.json",
-  "source_inventory_artifact_sha256": "e4c12a4645847975b9f2e34d2cf7dc4a4750680af5f1c7e4c45ed329820a13ee",
+  "source_inventory_artifact_sha256": "dad9e971e1e52eb64aa641807d225cb3d4e4c8012c8a0f6a68009bfa0145bdb1",
   "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
-  "source_tree_checksum_sha256": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d",
-  "source_tree_included_file_count": 644,
+  "source_tree_checksum_sha256": "9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122",
+  "source_tree_included_file_count": 652,
   "static_scan_result": {
     "current_public_outputs": "no prohibited fields",
     "legacy_matches": "no executable scoring/classification package, contracts, schemas, CLI, or official DAG entries remain",
@@ -292,7 +312,7 @@
   },
   "test_counts": {
     "focused_scientific": 305,
-    "full_suite": 597,
+    "full_suite": 634,
     "integration": 33,
     "portfolio": 35,
     "unit_release": 29
@@ -307,12 +327,12 @@
       "status": "PASSED"
     },
     "full_suite": {
-      "collected": 597,
+      "collected": 634,
       "command": ".venv/bin/python -m pytest -q",
       "errors": 0,
       "exit_code": 0,
       "failed": 0,
-      "passed": 597,
+      "passed": 634,
       "skipped": 0,
       "status": "PASSED",
       "xfailed": 0
@@ -429,6 +449,19 @@
       "transcript_targetability_ratio",
       "expected_direct_effect",
       "residual_attribution"
+    ],
+    "secondary_evidence_integration": [
+      "validate",
+      "prepare_inputs",
+      "map_identifiers",
+      "sequence_analysis",
+      "expression_analysis",
+      "isoform_uncertainty",
+      "transcript_targetability",
+      "transcript_targetability_ratio",
+      "expected_direct_effect",
+      "residual_attribution",
+      "secondary_evidence_integration"
     ],
     "status": "PASSED",
     "transcript_targetability_ratio": [

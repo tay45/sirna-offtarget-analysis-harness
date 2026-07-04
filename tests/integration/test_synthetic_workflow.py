@@ -21,12 +21,12 @@ def test_complete_synthetic_workflow(tmp_path: Path) -> None:
     expected = (
         out
         / "stages"
-        / "10_residual_attribution"
+        / "11_secondary_evidence_integration"
         / "attempts"
         / "attempt_001"
         / "committed"
         / "outputs"
-        / "gene_residual_attribution_evidence_v1.tsv"
+        / "gene_secondary_evidence_integration_v1.tsv"
     )
     assert expected.exists()
     assert not (out / "complete_results.json").exists()

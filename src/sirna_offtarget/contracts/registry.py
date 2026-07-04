@@ -14,6 +14,7 @@ from sirna_offtarget.contracts.stage_results import (
     PathwayEnrichmentResultV2,
     PreparedInputsResultV1,
     ResidualAttributionResultV1,
+    SecondaryEvidenceIntegrationResultV1,
     SequenceAnalysisResultV1,
     TranscriptTargetabilityRatioResultV1,
     TranscriptTargetabilityResultV1,
@@ -35,6 +36,7 @@ CONTRACT_REGISTRY: dict[str, type[StageContract]] = {
         TranscriptTargetabilityResultV1,
         TranscriptTargetabilityRatioResultV1,
         ResidualAttributionResultV1,
+        SecondaryEvidenceIntegrationResultV1,
         PathwayEnrichmentResultV1,
         PathwayEnrichmentResultV2,
         MechanisticNetworkResultV1,
@@ -53,4 +55,5 @@ STAGE_CONTRACTS: dict[str, type[StageContract]] = {
     "transcript_targetability_ratio": TranscriptTargetabilityRatioResultV1,
     "expected_direct_effect": ExpectedDirectEffectResultV1,
     "residual_attribution": ResidualAttributionResultV1,
+    "secondary_evidence_integration": SecondaryEvidenceIntegrationResultV1,
 }

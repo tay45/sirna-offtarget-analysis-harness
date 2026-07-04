@@ -27,7 +27,9 @@ def _outputs(out: Path, stage: str) -> Path:
 
 def test_residual_attribution_pipeline_outputs_verify(tmp_path: Path) -> None:
     out = tmp_path / "run"
-    rows = run_staged_analysis(config_path=CONFIG, output_dir=out)
+    rows = run_staged_analysis(
+        config_path=CONFIG, output_dir=out, until_stage="residual_attribution"
+    )
     assert rows[-1]["stage"] == "residual_attribution"
     outputs = _outputs(out, "residual_attribution")
     assert verify_residual_attribution_outputs(outputs)["passed"]
@@ -74,7 +76,9 @@ def test_until_transcript_targetability_ratio_still_stops_at_ratio(tmp_path: Pat
 
 def test_residual_attribution_resume_reuses_committed_stage(tmp_path: Path) -> None:
     out = tmp_path / "run"
-    run_staged_analysis(config_path=CONFIG, output_dir=out)
-    second = run_staged_analysis(config_path=CONFIG, output_dir=out)
+    run_staged_analysis(config_path=CONFIG, output_dir=out, until_stage="residual_attribution")
+    second = run_staged_analysis(
+        config_path=CONFIG, output_dir=out, until_stage="residual_attribution"
+    )
     assert second[-1]["stage"] == "residual_attribution"
     assert second[-1]["action"] == "reuse"

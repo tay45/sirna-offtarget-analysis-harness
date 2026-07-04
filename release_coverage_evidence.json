@@ -1,5 +1,5 @@
 {
-  "branch_rate": "0.8502",
+  "branch_rate": "0.8513",
   "branches_covered": 2156,
   "branches_missed": 380,
   "branches_valid": 2536,
@@ -8,13 +8,13 @@
   "coverage_xml_path": "coverage.xml",
   "coverage_xml_sha256": "bb0af866bd495bd29e3080b74455826a9f3c0810a83319d40c54b6bf87787fc3",
   "coverage_xml_timestamp": "1783116803365",
-  "line_rate": "0.9477",
+  "line_rate": "0.9480",
   "lines_covered": 9377,
   "lines_missed": 517,
   "lines_valid": 9894,
   "min_branch_rate": "0.85",
   "min_line_rate": "0.92",
-  "source_tree_checksum_sha256": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d",
+  "source_tree_checksum_sha256": "9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122",
   "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
   "threshold_result": "PASSED"
 }

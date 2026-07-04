@@ -10,6 +10,7 @@ from sirna_offtarget.contracts.stage_results import (
     ExpectedDirectEffectResultV1,
     ExpressionAnalysisResultV2,
     IsoformUncertaintyResultV1,
+    ResidualAttributionResultV1,
     SequenceAnalysisResultV1,
     TranscriptTargetabilityRatioResultV1,
     TranscriptTargetabilityResultV1,
@@ -122,10 +123,26 @@ from sirna_offtarget.residual_attribution.artifacts import (
     write_residual_attribution_artifacts,
 )
 from sirna_offtarget.residual_attribution.contracts import (
+    GeneResidualAttributionEvidenceRecordV1,
     ResidualAttributionPolicyV1,
     ResidualAttributionRunRecordV1,
+    ResidualAttributionUnresolvedRecordV1,
 )
 from sirna_offtarget.residual_attribution.core import compute_residual_attribution
+from sirna_offtarget.secondary_evidence_integration.artifacts import (
+    sha256_file as secondary_evidence_integration_sha256_file,
+)
+from sirna_offtarget.secondary_evidence_integration.artifacts import (
+    verify_secondary_evidence_integration_outputs,
+    write_secondary_evidence_integration_artifacts,
+)
+from sirna_offtarget.secondary_evidence_integration.contracts import (
+    SecondaryEvidenceIntegrationPolicyV1,
+    SecondaryEvidenceIntegrationRunRecordV1,
+)
+from sirna_offtarget.secondary_evidence_integration.core import (
+    compute_secondary_evidence_integration,
+)
 from sirna_offtarget.sequence import map_sequence_hits
 from sirna_offtarget.transcript_targetability.artifacts import (
     verify_transcript_targetability_outputs,
@@ -2142,6 +2159,105 @@ class FunctionStage:
             payload=result_payload,
         )
 
+    def _execute_secondary_evidence_integration(
+        self, context: RunContext, attempt_directory: Path
+    ) -> StageExecutionResult:
+        started_at = _utc_now()
+        output_dir = attempt_directory / "outputs"
+        residual_contract = load_dependency_contract(
+            context,
+            dependency_stage="residual_attribution",
+            expected_contract=ResidualAttributionResultV1,
+        )
+        self._record_consumed(
+            context,
+            dependency_stage="residual_attribution",
+            contract=residual_contract,
+            artifacts=[
+                "gene_residual_attribution_evidence_v1.jsonl",
+                "residual_attribution_result_v1.json",
+                "residual_attribution_summary_v1.json",
+                "residual_attribution_unresolved_v1.jsonl",
+            ],
+            payload_fields=["run_record", "counts"],
+        )
+        config = context.config.secondary_evidence_integration
+        if not config.enabled:
+            raise RuntimeError("secondary evidence integration stage cannot be disabled")
+        residual_outputs = committed_contract_path(context.run_dir, "residual_attribution").parent
+        residual_verification = verify_residual_attribution_outputs(residual_outputs)
+        if not residual_verification["passed"]:
+            raise RuntimeError(
+                "secondary evidence integration requires verified residual-attribution outputs: "
+                + ", ".join(residual_verification["errors"])
+            )
+        residual_records_path = residual_outputs / "gene_residual_attribution_evidence_v1.jsonl"
+        residual_unresolved_path = residual_outputs / "residual_attribution_unresolved_v1.jsonl"
+        residual_records = [
+            GeneResidualAttributionEvidenceRecordV1.model_validate(json.loads(line))
+            for line in residual_records_path.read_text().splitlines()
+            if line.strip()
+        ]
+        residual_unresolved = [
+            ResidualAttributionUnresolvedRecordV1.model_validate(json.loads(line))
+            for line in residual_unresolved_path.read_text().splitlines()
+            if line.strip()
+        ]
+        policy = SecondaryEvidenceIntegrationPolicyV1(
+            policy_id=config.policy_id,
+            numerical_tolerance=config.numerical_tolerance,
+        )
+        computed = compute_secondary_evidence_integration(
+            residual_attribution_records=residual_records,
+            residual_unresolved_records=residual_unresolved,
+            policy=policy,
+            source_residual_attribution_checksum=secondary_evidence_integration_sha256_file(
+                residual_records_path
+            ),
+        )
+        write_secondary_evidence_integration_artifacts(
+            output_dir=output_dir,
+            run_record=SecondaryEvidenceIntegrationRunRecordV1(
+                run_id=context.run_id,
+                residual_attribution_result_id=residual_contract.run_id,
+                residual_attribution_checksum=secondary_evidence_integration_sha256_file(
+                    residual_outputs / "stage_result.json"
+                ),
+                policy_id=policy.policy_id,
+                policy_checksum=policy.fingerprint,
+                started_at=started_at,
+                completed_at=_utc_now(),
+                status="completed",
+                source_counts={
+                    "gene_residual_attribution_evidence_records": len(residual_records),
+                    "residual_attribution_unresolved_records": len(residual_unresolved),
+                },
+                verification_status="verified",
+                warnings=tuple(computed.warnings),
+            ),
+            policy=policy,
+            gene_evidence=computed.gene_evidence,
+            unresolved=computed.unresolved,
+            summary=computed.summary,
+            warnings=computed.warnings,
+        )
+        verification = verify_secondary_evidence_integration_outputs(output_dir)
+        if not verification["passed"]:
+            raise RuntimeError(
+                "secondary evidence integration verification failed: "
+                + ", ".join(verification["errors"])
+            )
+        result_payload = json.loads(
+            (output_dir / "secondary_evidence_integration_result_v1.json").read_text()
+        )
+        return StageExecutionResult(
+            sorted(output_dir.iterdir()),
+            computed.summary,
+            computed.warnings,
+            "SecondaryEvidenceIntegrationResultV1",
+            payload=result_payload,
+        )
+
     def _execute_isoform_analysis(  # pragma: no cover
         self, context: RunContext, attempt_directory: Path
     ) -> StageExecutionResult:
@@ -2793,5 +2909,16 @@ def build_stages() -> dict[str, FunctionStage]:
             ),
             (),
             "Characterize unresolved residual support without final classification.",
+        ),
+        "secondary_evidence_integration": FunctionStage(
+            "secondary_evidence_integration",
+            "1.0",
+            (
+                "secondary_evidence_integration",
+                "residual_attribution",
+                *common_execution,
+            ),
+            (),
+            "Integrate classification-ready evidence without final classification.",
         ),
     }

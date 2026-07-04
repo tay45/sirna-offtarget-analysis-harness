@@ -35,7 +35,7 @@ def test_removed_stage_names_are_not_registered() -> None:
     assert "classification" not in STAGE_ORDER
     assert "classification" not in STAGE_NODES
     assert "classification" not in STAGE_CONTRACTS
-    assert list(STAGE_ORDER)[-1] == _snake("residual", "attribution")
+    assert list(STAGE_ORDER)[-1] == _snake("secondary", "evidence", "integration")
 
 
 def test_removed_contracts_configs_and_schemas_are_absent() -> None:
@@ -57,7 +57,8 @@ def test_current_source_contains_no_removed_execution_surface() -> None:
         _snake("candidate", "scoring"),
         _snake("direct", "effect", "score"),
         _snake("secondary", "effect", "score"),
-        _snake("final", "classification"),
+        _snake("final", "call"),
+        _snake("off", "target", "call"),
         _snake("mechanism", "classification"),
         _snake("risk", "score"),
         _snake("risk", "tier"),

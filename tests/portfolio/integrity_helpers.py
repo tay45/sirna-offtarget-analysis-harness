@@ -26,6 +26,7 @@ EXPECTED_CURRENT_STAGES = [
     *EXPECTED_RATIO_STAGES,
     "expected_direct_effect",
     "residual_attribution",
+    "secondary_evidence_integration",
 ]
 
 
@@ -66,7 +67,7 @@ PROHIBITED_TEXT = {
 }
 
 
-def run_portfolio(out: Path, until_stage: str | None = "residual_attribution") -> list[str]:
+def run_portfolio(out: Path, until_stage: str | None = None) -> list[str]:
     rows = run_staged_analysis(
         config_path=CONFIG,
         output_dir=out,

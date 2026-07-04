@@ -18,4 +18,8 @@ def required_output_files() -> set[str]:
         "residual_attribution_summary_v1.json",
         "residual_attribution_verification_v1.json",
         "gene_residual_attribution_evidence_v1.tsv",
+        "secondary_evidence_integration_result_v1.json",
+        "secondary_evidence_integration_summary_v1.json",
+        "secondary_evidence_integration_verification_v1.json",
+        "gene_secondary_evidence_integration_v1.tsv",
     }

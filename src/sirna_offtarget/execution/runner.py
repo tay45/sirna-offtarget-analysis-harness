@@ -56,6 +56,9 @@ from sirna_offtarget.isoform_uncertainty.artifacts import (
 from sirna_offtarget.residual_attribution.artifacts import (
     verify_residual_attribution_outputs,
 )
+from sirna_offtarget.secondary_evidence_integration.artifacts import (
+    verify_secondary_evidence_integration_outputs,
+)
 from sirna_offtarget.transcript_targetability.artifacts import (
     verify_transcript_targetability_outputs,
 )
@@ -134,6 +137,16 @@ def _completed_manifest_valid(manifest_path: Path) -> tuple[bool, str]:
         if not residual_verification["passed"]:
             return False, "residual attribution committed verification failed: " + ", ".join(
                 residual_verification["errors"]
+            )
+    if manifest.get("stage_name") == "secondary_evidence_integration":
+        integration_verification = verify_secondary_evidence_integration_outputs(
+            manifest_path.parent / "committed" / "outputs"
+        )
+        if not integration_verification["passed"]:
+            return (
+                False,
+                "secondary evidence integration committed verification failed: "
+                + ", ".join(integration_verification["errors"]),
             )
     return True, "completed attempt and output checksums are valid"
 
@@ -465,6 +478,15 @@ def execute_stage(
                 raise RuntimeError(
                     "residual attribution post-commit verification failed: "
                     + ", ".join(residual_verification["errors"])
+                )
+        if stage.name == "secondary_evidence_integration":
+            integration_verification = verify_secondary_evidence_integration_outputs(
+                attempt_dir / "committed" / "outputs"
+            )
+            if not integration_verification["passed"]:
+                raise RuntimeError(
+                    "secondary evidence integration post-commit verification failed: "
+                    + ", ".join(integration_verification["errors"])
                 )
         dump_json(
             attempt_dir / "status.json", {"status": manifest["status"], "completed_at": completed}

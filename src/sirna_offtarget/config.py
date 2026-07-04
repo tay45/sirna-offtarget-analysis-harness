@@ -235,6 +235,18 @@ class ResidualAttributionConfig(ConfigModel):
         return self
 
 
+class SecondaryEvidenceIntegrationConfig(ConfigModel):
+    enabled: bool = True
+    policy_id: str = "secondary-evidence-integration-v1-classification-ready-evidence"
+    numerical_tolerance: float = 1e-9
+
+    @model_validator(mode="after")
+    def validate_secondary_evidence_integration(self) -> SecondaryEvidenceIntegrationConfig:
+        if self.numerical_tolerance <= 0:
+            raise ValueError("secondary_evidence_integration.numerical_tolerance must be positive")
+        return self
+
+
 class PathwayConfig(ConfigModel):
     network_file: Path
     regulon_file: Path
@@ -315,6 +327,9 @@ class HarnessConfig(ConfigModel):
     residual_attribution: ResidualAttributionConfig = Field(
         default_factory=ResidualAttributionConfig
     )
+    secondary_evidence_integration: SecondaryEvidenceIntegrationConfig = Field(
+        default_factory=SecondaryEvidenceIntegrationConfig
+    )
     pathway: PathwayConfig
     providers: dict[str, ProviderSelectionConfig] = Field(default_factory=dict)
     reporting: ReportingConfig = Field(default_factory=ReportingConfig)
@@ -333,6 +348,7 @@ class HarnessConfig(ConfigModel):
             "transcript_targetability_ratio",
             "expected_direct_effect",
             "residual_attribution",
+            "secondary_evidence_integration",
         ):
             section = getattr(data, section_name)
             for key, value in section:

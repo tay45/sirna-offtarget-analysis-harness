@@ -34,8 +34,8 @@
       ".pyo"
     ]
   },
-  "generated_at": "2026-07-03T22:22:50Z",
-  "included_file_count": 644,
+  "generated_at": "2026-07-03T23:46:31Z",
+  "included_file_count": 652,
   "included_relative_paths": [
     ".github/workflows/ci.yml",
     ".gitignore",
@@ -497,6 +497,10 @@
     "src/sirna_offtarget/residual_attribution/artifacts.py",
     "src/sirna_offtarget/residual_attribution/contracts.py",
     "src/sirna_offtarget/residual_attribution/core.py",
+    "src/sirna_offtarget/secondary_evidence_integration/__init__.py",
+    "src/sirna_offtarget/secondary_evidence_integration/artifacts.py",
+    "src/sirna_offtarget/secondary_evidence_integration/contracts.py",
+    "src/sirna_offtarget/secondary_evidence_integration/core.py",
     "src/sirna_offtarget/sequence/__init__.py",
     "src/sirna_offtarget/sequence/accessibility.py",
     "src/sirna_offtarget/sequence/api.py",
@@ -532,6 +536,7 @@
     "tests/architecture/test_plugin_isolation.py",
     "tests/architecture/test_residual_attribution_boundaries.py",
     "tests/architecture/test_scientific_logic_boundaries.py",
+    "tests/architecture/test_secondary_evidence_integration_boundaries.py",
     "tests/architecture/test_synthetic_provider_is_test_only.py",
     "tests/architecture/test_transcript_targetability_boundaries.py",
     "tests/architecture/test_transcript_targetability_ratio_boundaries.py",
@@ -547,6 +552,7 @@
     "tests/integration/test_release_evidence_pipeline.py",
     "tests/integration/test_residual_attribution_pipeline.py",
     "tests/integration/test_resume_after_pathway_failure.py",
+    "tests/integration/test_secondary_evidence_integration_pipeline.py",
     "tests/integration/test_sidecar_checksum_matches_archive.py",
     "tests/integration/test_synthetic_workflow.py",
     "tests/portfolio/integrity_helpers.py",
@@ -661,6 +667,8 @@
     "tests/unit/release/test_release_evidence.py",
     "tests/unit/residual_attribution/test_residual_attribution_artifacts.py",
     "tests/unit/residual_attribution/test_residual_attribution_core.py",
+    "tests/unit/secondary_evidence_integration/test_secondary_evidence_integration_artifacts.py",
+    "tests/unit/secondary_evidence_integration/test_secondary_evidence_integration_core.py",
     "tests/unit/test_cli_branch_routes.py",
     "tests/unit/test_coverage_expansion.py",
     "tests/unit/test_expression_isoform.py",
@@ -687,5 +695,5 @@
     "src",
     "tests"
   ],
-  "source_tree_checksum": "62b5fd6e124c803e133aee5722e43be888bf765e6d2021bbc03250555edaef2d"
+  "source_tree_checksum": "9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122"
 }

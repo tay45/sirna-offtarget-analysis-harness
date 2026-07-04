@@ -15,9 +15,13 @@ targeting. Expression changes can also occur indirectly through pathway,
 regulatory, or stress-response effects. Transcript isoform structure complicates
 direct-target interpretation because a guide may target one transcript but not
 another. This harness separates and preserves these evidence types instead of
-collapsing them into one score. The current validated release establishes normalized expression processing, isoform-aware transcript eligibility, sequence-based transcript targetability, formal N/M/M/N estimation, intended-target calibration, expected direct-effect estimation, residual support characterization, pathway evidence architecture, provenance, and independent verification.
-Secondary-effect integration and final direct / secondary / mixed classification
-remain planned.
+collapsing them into one score. The current validated release establishes
+normalized expression processing, isoform-aware transcript eligibility,
+sequence-based transcript targetability, formal N/M/M/N estimation,
+intended-target calibration, expected direct-effect estimation, residual support
+characterization, secondary evidence integration, pathway evidence architecture,
+provenance, and independent verification. Final direct / secondary / mixed
+classification and final off-target calling remain planned.
 
 ![Current and planned architecture](docs/architecture_current_and_planned.png)
 
@@ -39,6 +43,7 @@ remain planned.
 - expected direct-effect estimate
 - unresolved residual value
 - residual support characterization
+- secondary evidence integration
 - typed contracts
 - provenance
 - checksums
@@ -49,7 +54,6 @@ remain planned.
 ## Planned, Not Yet Implemented
 
 - secondary-effect attribution
-- multi-source evidence integration
 - final direct / secondary / mixed classification
 
 ## Current vs Planned
@@ -112,26 +116,29 @@ This executes exactly these official current stages:
 `validate`, `prepare_inputs`, `map_identifiers`, `sequence_analysis`,
 `expression_analysis`, `isoform_uncertainty`, `transcript_targetability`,
 `transcript_targetability_ratio`, `expected_direct_effect`,
-`residual_attribution`.
+`residual_attribution`, `secondary_evidence_integration`.
 
 Running with `--until-stage transcript_targetability_ratio` stops at the prior
 ratio boundary when only N, M, and M/N artifacts are needed.
 Running with `--until-stage expected_direct_effect` stops at the expected
 direct-effect boundary before residual support characterization.
+Running with `--until-stage residual_attribution` stops at the residual support
+characterization boundary before classification-ready evidence integration.
 
-Outputs are written to `examples/portfolio/output/`. Open this residual-support
-table first:
+Outputs are written to `examples/portfolio/output/`. Open this
+classification-ready evidence table first:
 
-`examples/portfolio/output/stages/10_residual_attribution/attempts/attempt_001/committed/outputs/gene_residual_attribution_evidence_v1.tsv`
+`examples/portfolio/output/stages/11_secondary_evidence_integration/attempts/attempt_001/committed/outputs/gene_secondary_evidence_integration_v1.tsv`
 
 Inspect observed normalized expression in `observed_normalized_log2fc`,
 sequence-derived N, M, and M/N in `n_total_eligible_transcripts`,
 `m_targetable_transcripts`, and `targetable_fraction_m_over_n`, the calibrated
 expected direct component in `expected_direct_effect_log2fc`, and the stored
-unresolved residual in `unresolved_residual_log2fc`. The residual support fields
-describe direction, magnitude, and optional pathway support only. They are not
-secondary-effect calls and are not final direct / secondary / mixed
-classifications.
+unresolved residual in `unresolved_residual_log2fc`. The integration fields
+combine preserved sequence-derived evidence, expected direct-effect evidence,
+unresolved residual evidence, and optional pathway-support context into
+`evidence_readiness_status`. This is not a biological call; final direct /
+secondary / mixed / off-target classification remains planned.
 
 The curated portfolio summary table is:
 
@@ -159,11 +166,11 @@ and test-driven development.
 
 Post-cleanup release evidence reports:
 
-- full suite: 597 passed
+- full suite: 634 passed
 - portfolio tests: 35 portfolio tests passed
 - focused scientific tests: 305 passed
-- line coverage: 0.9477
-- branch coverage: 0.8502
+- line coverage: 0.9480
+- branch coverage: 0.8513
 - lint result: passed
 - formatting result: passed
 - typing result: passed

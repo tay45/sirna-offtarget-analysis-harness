@@ -1,8 +1,8 @@
 # How to Read Results
 
-Start with the residual support characterization table:
+Start with the classification-ready evidence integration table:
 
-`gene_residual_attribution_evidence_v1.tsv`
+`gene_secondary_evidence_integration_v1.tsv`
 
 Important columns:
 
@@ -13,6 +13,19 @@ Important columns:
 - `residual_direction`: whether the observed change is more decreased, less decreased/increased, or matching expectation.
 - `residual_magnitude_status`: negligible, weak, moderate, or strong residual magnitude.
 - `residual_support_status`: support characterization only, not a final secondary-effect attribution.
+- `direct_sequence_evidence_component`: sequence-derived evidence component, without seed-only upgrades.
+- `expected_direct_effect_component`: expected direct-effect evidence component.
+- `residual_evidence_component`: unresolved residual evidence component.
+- `pathway_support_component`: optional pathway-support context component.
+- `evidence_readiness_status`: readiness for a future final classification stage, not a biological call.
+
+Each gene-level record states that it integrates evidence for future final
+classification and is not a direct, secondary, mixed, or off-target
+classification.
+
+For upstream residual support characterization, inspect:
+
+`gene_residual_attribution_evidence_v1.tsv`
 
 For upstream expected direct-effect details, inspect:
 

@@ -22,6 +22,9 @@ from sirna_offtarget.models import (
 from sirna_offtarget.residual_attribution.contracts import (
     ResidualAttributionResultV1 as ResidualAttributionPayloadV1,
 )
+from sirna_offtarget.secondary_evidence_integration.contracts import (
+    SecondaryEvidenceIntegrationResultV1 as SecondaryEvidenceIntegrationPayloadV1,
+)
 from sirna_offtarget.transcript_targetability.contracts import (
     TranscriptTargetabilityResultV1 as TranscriptTargetabilityPayloadV1,
 )
@@ -414,6 +417,11 @@ class ExpectedDirectEffectResultV1(StageContract):
 class ResidualAttributionResultV1(StageContract):
     expected_contract_name: ClassVar[str] = "ResidualAttributionResultV1"
     payload: ResidualAttributionPayloadV1
+
+
+class SecondaryEvidenceIntegrationResultV1(StageContract):
+    expected_contract_name: ClassVar[str] = "SecondaryEvidenceIntegrationResultV1"
+    payload: SecondaryEvidenceIntegrationPayloadV1
 
 
 class PathwayEnrichmentResultV1(StageContract):
