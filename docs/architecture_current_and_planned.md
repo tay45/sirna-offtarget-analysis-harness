@@ -26,6 +26,7 @@ flowchart LR
   cls["Final evidence classification<br/>Conservative labels"]:::done
   bench["External biological benchmark validation"]:::planned
   realcal["Calibration against real perturbation datasets"]:::planned
+  mlweight["Optional ML-assisted<br/>evidence weighting /<br/>confidence calibration"]:::planned
   tuning["Optional model tuning after benchmark evidence"]:::planned
   futureval["Possible future biological or regulatory validation"]:::planned
 
@@ -50,6 +51,7 @@ flowchart LR
   secint --> cls
   cls -. planned .-> bench
   bench -. planned .-> realcal
-  realcal -. planned .-> tuning
+  realcal -. planned .-> mlweight
+  mlweight -. planned .-> tuning
   tuning -. planned .-> futureval
 ```

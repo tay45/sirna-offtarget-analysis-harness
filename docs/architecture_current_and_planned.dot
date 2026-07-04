@@ -34,6 +34,7 @@ digraph G {
     fontname="Helvetica-Bold";
     bench [label="External biological\nbenchmark validation", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
     realcal [label="Calibration against\nreal perturbation\ndatasets", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    mlweight [label="Optional ML-assisted\nevidence weighting /\nconfidence calibration", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
     tuning [label="Optional model\ntuning after\nbenchmark evidence", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
     futureval [label="Possible future\nbiological or regulatory\nvalidation", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
   }
@@ -59,6 +60,7 @@ digraph G {
   secint -> cls;
   cls -> bench [style=dashed, color="#94a3b8"];
   bench -> realcal [style=dashed, color="#94a3b8"];
-  realcal -> tuning [style=dashed, color="#94a3b8"];
+  realcal -> mlweight [style=dashed, color="#94a3b8"];
+  mlweight -> tuning [style=dashed, color="#94a3b8"];
   tuning -> futureval [style=dashed, color="#94a3b8"];
 }
