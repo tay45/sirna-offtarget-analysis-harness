@@ -10,30 +10,32 @@ digraph G {
     style="rounded";
     fontname="Helvetica-Bold";
     cfg [label="Input configuration", fillcolor="#d1fae5", color="#0f766e"];
-    expr [label="Normalized expression", fillcolor="#d1fae5", color="#0f766e"];
-    iso [label="Isoform uncertainty\nEqual-transcript prior", fillcolor="#d1fae5", color="#0f766e"];
+    expr [label="Normalized expression\nprocessing", fillcolor="#d1fae5", color="#0f766e"];
+    iso [label="Isoform-aware\ntranscript eligibility\nEqual-transcript prior", fillcolor="#d1fae5", color="#0f766e"];
     seq [label="Transcript sequence\nvalidation", fillcolor="#d1fae5", color="#0f766e"];
-    targ [label="Guide-strand\ntranscript targetability", fillcolor="#d1fae5", color="#0f766e"];
+    targ [label="Sequence-based\ntranscript targetability", fillcolor="#d1fae5", color="#0f766e"];
     ratio [label="N / M / M/N\nratio artifacts", fillcolor="#d1fae5", color="#0f766e"];
     cal [label="Intended-target\ncalibration", fillcolor="#d1fae5", color="#0f766e"];
-    exp [label="Expected direct\neffect", fillcolor="#d1fae5", color="#0f766e"];
+    exp [label="Expected direct-effect\nestimation", fillcolor="#d1fae5", color="#0f766e"];
     comp [label="Observed-versus-\nexpected comparison", fillcolor="#d1fae5", color="#0f766e"];
     res [label="Unresolved\nresidual value", fillcolor="#d1fae5", color="#0f766e"];
     support [label="Residual support\ncharacterization", fillcolor="#d1fae5", color="#0f766e"];
     secint [label="Secondary evidence\nintegration\nclassification-ready", fillcolor="#d1fae5", color="#0f766e"];
     cls [label="Final evidence\nclassification\nconservative labels", fillcolor="#d1fae5", color="#0f766e"];
     path [label="Pathway and\nmechanistic evidence\narchitecture", fillcolor="#d1fae5", color="#0f766e"];
-    store [label="Contracts, provenance,\nverification, artifact store", fillcolor="#ccfbf1", color="#0f766e"];
+    store [label="Contracts, provenance,\nchecksums, independent\nverification, artifact store", fillcolor="#ccfbf1", color="#0f766e"];
   }
 
   subgraph cluster_planned {
-    label="Planned integration";
+    label="Future validation and tuning";
     color="#94a3b8";
     penwidth=2;
     style="rounded,dashed";
     fontname="Helvetica-Bold";
-    bench [label="External benchmark\nvalidation", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
-    tuning [label="Optional model\ntuning", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    bench [label="External biological\nbenchmark validation", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    realcal [label="Calibration against\nreal perturbation\ndatasets", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    tuning [label="Optional model\ntuning after\nbenchmark evidence", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    futureval [label="Possible future\nbiological or regulatory\nvalidation", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
   }
 
   cfg -> expr;
@@ -56,5 +58,7 @@ digraph G {
   path -> secint [style=dashed, color="#0f766e"];
   secint -> cls;
   cls -> bench [style=dashed, color="#94a3b8"];
-  bench -> tuning [style=dashed, color="#94a3b8"];
+  bench -> realcal [style=dashed, color="#94a3b8"];
+  realcal -> tuning [style=dashed, color="#94a3b8"];
+  tuning -> futureval [style=dashed, color="#94a3b8"];
 }

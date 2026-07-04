@@ -56,10 +56,10 @@ assessment, or regulatory conclusions.
 
 ## Planned, Not Yet Implemented
 
-- secondary-effect attribution
-- external benchmark validation
+- external biological benchmark validation
 - calibration against real perturbation datasets
 - optional model tuning after benchmark evidence
+- possible future biological or regulatory validation, clearly labeled as future work
 
 ## Current vs Planned
 
@@ -74,9 +74,12 @@ assessment, or regulatory conclusions.
 | Expected direct effect | Implemented | Predict direct expression decrease from calibration and candidate M/N |
 | Unresolved residual value | Implemented | Store observed minus expected log2 change without attribution |
 | Residual support characterization | Implemented | Summarize residual direction, magnitude, and optional pathway support without final attribution |
-| Residual attribution | Planned | Interpret unexplained expression change |
+| Secondary evidence integration | Implemented | Integrate sequence, expected direct-effect, unresolved residual, and pathway-support evidence into classification-ready records |
 | Final evidence classification | Implemented | Conservative evidence labels, not definitive biological truth claims |
-| External benchmark validation | Planned | Validate and tune classifications against real perturbation datasets |
+| External biological benchmark validation | Planned | Evaluate evidence interpretations against real perturbation benchmarks |
+| Calibration against real perturbation datasets | Planned | Recalibrate evidence policies only after benchmark evidence exists |
+| Optional model tuning after benchmark evidence | Planned | Tune conservative thresholds only after external validation |
+| Possible future biological or regulatory validation | Planned | Future work only; not part of the current release claims |
 
 ## How the Current Analysis Works
 

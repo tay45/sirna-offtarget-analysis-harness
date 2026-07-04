@@ -82,12 +82,12 @@
     "lines_valid": 10629,
     "min_branch_rate": "0.85",
     "min_line_rate": "0.92",
-    "source_tree_checksum_sha256": "e126b6bc39fe10a8260698f669e205d75eb96856379d426c5575e460b57b7ec6",
+    "source_tree_checksum_sha256": "032e517d9cd47d709f2860d57d7474998d2c58412618a9d34dea84224eebb9be",
     "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
     "threshold_result": "PASSED"
   },
   "coverage_evidence_artifact": "release_coverage_evidence.json",
-  "coverage_evidence_artifact_sha256": "976daa2ed365b9a25644f96b1032460f8007e2500014891faecfc005c06c1a29",
+  "coverage_evidence_artifact_sha256": "5d228d8200e5e2bd17a806674f98d0364a3d2d61d4a2274c7a0cb6d7b1da4139",
   "current_stage": "final evidence classification",
   "default_pipeline_endpoint": "final_evidence_classification",
   "deferred_stages": [
@@ -144,7 +144,7 @@
   },
   "format_result": "PASSED",
   "full_suite_test_count": 669,
-  "generated_at_utc": "2026-07-04T02:19:05Z",
+  "generated_at_utc": "2026-07-04T03:59:51Z",
   "import_boundary_result": "PASSED",
   "incomplete_stages": [],
   "known_limitations": [
@@ -252,7 +252,7 @@
     "release_tests_required_from_extracted_zip": true,
     "source_checksum_match_required": true,
     "source_inventory_count": 660,
-    "source_tree_sha256": "e126b6bc39fe10a8260698f669e205d75eb96856379d426c5575e460b57b7ec6",
+    "source_tree_sha256": "032e517d9cd47d709f2860d57d7474998d2c58412618a9d34dea84224eebb9be",
     "status": "PASSED",
     "verification_type": "post-package-verification"
   },
@@ -282,7 +282,7 @@
   "release_date": "2026-06-28",
   "release_status": "COMPLETE",
   "release_type": "final-evidence-classification-terminal-stage-refresh",
-  "repaired_source_checksum": "e126b6bc39fe10a8260698f669e205d75eb96856379d426c5575e460b57b7ec6",
+  "repaired_source_checksum": "032e517d9cd47d709f2860d57d7474998d2c58412618a9d34dea84224eebb9be",
   "repository_name": "sirna-offtarget-analysis-harness",
   "required_baseline_zip_for_next_pass": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
   "residual_attribution_canonical_artifacts": [
@@ -317,9 +317,9 @@
     "secondary_evidence_integration_warnings_v1.tsv"
   ],
   "source_inventory_artifact": "release_source_tree_inventory.json",
-  "source_inventory_artifact_sha256": "b674d2c27101f310a608f23aa7d2333a4bf1eb149aaa5df7e76c92131cbc882c",
+  "source_inventory_artifact_sha256": "5ebdd0c1fe9e1a7810ea1270e36065039b5ae366c7513149d53937b1d5438e2a",
   "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
-  "source_tree_checksum_sha256": "e126b6bc39fe10a8260698f669e205d75eb96856379d426c5575e460b57b7ec6",
+  "source_tree_checksum_sha256": "032e517d9cd47d709f2860d57d7474998d2c58412618a9d34dea84224eebb9be",
   "source_tree_included_file_count": 660,
   "static_scan_result": {
     "current_public_outputs": "no prohibited fields",
