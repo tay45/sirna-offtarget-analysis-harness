@@ -10,4 +10,5 @@ def test_readme_distinguishes_implemented_and_planned() -> None:
     assert "| Expression normalization | Implemented |" in readme
     assert "| Intended-target calibration | Implemented |" in readme
     assert "| Expected direct effect | Implemented |" in readme
-    assert "| Final classification | Planned |" in readme
+    assert "| Final evidence classification | Implemented |" in readme
+    assert "| External benchmark validation | Planned |" in readme

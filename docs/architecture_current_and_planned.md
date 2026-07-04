@@ -23,8 +23,9 @@ flowchart LR
   res["Unresolved residual value"]:::done
   support["Residual support characterization"]:::done
   secint["Secondary evidence integration<br/>Classification-ready evidence"]:::done
-  sec["Secondary-effect attribution"]:::planned
-  cls["Direct / secondary / mixed / unresolved classification"]:::planned
+  cls["Final evidence classification<br/>Conservative labels"]:::done
+  bench["External benchmark validation"]:::planned
+  tuning["Optional model tuning"]:::planned
 
   cfg --> expr
   cfg --> iso
@@ -44,7 +45,7 @@ flowchart LR
   path -. optional context .-> support
   support --> secint
   path -. optional context .-> secint
-  path -. planned .-> sec
-  secint -. planned .-> sec
-  sec -. planned .-> cls
+  secint --> cls
+  cls -. planned .-> bench
+  bench -. planned .-> tuning
 ```

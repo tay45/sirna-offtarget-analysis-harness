@@ -22,4 +22,8 @@ def required_output_files() -> set[str]:
         "secondary_evidence_integration_summary_v1.json",
         "secondary_evidence_integration_verification_v1.json",
         "gene_secondary_evidence_integration_v1.tsv",
+        "final_evidence_classification_result_v1.json",
+        "final_evidence_classification_summary_v1.json",
+        "final_evidence_classification_verification_v1.json",
+        "gene_final_evidence_classifications_v1.tsv",
     }

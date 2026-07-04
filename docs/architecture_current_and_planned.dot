@@ -21,6 +21,7 @@ digraph G {
     res [label="Unresolved\nresidual value", fillcolor="#d1fae5", color="#0f766e"];
     support [label="Residual support\ncharacterization", fillcolor="#d1fae5", color="#0f766e"];
     secint [label="Secondary evidence\nintegration\nclassification-ready", fillcolor="#d1fae5", color="#0f766e"];
+    cls [label="Final evidence\nclassification\nconservative labels", fillcolor="#d1fae5", color="#0f766e"];
     path [label="Pathway and\nmechanistic evidence\narchitecture", fillcolor="#d1fae5", color="#0f766e"];
     store [label="Contracts, provenance,\nverification, artifact store", fillcolor="#ccfbf1", color="#0f766e"];
   }
@@ -31,8 +32,8 @@ digraph G {
     penwidth=2;
     style="rounded,dashed";
     fontname="Helvetica-Bold";
-    sec [label="Secondary-effect\nattribution", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
-    cls [label="Direct / secondary /\nmixed / unresolved\nclassification", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    bench [label="External benchmark\nvalidation", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
+    tuning [label="Optional model\ntuning", fillcolor="#f1f5f9", color="#94a3b8", style="rounded,filled,dashed"];
   }
 
   cfg -> expr;
@@ -53,7 +54,7 @@ digraph G {
   path -> support [style=dashed, color="#0f766e"];
   support -> secint;
   path -> secint [style=dashed, color="#0f766e"];
-  path -> sec [style=dashed, color="#94a3b8"];
-  secint -> sec [style=dashed, color="#94a3b8"];
-  sec -> cls [style=dashed, color="#94a3b8"];
+  secint -> cls;
+  cls -> bench [style=dashed, color="#94a3b8"];
+  bench -> tuning [style=dashed, color="#94a3b8"];
 }

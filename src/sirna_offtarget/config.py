@@ -247,6 +247,18 @@ class SecondaryEvidenceIntegrationConfig(ConfigModel):
         return self
 
 
+class FinalEvidenceClassificationConfig(ConfigModel):
+    enabled: bool = True
+    policy_id: str = "final-evidence-classification-v1-conservative"
+    numerical_tolerance: float = 1e-9
+
+    @model_validator(mode="after")
+    def validate_final_evidence_classification(self) -> FinalEvidenceClassificationConfig:
+        if self.numerical_tolerance <= 0:
+            raise ValueError("final_evidence_classification.numerical_tolerance must be positive")
+        return self
+
+
 class PathwayConfig(ConfigModel):
     network_file: Path
     regulon_file: Path
@@ -330,6 +342,9 @@ class HarnessConfig(ConfigModel):
     secondary_evidence_integration: SecondaryEvidenceIntegrationConfig = Field(
         default_factory=SecondaryEvidenceIntegrationConfig
     )
+    final_evidence_classification: FinalEvidenceClassificationConfig = Field(
+        default_factory=FinalEvidenceClassificationConfig
+    )
     pathway: PathwayConfig
     providers: dict[str, ProviderSelectionConfig] = Field(default_factory=dict)
     reporting: ReportingConfig = Field(default_factory=ReportingConfig)
@@ -349,6 +364,7 @@ class HarnessConfig(ConfigModel):
             "expected_direct_effect",
             "residual_attribution",
             "secondary_evidence_integration",
+            "final_evidence_classification",
         ):
             section = getattr(data, section_name)
             for key, value in section:

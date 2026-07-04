@@ -8,7 +8,6 @@ def test_no_downstream_artifacts_after_until_boundary(tmp_path: Path) -> None:
     run_portfolio(out)
     forbidden = (
         "*candidate*",
-        "*classification*",
         "*network_visualization*",
         "*final_reporting*",
         "*result_validation*",

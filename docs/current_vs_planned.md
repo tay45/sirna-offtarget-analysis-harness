@@ -12,4 +12,5 @@
 | Unresolved residual value | Implemented | Store observed minus expected log2 change without attribution |
 | Residual support characterization | Implemented | Summarize residual direction, magnitude, and optional pathway support without final attribution |
 | Secondary evidence integration | Implemented | Integrate sequence, expected direct-effect, unresolved residual, and pathway-support evidence into classification-ready records |
-| Final classification | Planned | Direct, secondary, mixed, or unresolved |
+| Final evidence classification | Implemented | Emit conservative evidence labels, not definitive biological or regulatory conclusions |
+| External benchmark validation | Planned | Validate and tune evidence labels against real perturbation datasets |

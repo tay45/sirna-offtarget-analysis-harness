@@ -27,6 +27,7 @@ EXPECTED_CURRENT_STAGES = [
     "expected_direct_effect",
     "residual_attribution",
     "secondary_evidence_integration",
+    "final_evidence_classification",
 ]
 
 

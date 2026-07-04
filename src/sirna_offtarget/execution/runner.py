@@ -49,6 +49,9 @@ from sirna_offtarget.execution.state import ReuseDecision, RunContext
 from sirna_offtarget.expected_direct_effect.artifacts import (
     verify_expected_direct_effect_outputs,
 )
+from sirna_offtarget.final_evidence_classification.artifacts import (
+    verify_final_evidence_classification_outputs,
+)
 from sirna_offtarget.isoform_uncertainty.artifacts import (
     verify_committed_isoform_uncertainty_result,
     verify_isoform_uncertainty_final_outputs,
@@ -147,6 +150,16 @@ def _completed_manifest_valid(manifest_path: Path) -> tuple[bool, str]:
                 False,
                 "secondary evidence integration committed verification failed: "
                 + ", ".join(integration_verification["errors"]),
+            )
+    if manifest.get("stage_name") == "final_evidence_classification":
+        classification_verification = verify_final_evidence_classification_outputs(
+            manifest_path.parent / "committed" / "outputs"
+        )
+        if not classification_verification["passed"]:
+            return (
+                False,
+                "final evidence classification committed verification failed: "
+                + ", ".join(classification_verification["errors"]),
             )
     return True, "completed attempt and output checksums are valid"
 
@@ -487,6 +500,15 @@ def execute_stage(
                 raise RuntimeError(
                     "secondary evidence integration post-commit verification failed: "
                     + ", ".join(integration_verification["errors"])
+                )
+        if stage.name == "final_evidence_classification":
+            classification_verification = verify_final_evidence_classification_outputs(
+                attempt_dir / "committed" / "outputs"
+            )
+            if not classification_verification["passed"]:
+                raise RuntimeError(
+                    "final evidence classification post-commit verification failed: "
+                    + ", ".join(classification_verification["errors"])
                 )
         dump_json(
             attempt_dir / "status.json", {"status": manifest["status"], "completed_at": completed}

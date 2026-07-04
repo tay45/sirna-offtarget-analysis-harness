@@ -23,7 +23,7 @@
     "formal_n_status": "COMPLETE",
     "isoform_uncertainty_status": "COMPLETE",
     "m_over_n_status": "COMPLETE",
-    "official_terminal_stage": "transcript_targetability_ratio",
+    "official_terminal_stage": "final_evidence_classification",
     "pathway_status": "COMPLETE",
     "release_status": "COMPLETE",
     "source_tree_checksum_verified": true,
@@ -63,38 +63,38 @@
   ],
   "confidentiality_scan_result": "PASSED",
   "coverage": {
-    "branch_rate": "0.8513",
-    "line_rate": "0.9480"
+    "branch_rate": "0.8504",
+    "line_rate": "0.9476"
   },
   "coverage_evidence": {
-    "branch_rate": "0.8513",
-    "branches_covered": 2156,
-    "branches_missed": 380,
-    "branches_valid": 2536,
+    "branch_rate": "0.8504",
+    "branches_covered": 2364,
+    "branches_missed": 416,
+    "branches_valid": 2780,
     "coverage_command": ".venv/bin/python -m pytest --cov=src/sirna_offtarget --cov-branch --cov-report=term-missing --cov-report=xml --cov-fail-under=92",
     "coverage_tool_version": "7.15.0",
     "coverage_xml_path": "coverage.xml",
-    "coverage_xml_sha256": "bb0af866bd495bd29e3080b74455826a9f3c0810a83319d40c54b6bf87787fc3",
-    "coverage_xml_timestamp": "1783116803365",
-    "line_rate": "0.9480",
-    "lines_covered": 9377,
-    "lines_missed": 517,
-    "lines_valid": 9894,
+    "coverage_xml_sha256": "80a79d88c79e68e455393d444f6f63da6007460fb1c671434c4e78a043587712",
+    "coverage_xml_timestamp": "1783130999071",
+    "line_rate": "0.9476",
+    "lines_covered": 10072,
+    "lines_missed": 557,
+    "lines_valid": 10629,
     "min_branch_rate": "0.85",
     "min_line_rate": "0.92",
-    "source_tree_checksum_sha256": "9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122",
+    "source_tree_checksum_sha256": "e126b6bc39fe10a8260698f669e205d75eb96856379d426c5575e460b57b7ec6",
     "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
     "threshold_result": "PASSED"
   },
   "coverage_evidence_artifact": "release_coverage_evidence.json",
-  "coverage_evidence_artifact_sha256": "0f8c3417e4a0cc7e635cae5b9193fdb7c455a49f9afc272f34c0fe138c70e050",
-  "current_stage": "secondary evidence integration",
-  "default_pipeline_endpoint": "secondary_evidence_integration",
+  "coverage_evidence_artifact_sha256": "976daa2ed365b9a25644f96b1032460f8007e2500014891faecfc005c06c1a29",
+  "current_stage": "final evidence classification",
+  "default_pipeline_endpoint": "final_evidence_classification",
   "deferred_stages": [
     "abundance-derived transcript proportions",
-    "secondary-effect scoring",
-    "source eligibility",
-    "final classification"
+    "external benchmark validation",
+    "calibration against real perturbation datasets",
+    "optional model tuning after benchmark evidence"
   ],
   "documentation_synchronization_result": "PASSED",
   "expected_direct_effect_canonical_artifacts": [
@@ -111,6 +111,18 @@
     "expected_direct_effect_warnings_v1.tsv"
   ],
   "final_archive_checksum_model_repair_status": "COMPLETE",
+  "final_evidence_classification_canonical_artifacts": [
+    "final_evidence_classification_result_v1.json",
+    "final_evidence_classification_run_v1.json",
+    "final_evidence_classification_policy_v1.json",
+    "gene_final_evidence_classifications_v1.jsonl",
+    "gene_final_evidence_classifications_v1.tsv",
+    "final_evidence_classification_unresolved_v1.jsonl",
+    "final_evidence_classification_unresolved_v1.tsv",
+    "final_evidence_classification_summary_v1.json",
+    "final_evidence_classification_verification_v1.json",
+    "final_evidence_classification_warnings_v1.tsv"
+  ],
   "final_legacy_code_removal_status": "COMPLETE",
   "final_release_evidence_repair_status": "COMPLETE",
   "final_zip_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
@@ -131,20 +143,21 @@
     "status": "COMPLETE"
   },
   "format_result": "PASSED",
-  "full_suite_test_count": 634,
-  "generated_at_utc": "2026-07-03T23:46:26Z",
+  "full_suite_test_count": 669,
+  "generated_at_utc": "2026-07-04T02:19:05Z",
   "import_boundary_result": "PASSED",
   "incomplete_stages": [],
   "known_limitations": [
-    "Final direct / secondary / mixed / off-target classification is not implemented.",
+    "Classifications are evidence-based interpretations, not definitive biological, clinical, toxicological, or regulatory conclusions.",
+    "External benchmark validation remains planned.",
     "Abundance-derived transcript proportions remain deferred.",
     "Passenger-strand search remains explicitly unsupported and fails fast if requested."
   ],
   "latest_zip_filename": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
-  "legacy_classification_artifact_status": "removed from public portfolio repository",
+  "legacy_classification_artifact_status": "legacy scoring/classification artifacts removed; final_evidence_classification is the current evidence-interpretation stage",
   "lint_result": "PASSED",
-  "next_planned_scientific_stage": "final classification",
-  "next_recommended_pass": "Define final classification without redefining normalized expression, N, M, M/N, expected direct-effect evidence, residual support characterization, or secondary evidence integration.",
+  "next_planned_scientific_stage": "external benchmark validation",
+  "next_recommended_pass": "Validate final evidence classification against real perturbation benchmark datasets before optional model tuning.",
   "official_expected_direct_effect_contract": {
     "contract_name": "ExpectedDirectEffectResultV1",
     "schema_version": "1",
@@ -153,6 +166,11 @@
   "official_expression_contract": {
     "contract_name": "ExpressionAnalysisResultV2",
     "schema_version": "2"
+  },
+  "official_final_evidence_classification_contract": {
+    "contract_name": "FinalEvidenceClassificationResultV1",
+    "schema_version": "1",
+    "workflow_stage": "final_evidence_classification"
   },
   "official_inclusion_policy": {
     "contract": "TargetableTranscriptInclusionPolicyV1",
@@ -189,9 +207,10 @@
     "transcript_targetability_ratio",
     "expected_direct_effect",
     "residual_attribution",
-    "secondary_evidence_integration"
+    "secondary_evidence_integration",
+    "final_evidence_classification"
   ],
-  "official_terminal_stage": "secondary_evidence_integration",
+  "official_terminal_stage": "final_evidence_classification",
   "official_transcript_targetability_contract": {
     "contract_name": "TranscriptTargetabilityResultV1",
     "schema_version": "1",
@@ -207,11 +226,11 @@
     "architecture_diagram_status": "COMPLETE",
     "clean_clone_result": "PASSED",
     "confidentiality_review_status": "PASSED",
-    "full_suite_passed": 634,
+    "full_suite_passed": 669,
     "gitignore_status": "COMPLETE",
     "legacy_output_cleanup_status": "COMPLETE",
     "license_status": "COMPLETE",
-    "line_coverage": "0.9480",
+    "line_coverage": "0.9476",
     "personal_path_scan_status": "PASSED",
     "public_example_status": "COMPLETE",
     "public_readme_status": "COMPLETE",
@@ -232,8 +251,8 @@
     "passed": true,
     "release_tests_required_from_extracted_zip": true,
     "source_checksum_match_required": true,
-    "source_inventory_count": 652,
-    "source_tree_sha256": "9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122",
+    "source_inventory_count": 660,
+    "source_tree_sha256": "e126b6bc39fe10a8260698f669e205d75eb96856379d426c5575e460b57b7ec6",
     "status": "PASSED",
     "verification_type": "post-package-verification"
   },
@@ -254,16 +273,16 @@
   },
   "quick_start_result": "PASSED",
   "readme_quality_metrics": {
-    "branch_coverage": "0.8513",
+    "branch_coverage": "0.8504",
     "focused_scientific_tests_passed": 305,
-    "full_suite_passed": 634,
-    "line_coverage": "0.9480",
+    "full_suite_passed": 669,
+    "line_coverage": "0.9476",
     "portfolio_tests_passed": 35
   },
   "release_date": "2026-06-28",
   "release_status": "COMPLETE",
-  "release_type": "final-archive-checksum-model-repair",
-  "repaired_source_checksum": "45236389734b36b341305c9574de0f883fef78dc67253bcd66d0cb663eeda9c3",
+  "release_type": "final-evidence-classification-terminal-stage-refresh",
+  "repaired_source_checksum": "e126b6bc39fe10a8260698f669e205d75eb96856379d426c5575e460b57b7ec6",
   "repository_name": "sirna-offtarget-analysis-harness",
   "required_baseline_zip_for_next_pass": "sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip",
   "residual_attribution_canonical_artifacts": [
@@ -298,13 +317,13 @@
     "secondary_evidence_integration_warnings_v1.tsv"
   ],
   "source_inventory_artifact": "release_source_tree_inventory.json",
-  "source_inventory_artifact_sha256": "dad9e971e1e52eb64aa641807d225cb3d4e4c8012c8a0f6a68009bfa0145bdb1",
+  "source_inventory_artifact_sha256": "b674d2c27101f310a608f23aa7d2333a4bf1eb149aaa5df7e76c92131cbc882c",
   "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
-  "source_tree_checksum_sha256": "9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122",
-  "source_tree_included_file_count": 652,
+  "source_tree_checksum_sha256": "e126b6bc39fe10a8260698f669e205d75eb96856379d426c5575e460b57b7ec6",
+  "source_tree_included_file_count": 660,
   "static_scan_result": {
     "current_public_outputs": "no prohibited fields",
-    "legacy_matches": "no executable scoring/classification package, contracts, schemas, CLI, or official DAG entries remain",
+    "legacy_matches": "no executable legacy scoring/classification package, contracts, schemas, CLI, or official DAG entries remain; current final_evidence_classification emits evidence-only interpretation labels",
     "personal_path_matches": "none in release source scope",
     "report_artifact": "legacy_code_static_scan_report.json",
     "report_sha256": "d9b81806d22422d2cf99e85297dc9706300167833c7edf042ea5ccd3d3c3ec4a",
@@ -312,7 +331,7 @@
   },
   "test_counts": {
     "focused_scientific": 305,
-    "full_suite": 634,
+    "full_suite": 669,
     "integration": 33,
     "portfolio": 35,
     "unit_release": 29
@@ -327,12 +346,12 @@
       "status": "PASSED"
     },
     "full_suite": {
-      "collected": 634,
+      "collected": 669,
       "command": ".venv/bin/python -m pytest -q",
       "errors": 0,
       "exit_code": 0,
       "failed": 0,
-      "passed": 634,
+      "passed": 669,
       "skipped": 0,
       "status": "PASSED",
       "xfailed": 0
@@ -342,11 +361,11 @@
       "status": "PASSED"
     },
     "portfolio": {
-      "collected": 30,
+      "collected": 35,
       "command": ".venv/bin/python -m pytest tests/portfolio -q",
       "exit_code": 0,
       "failed": 0,
-      "passed": 30,
+      "passed": 35,
       "status": "PASSED"
     },
     "regression": {
@@ -437,6 +456,20 @@
       "transcript_targetability",
       "transcript_targetability_ratio",
       "expected_direct_effect"
+    ],
+    "final_evidence_classification": [
+      "validate",
+      "prepare_inputs",
+      "map_identifiers",
+      "sequence_analysis",
+      "expression_analysis",
+      "isoform_uncertainty",
+      "transcript_targetability",
+      "transcript_targetability_ratio",
+      "expected_direct_effect",
+      "residual_attribution",
+      "secondary_evidence_integration",
+      "final_evidence_classification"
     ],
     "residual_attribution": [
       "validate",

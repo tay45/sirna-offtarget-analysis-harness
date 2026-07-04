@@ -7,4 +7,4 @@ def test_readme_matches_actual_terminal_stage() -> None:
     assert "residual_attribution" in readme
     assert "expected_direct_effect" in readme
     assert "final classification" in readme
-    assert "remain planned" in readme
+    assert "external benchmark validation remains planned" in readme

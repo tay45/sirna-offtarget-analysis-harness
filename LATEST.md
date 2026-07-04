@@ -39,14 +39,14 @@ RESIDUAL ATTRIBUTION STATUS: COMPLETE
 
 SECONDARY EVIDENCE INTEGRATION STATUS: COMPLETE
 
-SECONDARY-EFFECT STATUS: NOT STARTED
+FINAL EVIDENCE CLASSIFICATION STATUS: COMPLETE
 
-FINAL CLASSIFICATION STATUS: NOT STARTED
+EXTERNAL BENCHMARK VALIDATION STATUS: NOT STARTED
 
 ## Current Executable Pipeline
 
-- Official terminal executable stage: secondary_evidence_integration.
-- Default pipeline endpoint: secondary_evidence_integration.
+- Official terminal executable stage: final_evidence_classification.
+- Default pipeline endpoint: final_evidence_classification.
 - `--until-stage transcript_targetability_ratio`: verified to execute only
   validate, prepare_inputs, map_identifiers, sequence_analysis,
   expression_analysis, isoform_uncertainty, transcript_targetability, and
@@ -54,7 +54,8 @@ FINAL CLASSIFICATION STATUS: NOT STARTED
 - `--until-stage expected_direct_effect`: verified to stop before residual
   support characterization.
 - Full default execution additionally runs expected_direct_effect,
-  residual_attribution, and secondary_evidence_integration.
+  residual_attribution, secondary_evidence_integration, and
+  final_evidence_classification.
 - Candidate-scoring status: removed from the official package, stage registry,
   stage contracts, schemas, examples, and CLI.
 - Prohibited-field scan: PASSED for current public portfolio outputs.
@@ -64,12 +65,12 @@ FINAL CLASSIFICATION STATUS: NOT STARTED
 
 ## Evidence
 
-- Full test suite: passed, 634 tests.
+- Full test suite: passed, 669 tests.
 - Full-suite exit code: 0.
 - Portfolio tests: passed, 35 tests.
 - Focused scientific tests: passed, 305 tests.
-- Line coverage: 0.9480
-- Branch coverage: 0.8513
+- Line coverage: 0.9476
+- Branch coverage: 0.8504
 - Source checksum: 9fe2a9d7eb66b864d64294dd87c2df658a41ae216675c099ef2f273ac3745122.
 - Source inventory count: 644.
 - Final archive filename: sirna-offtarget-portfolio-public-final-verified-2026-06-28.zip.
@@ -90,23 +91,22 @@ FINAL CLASSIFICATION STATUS: NOT STARTED
 
 This release uses internal source integrity evidence and an adjacent external
 sidecar for final archive integrity. The current validated release ends at
-secondary evidence integration. It stores observed normalized expression
-change, N, M, M/N, intended-target calibration, expected direct effect,
-unresolved residual value, residual direction, residual magnitude, optional
-pathway support, and evidence readiness separately. It does not attribute that
-residual to secondary effects, produce mixed-mechanism scores, risk tiers, or
-final direct / secondary / mixed classifications.
+final evidence classification. It stores observed normalized expression change,
+N, M, M/N, intended-target calibration, expected direct effect, unresolved
+residual value, residual direction, residual magnitude, optional pathway
+support, evidence readiness, and conservative evidence classification labels.
+The labels are evidence-based interpretations, not definitive biological,
+clinical, toxicological, or regulatory conclusions.
 
 ## Known Limitations
 
-- Final residual attribution is not implemented.
-- Secondary evidence integration is classification-ready evidence only.
-- Final classification remains planned.
+- Final evidence classification is implemented as conservative evidence labels.
+- External benchmark validation remains planned.
+- Calibration against real perturbation datasets remains planned.
 - Abundance-derived transcript proportions remain deferred.
 - Passenger-strand search remains unsupported.
 
 ## Next Planned Scientific Stage
 
-Define final classification without redefining normalized expression, N, M,
-M/N, expected direct-effect evidence, residual support characterization, or
-secondary evidence integration.
+Validate final evidence classification against external benchmark perturbation
+datasets before any optional model tuning.

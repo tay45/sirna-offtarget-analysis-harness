@@ -20,8 +20,10 @@ normalized expression processing, isoform-aware transcript eligibility,
 sequence-based transcript targetability, formal N/M/M/N estimation,
 intended-target calibration, expected direct-effect estimation, residual support
 characterization, secondary evidence integration, pathway evidence architecture,
-provenance, and independent verification. Final direct / secondary / mixed
-classification and final off-target calling remain planned.
+final evidence classification, provenance, and independent verification. The
+classification labels are evidence-based interpretations of current harness
+outputs, not definitive biological truth, clinical guidance, toxicological
+assessment, or regulatory conclusions.
 
 ![Current and planned architecture](docs/architecture_current_and_planned.png)
 
@@ -44,6 +46,7 @@ classification and final off-target calling remain planned.
 - unresolved residual value
 - residual support characterization
 - secondary evidence integration
+- final evidence classification
 - typed contracts
 - provenance
 - checksums
@@ -54,7 +57,9 @@ classification and final off-target calling remain planned.
 ## Planned, Not Yet Implemented
 
 - secondary-effect attribution
-- final direct / secondary / mixed classification
+- external benchmark validation
+- calibration against real perturbation datasets
+- optional model tuning after benchmark evidence
 
 ## Current vs Planned
 
@@ -70,7 +75,8 @@ classification and final off-target calling remain planned.
 | Unresolved residual value | Implemented | Store observed minus expected log2 change without attribution |
 | Residual support characterization | Implemented | Summarize residual direction, magnitude, and optional pathway support without final attribution |
 | Residual attribution | Planned | Interpret unexplained expression change |
-| Final classification | Planned | Direct, secondary, mixed, or unresolved |
+| Final evidence classification | Implemented | Conservative evidence labels, not definitive biological truth claims |
+| External benchmark validation | Planned | Validate and tune classifications against real perturbation datasets |
 
 ## How the Current Analysis Works
 
@@ -86,7 +92,12 @@ classification and final off-target calling remain planned.
 10. Candidate expected direct effects are computed from calibration and candidate M/N.
 11. Observed normalized change, expected direct effect, and unresolved residual are stored separately.
 12. Residual direction, magnitude, and optional pathway support are characterized without final classification.
-13. Pathway evidence remains supporting context for later secondary-effect interpretation.
+13. Secondary evidence integration prepares classification-ready evidence.
+14. Final evidence classification emits conservative evidence labels:
+    `direct_compatible`, `secondary_supported`, `mixed_supported`,
+    `no_evidence_for_effect`, or `unresolved`.
+15. These labels are evidence-based interpretations, not clinical,
+    toxicological, regulatory, or definitive biological conclusions.
 
 Small example: a gene has 4 eligible transcripts. One transcript has verified
 cleavage-compatible evidence, 2 transcripts have seed-only evidence, and 1
@@ -116,7 +127,8 @@ This executes exactly these official current stages:
 `validate`, `prepare_inputs`, `map_identifiers`, `sequence_analysis`,
 `expression_analysis`, `isoform_uncertainty`, `transcript_targetability`,
 `transcript_targetability_ratio`, `expected_direct_effect`,
-`residual_attribution`, `secondary_evidence_integration`.
+`residual_attribution`, `secondary_evidence_integration`,
+`final_evidence_classification`.
 
 Running with `--until-stage transcript_targetability_ratio` stops at the prior
 ratio boundary when only N, M, and M/N artifacts are needed.
@@ -124,21 +136,23 @@ Running with `--until-stage expected_direct_effect` stops at the expected
 direct-effect boundary before residual support characterization.
 Running with `--until-stage residual_attribution` stops at the residual support
 characterization boundary before classification-ready evidence integration.
+Running with `--until-stage secondary_evidence_integration` stops at the
+classification-ready evidence table before final evidence classification.
 
-Outputs are written to `examples/portfolio/output/`. Open this
-classification-ready evidence table first:
+Outputs are written to `examples/portfolio/output/`. Open this final evidence
+classification table first:
 
-`examples/portfolio/output/stages/11_secondary_evidence_integration/attempts/attempt_001/committed/outputs/gene_secondary_evidence_integration_v1.tsv`
+`examples/portfolio/output/stages/12_final_evidence_classification/attempts/attempt_001/committed/outputs/gene_final_evidence_classifications_v1.tsv`
 
 Inspect observed normalized expression in `observed_normalized_log2fc`,
 sequence-derived N, M, and M/N in `n_total_eligible_transcripts`,
 `m_targetable_transcripts`, and `targetable_fraction_m_over_n`, the calibrated
 expected direct component in `expected_direct_effect_log2fc`, and the stored
-unresolved residual in `unresolved_residual_log2fc`. The integration fields
-combine preserved sequence-derived evidence, expected direct-effect evidence,
-unresolved residual evidence, and optional pathway-support context into
-`evidence_readiness_status`. This is not a biological call; final direct /
-secondary / mixed / off-target classification remains planned.
+unresolved residual in `unresolved_residual_log2fc`. The final classification
+fields preserve upstream evidence and add `final_evidence_classification`,
+`classification_confidence`, and `classification_reason`. These are conservative
+evidence interpretations only; they are not definitive biological, clinical,
+toxicological, or regulatory conclusions.
 
 The curated portfolio summary table is:
 
@@ -166,11 +180,11 @@ and test-driven development.
 
 Post-cleanup release evidence reports:
 
-- full suite: 634 passed
+- full suite: 669 passed
 - portfolio tests: 35 portfolio tests passed
 - focused scientific tests: 305 passed
-- line coverage: 0.9480
-- branch coverage: 0.8513
+- line coverage: 0.9476
+- branch coverage: 0.8504
 - lint result: passed
 - formatting result: passed
 - typing result: passed
@@ -189,14 +203,13 @@ archive to insert that checksum would change the checksum itself.
 
 ## Current Limitations
 
-- current release stores unresolved residual values but does not attribute them
-- current release does not yet classify direct, secondary, or mixed effects
+- current release emits conservative evidence labels, not definitive truth claims
 - no production-scale biological benchmark has yet been completed
 - equal-transcript prior is a deliberate default under short-read isoform uncertainty
 - seed-only evidence is preserved but excluded from default cleavage-compatible M
 - passenger-strand analysis is not currently supported
 - bulge/indel alignment is not currently supported
-- pathway architecture exists, but final integration is planned
+- pathway architecture exists, but external benchmark validation remains planned
 
 ## Repository Structure
 

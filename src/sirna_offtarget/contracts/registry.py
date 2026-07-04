@@ -5,6 +5,7 @@ from sirna_offtarget.contracts.stage_results import (
     ExpectedDirectEffectResultV1,
     ExpressionAnalysisResultV1,
     ExpressionAnalysisResultV2,
+    FinalEvidenceClassificationResultV1,
     IdentifierMappingResultV1,
     IsoformAnalysisResultV1,
     IsoformUncertaintyResultV1,
@@ -31,6 +32,7 @@ CONTRACT_REGISTRY: dict[str, type[StageContract]] = {
         ExpressionAnalysisResultV1,
         ExpressionAnalysisResultV2,
         ExpectedDirectEffectResultV1,
+        FinalEvidenceClassificationResultV1,
         IsoformAnalysisResultV1,
         IsoformUncertaintyResultV1,
         TranscriptTargetabilityResultV1,
@@ -56,4 +58,5 @@ STAGE_CONTRACTS: dict[str, type[StageContract]] = {
     "expected_direct_effect": ExpectedDirectEffectResultV1,
     "residual_attribution": ResidualAttributionResultV1,
     "secondary_evidence_integration": SecondaryEvidenceIntegrationResultV1,
+    "final_evidence_classification": FinalEvidenceClassificationResultV1,
 }

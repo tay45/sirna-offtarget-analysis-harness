@@ -11,6 +11,7 @@ from sirna_offtarget.contracts.stage_results import (
     ExpressionAnalysisResultV2,
     IsoformUncertaintyResultV1,
     ResidualAttributionResultV1,
+    SecondaryEvidenceIntegrationResultV1,
     SequenceAnalysisResultV1,
     TranscriptTargetabilityRatioResultV1,
     TranscriptTargetabilityResultV1,
@@ -55,6 +56,20 @@ from sirna_offtarget.expression.importer_v2 import import_precomputed_expression
 from sirna_offtarget.expression.support import (
     expression_execution_support,
     support_matrix_as_dict,
+)
+from sirna_offtarget.final_evidence_classification.artifacts import (
+    sha256_file as final_evidence_classification_sha256_file,
+)
+from sirna_offtarget.final_evidence_classification.artifacts import (
+    verify_final_evidence_classification_outputs,
+    write_final_evidence_classification_artifacts,
+)
+from sirna_offtarget.final_evidence_classification.contracts import (
+    FinalEvidenceClassificationPolicyV1,
+    FinalEvidenceClassificationRunRecordV1,
+)
+from sirna_offtarget.final_evidence_classification.core import (
+    compute_final_evidence_classification,
 )
 from sirna_offtarget.identifiers.resolver_v2 import IdentifierResolverV2
 from sirna_offtarget.identifiers.snapshots import (
@@ -137,8 +152,10 @@ from sirna_offtarget.secondary_evidence_integration.artifacts import (
     write_secondary_evidence_integration_artifacts,
 )
 from sirna_offtarget.secondary_evidence_integration.contracts import (
+    GeneSecondaryEvidenceIntegrationRecordV1,
     SecondaryEvidenceIntegrationPolicyV1,
     SecondaryEvidenceIntegrationRunRecordV1,
+    SecondaryEvidenceIntegrationUnresolvedRecordV1,
 )
 from sirna_offtarget.secondary_evidence_integration.core import (
     compute_secondary_evidence_integration,
@@ -2258,6 +2275,111 @@ class FunctionStage:
             payload=result_payload,
         )
 
+    def _execute_final_evidence_classification(
+        self, context: RunContext, attempt_directory: Path
+    ) -> StageExecutionResult:
+        started_at = _utc_now()
+        output_dir = attempt_directory / "outputs"
+        integration_contract = load_dependency_contract(
+            context,
+            dependency_stage="secondary_evidence_integration",
+            expected_contract=SecondaryEvidenceIntegrationResultV1,
+        )
+        self._record_consumed(
+            context,
+            dependency_stage="secondary_evidence_integration",
+            contract=integration_contract,
+            artifacts=[
+                "gene_secondary_evidence_integration_v1.jsonl",
+                "secondary_evidence_integration_result_v1.json",
+                "secondary_evidence_integration_summary_v1.json",
+                "secondary_evidence_integration_unresolved_v1.jsonl",
+            ],
+            payload_fields=["run_record", "counts"],
+        )
+        config = context.config.final_evidence_classification
+        if not config.enabled:
+            raise RuntimeError("final evidence classification stage cannot be disabled")
+        integration_outputs = committed_contract_path(
+            context.run_dir, "secondary_evidence_integration"
+        ).parent
+        integration_verification = verify_secondary_evidence_integration_outputs(
+            integration_outputs
+        )
+        if not integration_verification["passed"]:
+            raise RuntimeError(
+                "final evidence classification requires verified secondary evidence outputs: "
+                + ", ".join(integration_verification["errors"])
+            )
+        records_path = integration_outputs / "gene_secondary_evidence_integration_v1.jsonl"
+        unresolved_path = integration_outputs / "secondary_evidence_integration_unresolved_v1.jsonl"
+        records = [
+            GeneSecondaryEvidenceIntegrationRecordV1.model_validate(json.loads(line))
+            for line in records_path.read_text().splitlines()
+            if line.strip()
+        ]
+        unresolved_records = [
+            SecondaryEvidenceIntegrationUnresolvedRecordV1.model_validate(json.loads(line))
+            for line in unresolved_path.read_text().splitlines()
+            if line.strip()
+        ]
+        policy = FinalEvidenceClassificationPolicyV1(
+            policy_id=config.policy_id,
+            numerical_tolerance=config.numerical_tolerance,
+        )
+        computed = compute_final_evidence_classification(
+            secondary_evidence_records=records,
+            secondary_unresolved_records=unresolved_records,
+            policy=policy,
+            source_secondary_evidence_integration_checksum=(
+                final_evidence_classification_sha256_file(records_path)
+            ),
+        )
+        write_final_evidence_classification_artifacts(
+            output_dir=output_dir,
+            run_record=FinalEvidenceClassificationRunRecordV1(
+                run_id=context.run_id,
+                secondary_evidence_integration_result_id=integration_contract.run_id,
+                secondary_evidence_integration_checksum=(
+                    final_evidence_classification_sha256_file(
+                        integration_outputs / "stage_result.json"
+                    )
+                ),
+                policy_id=policy.policy_id,
+                policy_checksum=policy.fingerprint,
+                started_at=started_at,
+                completed_at=_utc_now(),
+                status="completed",
+                source_counts={
+                    "gene_secondary_evidence_integration_records": len(records),
+                    "secondary_evidence_integration_unresolved_records": len(unresolved_records),
+                },
+                verification_status="verified",
+                warnings=tuple(computed.warnings),
+            ),
+            policy=policy,
+            gene_classifications=computed.gene_classifications,
+            unresolved=computed.unresolved,
+            summary=computed.summary,
+            warnings=computed.warnings,
+        )
+        verification = verify_final_evidence_classification_outputs(output_dir)
+        if not verification["passed"]:
+            raise RuntimeError(
+                "final evidence classification verification failed: "
+                + ", ".join(verification["errors"])
+            )
+        result_payload = json.loads(
+            (output_dir / "final_evidence_classification_result_v1.json").read_text()
+        )
+        return StageExecutionResult(
+            sorted(output_dir.iterdir()),
+            computed.summary,
+            computed.warnings,
+            "FinalEvidenceClassificationResultV1",
+            payload=result_payload,
+        )
+
     def _execute_isoform_analysis(  # pragma: no cover
         self, context: RunContext, attempt_directory: Path
     ) -> StageExecutionResult:
@@ -2920,5 +3042,16 @@ def build_stages() -> dict[str, FunctionStage]:
             ),
             (),
             "Integrate classification-ready evidence without final classification.",
+        ),
+        "final_evidence_classification": FunctionStage(
+            "final_evidence_classification",
+            "1.0",
+            (
+                "final_evidence_classification",
+                "secondary_evidence_integration",
+                *common_execution,
+            ),
+            (),
+            "Classify genes with conservative evidence-based labels.",
         ),
     }

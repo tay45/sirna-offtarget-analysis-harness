@@ -1,8 +1,8 @@
 # How to Read Results
 
-Start with the classification-ready evidence integration table:
+Start with the final evidence classification table:
 
-`gene_secondary_evidence_integration_v1.tsv`
+`gene_final_evidence_classifications_v1.tsv`
 
 Important columns:
 
@@ -18,10 +18,17 @@ Important columns:
 - `residual_evidence_component`: unresolved residual evidence component.
 - `pathway_support_component`: optional pathway-support context component.
 - `evidence_readiness_status`: readiness for a future final classification stage, not a biological call.
+- `final_evidence_classification`: conservative evidence label.
+- `classification_confidence`: conservative confidence label.
+- `classification_reason`: rule-based reason for the evidence label.
 
-Each gene-level record states that it integrates evidence for future final
-classification and is not a direct, secondary, mixed, or off-target
-classification.
+Each gene-level classification record states that the classification is an
+evidence-based interpretation of current harness outputs and is not a
+definitive biological, clinical, toxicological, or regulatory conclusion.
+
+For classification-ready upstream integration details, inspect:
+
+`gene_secondary_evidence_integration_v1.tsv`
 
 For upstream residual support characterization, inspect:
 

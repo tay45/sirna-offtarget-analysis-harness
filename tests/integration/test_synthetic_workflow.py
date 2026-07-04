@@ -21,13 +21,13 @@ def test_complete_synthetic_workflow(tmp_path: Path) -> None:
     expected = (
         out
         / "stages"
-        / "11_secondary_evidence_integration"
+        / "12_final_evidence_classification"
         / "attempts"
         / "attempt_001"
         / "committed"
         / "outputs"
-        / "gene_secondary_evidence_integration_v1.tsv"
+        / "gene_final_evidence_classifications_v1.tsv"
     )
     assert expected.exists()
     assert not (out / "complete_results.json").exists()
-    assert "_".join(("final", "classification")) not in expected.read_text()
+    assert "clinically_validated" not in expected.read_text()

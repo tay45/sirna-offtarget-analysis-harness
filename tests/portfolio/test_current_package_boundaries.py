@@ -35,7 +35,7 @@ def test_removed_stage_names_are_not_registered() -> None:
     assert "classification" not in STAGE_ORDER
     assert "classification" not in STAGE_NODES
     assert "classification" not in STAGE_CONTRACTS
-    assert list(STAGE_ORDER)[-1] == _snake("secondary", "evidence", "integration")
+    assert list(STAGE_ORDER)[-1] == _snake("final", "evidence", "classification")
 
 
 def test_removed_contracts_configs_and_schemas_are_absent() -> None:

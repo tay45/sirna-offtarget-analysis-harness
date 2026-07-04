@@ -16,7 +16,7 @@ def test_stage_dag_is_topologically_sorted() -> None:
     ordered = topological_sort()
     positions = {stage: index for index, stage in enumerate(ordered)}
     assert ordered[0] == "validate"
-    assert ordered[-1] == "secondary_evidence_integration"
+    assert ordered[-1] == "final_evidence_classification"
     for name, node in STAGE_NODES.items():
         for dependency in node.dependencies:
             assert positions[dependency] < positions[name]
@@ -38,6 +38,7 @@ def test_downstream_selection_is_transitive() -> None:
     assert "expected_direct_effect" in affected
     assert "residual_attribution" in affected
     assert "secondary_evidence_integration" in affected
+    assert "final_evidence_classification" in affected
     assert "sequence_analysis" not in affected
 
 
@@ -96,4 +97,21 @@ def test_until_secondary_evidence_integration_plan_uses_prerequisites_only() -> 
         "expected_direct_effect",
         "residual_attribution",
         "secondary_evidence_integration",
+    ]
+
+
+def test_until_final_evidence_classification_plan_uses_prerequisites_only() -> None:
+    assert execution_plan(until_stage="final_evidence_classification") == [
+        "validate",
+        "prepare_inputs",
+        "map_identifiers",
+        "sequence_analysis",
+        "expression_analysis",
+        "isoform_uncertainty",
+        "transcript_targetability",
+        "transcript_targetability_ratio",
+        "expected_direct_effect",
+        "residual_attribution",
+        "secondary_evidence_integration",
+        "final_evidence_classification",
     ]

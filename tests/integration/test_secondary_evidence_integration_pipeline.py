@@ -27,7 +27,9 @@ def _outputs(out: Path, stage: str) -> Path:
 
 def test_secondary_evidence_integration_default_pipeline_outputs_verify(tmp_path: Path) -> None:
     out = tmp_path / "run"
-    rows = run_staged_analysis(config_path=CONFIG, output_dir=out)
+    rows = run_staged_analysis(
+        config_path=CONFIG, output_dir=out, until_stage="secondary_evidence_integration"
+    )
     assert rows[-1]["stage"] == "secondary_evidence_integration"
     outputs = _outputs(out, "secondary_evidence_integration")
     assert verify_secondary_evidence_integration_outputs(outputs)["passed"]
@@ -79,7 +81,11 @@ def test_until_transcript_targetability_ratio_still_stops_at_ratio(tmp_path: Pat
 
 def test_secondary_evidence_integration_resume_reuses_committed_stage(tmp_path: Path) -> None:
     out = tmp_path / "run"
-    run_staged_analysis(config_path=CONFIG, output_dir=out)
-    second = run_staged_analysis(config_path=CONFIG, output_dir=out)
+    run_staged_analysis(
+        config_path=CONFIG, output_dir=out, until_stage="secondary_evidence_integration"
+    )
+    second = run_staged_analysis(
+        config_path=CONFIG, output_dir=out, until_stage="secondary_evidence_integration"
+    )
     assert second[-1]["stage"] == "secondary_evidence_integration"
     assert second[-1]["action"] == "reuse"

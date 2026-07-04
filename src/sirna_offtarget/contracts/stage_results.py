@@ -11,6 +11,9 @@ from sirna_offtarget.contracts.base import StageContract
 from sirna_offtarget.expected_direct_effect.contracts import (
     ExpectedDirectEffectResultV1 as ExpectedDirectEffectPayloadV1,
 )
+from sirna_offtarget.final_evidence_classification.contracts import (
+    FinalEvidenceClassificationResultV1 as FinalEvidenceClassificationPayloadV1,
+)
 from sirna_offtarget.isoform_uncertainty.contracts import IsoformUncertaintyPayloadV1
 from sirna_offtarget.models import (
     Direction,
@@ -422,6 +425,11 @@ class ResidualAttributionResultV1(StageContract):
 class SecondaryEvidenceIntegrationResultV1(StageContract):
     expected_contract_name: ClassVar[str] = "SecondaryEvidenceIntegrationResultV1"
     payload: SecondaryEvidenceIntegrationPayloadV1
+
+
+class FinalEvidenceClassificationResultV1(StageContract):
+    expected_contract_name: ClassVar[str] = "FinalEvidenceClassificationResultV1"
+    payload: FinalEvidenceClassificationPayloadV1
 
 
 class PathwayEnrichmentResultV1(StageContract):
