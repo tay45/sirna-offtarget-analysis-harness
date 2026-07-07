@@ -82,12 +82,12 @@
     "lines_valid": 10629,
     "min_branch_rate": "0.85",
     "min_line_rate": "0.92",
-    "source_tree_checksum_sha256": "e739100e16c35da6334b0765bcf3107649dd5b54401996d5e7b282da26aea440",
+    "source_tree_checksum_sha256": "a3080d3cca0976a10b02bedf54d22a1eb9131f5f58133cc8ec78626e8852360e",
     "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
     "threshold_result": "PASSED"
   },
   "coverage_evidence_artifact": "release_coverage_evidence.json",
-  "coverage_evidence_artifact_sha256": "be5ca99f5e860ff87f92946335bafcda726bb872faaf5b6502883972b4082feb",
+  "coverage_evidence_artifact_sha256": "a95163c614a183503b4ef10f2f8782c04c56fe2b61e714669fbbaf26fb394c33",
   "current_stage": "final evidence classification",
   "default_pipeline_endpoint": "final_evidence_classification",
   "deferred_stages": [
@@ -322,9 +322,9 @@
     "secondary_evidence_integration_warnings_v1.tsv"
   ],
   "source_inventory_artifact": "release_source_tree_inventory.json",
-  "source_inventory_artifact_sha256": "f1872821a5124a06c4740af02ede3b52707d89c425f576e091bc3a808c57af53",
+  "source_inventory_artifact_sha256": "8b836d94a758e8870d36dc30d8d73e7b50df1ce972340634e0c35f977877d05a",
   "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
-  "source_tree_checksum_sha256": "e739100e16c35da6334b0765bcf3107649dd5b54401996d5e7b282da26aea440",
+  "source_tree_checksum_sha256": "a3080d3cca0976a10b02bedf54d22a1eb9131f5f58133cc8ec78626e8852360e",
   "source_tree_included_file_count": 663,
   "static_scan_result": {
     "current_public_outputs": "no prohibited fields",
