@@ -25,6 +25,7 @@ EXPECTED_RATIO_STAGES = [
 EXPECTED_CURRENT_STAGES = [
     *EXPECTED_RATIO_STAGES,
     "expected_direct_effect",
+    "mechanistic_network",
     "residual_attribution",
     "secondary_evidence_integration",
     "final_evidence_classification",

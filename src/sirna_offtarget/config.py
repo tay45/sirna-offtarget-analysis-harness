@@ -209,6 +209,8 @@ class ExpectedDirectEffectConfig(ConfigModel):
 class ResidualAttributionConfig(ConfigModel):
     enabled: bool = True
     policy_id: str = "residual-attribution-v1-support-characterization"
+    use_mechanistic_pathway_support: bool = True
+    pathway_support_source: str = "mechanistic_network"
     numerical_tolerance: float = 1e-9
     negligible_residual_abs_log2_threshold: float = 0.10
     moderate_residual_abs_log2_threshold: float = 0.50
@@ -216,6 +218,10 @@ class ResidualAttributionConfig(ConfigModel):
 
     @model_validator(mode="after")
     def validate_residual_attribution(self) -> ResidualAttributionConfig:
+        if self.pathway_support_source != "mechanistic_network":
+            raise ValueError(
+                "residual_attribution.pathway_support_source must be 'mechanistic_network'"
+            )
         if self.numerical_tolerance <= 0:
             raise ValueError("residual_attribution.numerical_tolerance must be positive")
         if self.negligible_residual_abs_log2_threshold < 0:

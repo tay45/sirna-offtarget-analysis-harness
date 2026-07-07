@@ -52,6 +52,7 @@ STAGE_CONTRACTS: dict[str, type[StageContract]] = {
     "map_identifiers": IdentifierMappingResultV1,
     "sequence_analysis": SequenceAnalysisResultV1,
     "expression_analysis": ExpressionAnalysisResultV2,
+    "mechanistic_network": MechanisticNetworkResultV2,
     "isoform_uncertainty": IsoformUncertaintyResultV1,
     "transcript_targetability": TranscriptTargetabilityResultV1,
     "transcript_targetability_ratio": TranscriptTargetabilityRatioResultV1,

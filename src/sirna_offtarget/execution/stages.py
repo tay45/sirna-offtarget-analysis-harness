@@ -10,6 +10,7 @@ from sirna_offtarget.contracts.stage_results import (
     ExpectedDirectEffectResultV1,
     ExpressionAnalysisResultV2,
     IsoformUncertaintyResultV1,
+    MechanisticNetworkResultV2,
     ResidualAttributionResultV1,
     SecondaryEvidenceIntegrationResultV1,
     SequenceAnalysisResultV1,
@@ -144,6 +145,9 @@ from sirna_offtarget.residual_attribution.contracts import (
     ResidualAttributionUnresolvedRecordV1,
 )
 from sirna_offtarget.residual_attribution.core import compute_residual_attribution
+from sirna_offtarget.residual_attribution.pathway_support import (
+    pathway_support_from_mechanistic_network_v2,
+)
 from sirna_offtarget.secondary_evidence_integration.artifacts import (
     sha256_file as secondary_evidence_integration_sha256_file,
 )
@@ -2124,15 +2128,55 @@ class FunctionStage:
             moderate_residual_abs_log2_threshold=config.moderate_residual_abs_log2_threshold,
             strong_residual_abs_log2_threshold=config.strong_residual_abs_log2_threshold,
         )
+        pathway_support_by_gene = None
+        pathway_evidence_available = False
+        source_pathway_evidence_checksum = None
+        pathway_support_records = 0
+        if config.use_mechanistic_pathway_support:
+            if config.pathway_support_source != "mechanistic_network":
+                raise RuntimeError(
+                    "unsupported residual_attribution.pathway_support_source: "
+                    f"{config.pathway_support_source}"
+                )
+            mechanistic_contract = load_dependency_contract(
+                context,
+                dependency_stage="mechanistic_network",
+                expected_contract=MechanisticNetworkResultV2,
+            )
+            self._record_consumed(
+                context,
+                dependency_stage="mechanistic_network",
+                contract=mechanistic_contract,
+                artifacts=["stage_result.json"],
+                payload_fields=[
+                    "signed_paths",
+                    "unsigned_context_paths",
+                    "provider_snapshot_manifest",
+                    "metrics",
+                ],
+            )
+            pathway_support_by_gene = pathway_support_from_mechanistic_network_v2(
+                mechanistic_contract
+            )
+            pathway_evidence_available = True
+            mechanistic_outputs = committed_contract_path(
+                context.run_dir, "mechanistic_network"
+            ).parent
+            source_pathway_evidence_checksum = residual_attribution_sha256_file(
+                mechanistic_outputs / "stage_result.json"
+            )
+            pathway_support_records = sum(
+                len(records) for records in pathway_support_by_gene.values()
+            )
         computed = compute_residual_attribution(
             expected_direct_effect_records=expected_records,
-            pathway_support_by_gene=None,
-            pathway_evidence_available=False,
+            pathway_support_by_gene=pathway_support_by_gene,
+            pathway_evidence_available=pathway_evidence_available,
             policy=policy,
             source_expected_direct_effect_checksum=residual_attribution_sha256_file(
                 expected_records_path
             ),
-            source_pathway_evidence_checksum=None,
+            source_pathway_evidence_checksum=source_pathway_evidence_checksum,
         )
         write_residual_attribution_artifacts(
             output_dir=output_dir,
@@ -2142,6 +2186,7 @@ class FunctionStage:
                 expected_direct_effect_checksum=residual_attribution_sha256_file(
                     expected_outputs / "stage_result.json"
                 ),
+                pathway_evidence_checksum=source_pathway_evidence_checksum,
                 policy_id=policy.policy_id,
                 policy_checksum=policy.fingerprint,
                 started_at=started_at,
@@ -2149,7 +2194,7 @@ class FunctionStage:
                 status="completed",
                 source_counts={
                     "gene_expected_direct_effect_records": len(expected_records),
-                    "pathway_support_records": 0,
+                    "pathway_support_records": pathway_support_records,
                 },
                 verification_status="verified",
                 warnings=tuple(computed.warnings),
@@ -2980,6 +3025,21 @@ def build_stages() -> dict[str, FunctionStage]:
             ("experiment", "expression", *common_execution),
             ("counts", "metadata"),
             "Analyze expression evidence with the configured backend.",
+        ),
+        "mechanistic_network": FunctionStage(
+            "mechanistic_network",
+            "1.0",
+            (
+                "pathway",
+                "providers",
+                "project",
+                "sirna",
+                "experiment",
+                "expression",
+                *common_execution,
+            ),
+            (),
+            "Build candidate-level mechanistic network evidence for residual support.",
         ),
         "isoform_uncertainty": FunctionStage(
             "isoform_uncertainty",

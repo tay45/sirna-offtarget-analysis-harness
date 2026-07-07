@@ -43,6 +43,9 @@ pathway:
   regulon_file: regulons.tsv
   max_path_length: 4
   require_direction_consistency: true
+residual_attribution:
+  use_mechanistic_pathway_support: true
+  pathway_support_source: mechanistic_network
 enrichment:
   providers: [reactome, panther]
   gene_sets: [upregulated, downregulated]

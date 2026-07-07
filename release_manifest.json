@@ -82,12 +82,12 @@
     "lines_valid": 10629,
     "min_branch_rate": "0.85",
     "min_line_rate": "0.92",
-    "source_tree_checksum_sha256": "7a4ac7ece28255268d5f6e37c8b536b0e9a17e55de662d0b611f27ec8fcfdbbb",
+    "source_tree_checksum_sha256": "c02e9425039035c9db348e98402d3e634f9706c58c4785904fb5f25652026462",
     "threshold_command": ".venv/bin/python scripts/check_coverage_thresholds.py coverage.xml --min-line-rate 0.92 --min-branch-rate 0.85",
     "threshold_result": "PASSED"
   },
   "coverage_evidence_artifact": "release_coverage_evidence.json",
-  "coverage_evidence_artifact_sha256": "8a55453cbf7e7b8428fda8f798963e4799f1168dc5d373f5a5e2fd81987ebcc6",
+  "coverage_evidence_artifact_sha256": "63baf470009b5d165e880077ee4e898c08ece0f3cd0e8ff2c0394f6b6a3f03ff",
   "current_stage": "final evidence classification",
   "default_pipeline_endpoint": "final_evidence_classification",
   "deferred_stages": [
@@ -322,10 +322,10 @@
     "secondary_evidence_integration_warnings_v1.tsv"
   ],
   "source_inventory_artifact": "release_source_tree_inventory.json",
-  "source_inventory_artifact_sha256": "5eef3e555f2c10d263c510eceb82e597346ce8e90c0776fc993f5c9e2cfb8c7f",
+  "source_inventory_artifact_sha256": "3b0697ab341271763107ce0a34165caac0d3127f616b17ab88b577e35080f32f",
   "source_tree_checksum_policy_version": "release-source-tree-checksum-v2",
-  "source_tree_checksum_sha256": "7a4ac7ece28255268d5f6e37c8b536b0e9a17e55de662d0b611f27ec8fcfdbbb",
-  "source_tree_included_file_count": 660,
+  "source_tree_checksum_sha256": "c02e9425039035c9db348e98402d3e634f9706c58c4785904fb5f25652026462",
+  "source_tree_included_file_count": 663,
   "static_scan_result": {
     "current_public_outputs": "no prohibited fields",
     "legacy_matches": "no executable legacy scoring/classification package, contracts, schemas, CLI, or official DAG entries remain; current final_evidence_classification emits evidence-only interpretation labels",

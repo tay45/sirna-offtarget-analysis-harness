@@ -29,10 +29,27 @@ STAGE_ORDER: tuple[str, ...] = (
     "transcript_targetability",
     "transcript_targetability_ratio",
     "expected_direct_effect",
+    "mechanistic_network",
     "residual_attribution",
     "secondary_evidence_integration",
     "final_evidence_classification",
 )
+
+STABLE_STAGE_INDEX: dict[str, int] = {
+    "validate": 1,
+    "prepare_inputs": 2,
+    "map_identifiers": 3,
+    "sequence_analysis": 4,
+    "expression_analysis": 5,
+    "isoform_uncertainty": 6,
+    "transcript_targetability": 7,
+    "transcript_targetability_ratio": 8,
+    "expected_direct_effect": 9,
+    "residual_attribution": 10,
+    "secondary_evidence_integration": 11,
+    "final_evidence_classification": 12,
+    "mechanistic_network": 13,
+}
 
 
 STAGE_NODES: dict[str, StageNode] = {
@@ -44,6 +61,13 @@ STAGE_NODES: dict[str, StageNode] = {
     ),
     "expression_analysis": StageNode(
         "expression_analysis", "1.0", (), ("prepare_inputs", "map_identifiers")
+    ),
+    "mechanistic_network": StageNode(
+        "mechanistic_network",
+        "1.0",
+        ("expression_analysis",),
+        ("map_identifiers", "expected_direct_effect"),
+        optional=True,
     ),
     "isoform_uncertainty": StageNode(
         "isoform_uncertainty", "1.0", ("expression_analysis",), ("map_identifiers",)
@@ -67,7 +91,7 @@ STAGE_NODES: dict[str, StageNode] = {
     "residual_attribution": StageNode(
         "residual_attribution",
         "1.0",
-        ("expected_direct_effect",),
+        ("expected_direct_effect", "mechanistic_network"),
     ),
     "secondary_evidence_integration": StageNode(
         "secondary_evidence_integration",
@@ -155,6 +179,6 @@ def downstream_of(stage_name: str, nodes: dict[str, StageNode] | None = None) ->
 
 
 def stage_index(stage_name: str) -> int:
-    if stage_name not in STAGE_ORDER:
+    if stage_name not in STABLE_STAGE_INDEX:
         raise InvalidStageError(stage_name)
-    return STAGE_ORDER.index(stage_name) + 1
+    return STABLE_STAGE_INDEX[stage_name]

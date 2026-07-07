@@ -16,9 +16,9 @@ from sirna_offtarget.contracts.stage_results import (
 from sirna_offtarget.contracts.validation import validate_contract_file
 
 
-def test_pathway_and_mechanistic_v2_are_available_but_not_current_stage_contracts() -> None:
+def test_pathway_v2_is_available_and_mechanistic_v2_is_current_stage_contract() -> None:
     assert "pathway_enrichment" not in STAGE_CONTRACTS
-    assert "mechanistic_network" not in STAGE_CONTRACTS
+    assert STAGE_CONTRACTS["mechanistic_network"] is MechanisticNetworkResultV2
     assert CONTRACT_REGISTRY["PathwayEnrichmentResultV2"] is PathwayEnrichmentResultV2
     assert CONTRACT_REGISTRY["MechanisticNetworkResultV2"] is MechanisticNetworkResultV2
     assert PathwayEnrichmentResultV2.expected_schema_version == "2"

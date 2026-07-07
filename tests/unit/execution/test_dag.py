@@ -80,6 +80,7 @@ def test_until_residual_attribution_execution_plan_uses_transitive_prerequisites
         "transcript_targetability",
         "transcript_targetability_ratio",
         "expected_direct_effect",
+        "mechanistic_network",
         "residual_attribution",
     ]
 
@@ -95,6 +96,7 @@ def test_until_secondary_evidence_integration_plan_uses_prerequisites_only() -> 
         "transcript_targetability",
         "transcript_targetability_ratio",
         "expected_direct_effect",
+        "mechanistic_network",
         "residual_attribution",
         "secondary_evidence_integration",
     ]
@@ -111,6 +113,7 @@ def test_until_final_evidence_classification_plan_uses_prerequisites_only() -> N
         "transcript_targetability",
         "transcript_targetability_ratio",
         "expected_direct_effect",
+        "mechanistic_network",
         "residual_attribution",
         "secondary_evidence_integration",
         "final_evidence_classification",

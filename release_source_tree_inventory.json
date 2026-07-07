@@ -34,8 +34,8 @@
       ".pyo"
     ]
   },
-  "generated_at": "2026-07-04T04:44:16Z",
-  "included_file_count": 660,
+  "generated_at": "2026-07-07T02:18:37Z",
+  "included_file_count": 663,
   "included_relative_paths": [
     ".github/workflows/ci.yml",
     ".gitignore",
@@ -198,6 +198,7 @@
     "docs/regulon_context.md",
     "docs/release_coverage_evidence_policy.md",
     "docs/release_source_tree_checksum_policy.md",
+    "docs/residual_attribution_pathway_support.md",
     "docs/resume_and_recovery.md",
     "docs/reuse_events.md",
     "docs/run_status.md",
@@ -501,6 +502,7 @@
     "src/sirna_offtarget/residual_attribution/artifacts.py",
     "src/sirna_offtarget/residual_attribution/contracts.py",
     "src/sirna_offtarget/residual_attribution/core.py",
+    "src/sirna_offtarget/residual_attribution/pathway_support.py",
     "src/sirna_offtarget/secondary_evidence_integration/__init__.py",
     "src/sirna_offtarget/secondary_evidence_integration/artifacts.py",
     "src/sirna_offtarget/secondary_evidence_integration/contracts.py",
@@ -673,6 +675,7 @@
     "tests/unit/pathway/test_semantics_v2.py",
     "tests/unit/release/test_post_package_verification_schema.py",
     "tests/unit/release/test_release_evidence.py",
+    "tests/unit/residual_attribution/test_pathway_support_converter.py",
     "tests/unit/residual_attribution/test_residual_attribution_artifacts.py",
     "tests/unit/residual_attribution/test_residual_attribution_core.py",
     "tests/unit/secondary_evidence_integration/test_secondary_evidence_integration_artifacts.py",
@@ -703,5 +706,5 @@
     "src",
     "tests"
   ],
-  "source_tree_checksum": "7a4ac7ece28255268d5f6e37c8b536b0e9a17e55de662d0b611f27ec8fcfdbbb"
+  "source_tree_checksum": "c02e9425039035c9db348e98402d3e634f9706c58c4785904fb5f25652026462"
 }
