@@ -81,4 +81,7 @@ def test_unsigned_context_paths_are_preserved_without_causal_direction_support()
     assert record.support_strength == "supporting_context"
     assert record.summary
     assert record.summary["causal_direction_support"] is False
-    assert record.summary["interpretation"] == "unsigned_or_context_path_not_causal_direction_support"
+    assert (
+        record.summary["interpretation"]
+        == "unsigned_or_context_path_not_causal_direction_support"
+    )

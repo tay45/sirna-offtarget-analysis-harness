@@ -91,7 +91,8 @@ STAGE_NODES: dict[str, StageNode] = {
     "residual_attribution": StageNode(
         "residual_attribution",
         "1.0",
-        ("expected_direct_effect", "mechanistic_network"),
+        ("expected_direct_effect",),
+        ("mechanistic_network",),
     ),
     "secondary_evidence_integration": StageNode(
         "secondary_evidence_integration",

@@ -5,7 +5,6 @@ from typing import Any
 from sirna_offtarget.contracts.stage_results import MechanisticNetworkResultV2
 from sirna_offtarget.residual_attribution.core import PathwaySupportEvidence
 
-
 SIGNED_PATH_KIND = "signed_mechanistic_path"
 UNSIGNED_CONTEXT_KIND = "unsigned_context_path"
 

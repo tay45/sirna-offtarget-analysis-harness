@@ -176,6 +176,7 @@ def plan_stage(
         name
         for name, data in dependency_data.items()
         if data.get("status") not in {"completed", "completed_with_warnings", "skipped_reused"}
+        and not STAGE_NODES[name].optional
     ]
     current = stage_fingerprint(
         stage, context, _dependency_data(context, stage, dependency_type="data")
@@ -594,6 +595,8 @@ def plan(
         invalidated.update(downstream_of(force_downstream))
     rows: list[dict[str, Any]] = []
     for name in topological_sort():
+        if not _stage_enabled(context, name):
+            continue
         stage = stages[name]
         decision = plan_stage(context, stage, forced=forced, invalidated=invalidated)
         rows.append(
@@ -644,7 +647,11 @@ def run(
     stale_timeout = int(execution_config.get("stale_lock_timeout_seconds", 3600))
     with FileLock(context.run_dir / ".run.lock", lock_timeout, stale_timeout):
         stages = build_stages()
-        ordered = execution_plan(until_stage=until_stage)
+        ordered = [
+            name
+            for name in execution_plan(until_stage=until_stage)
+            if _stage_enabled(context, name, requested_stage=until_stage)
+        ]
         if from_stage:
             ordered = ordered[ordered.index(from_stage) :]
         forced = {force_stage} if force_stage else set()
@@ -735,6 +742,19 @@ def status(run_dir: Path) -> list[dict[str, Any]]:
                 }
             )
     return rows
+
+
+def _stage_enabled(
+    context: RunContext,
+    stage_name: str,
+    *,
+    requested_stage: str | None = None,
+) -> bool:
+    if requested_stage == stage_name:
+        return True
+    if stage_name == "mechanistic_network":
+        return bool(context.config.residual_attribution.use_mechanistic_pathway_support)
+    return True
 
 
 def write_run_status(run_dir: Path, *, planned_terminal_stage: str | None = None) -> dict[str, Any]:
@@ -850,6 +870,8 @@ def verify(run_dir: Path) -> list[str]:
             continue
         current = current_manifest_path(stage_dir(run_dir, row["stage"]))
         if current is None:
+            if STAGE_NODES[row["stage"]].optional:
+                continue
             errors.append(f"{row['stage']}: missing current manifest")
             continue
         valid, reason = _completed_manifest_valid(current)
